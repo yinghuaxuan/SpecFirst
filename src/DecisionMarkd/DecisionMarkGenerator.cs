@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace MarkedDecision
+﻿namespace DecisionMarkd
 {
     using System;
     using System.Collections.Generic;
@@ -8,7 +6,6 @@ namespace MarkedDecision
     using System.IO;
     using System.Linq;
     using System.Text;
-    using System.Xml;
     using System.Xml.Linq;
     using HandlebarsDotNet;
     using Markdig;

@@ -1,4 +1,4 @@
-﻿namespace MarkedDecision
+﻿namespace DecisionMarkd
 {
     using System.Xml.Linq;
 

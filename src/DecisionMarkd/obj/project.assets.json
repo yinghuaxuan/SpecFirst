@@ -3091,11 +3091,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\DEV\\Projects\\MarkedDecision\\MarkedDecision\\MarkedDecision.csproj",
-      "projectName": "MarkedDecision",
-      "projectPath": "D:\\DEV\\Projects\\MarkedDecision\\MarkedDecision\\MarkedDecision.csproj",
+      "projectUniqueName": "D:\\DEV\\Projects\\decision-marked\\src\\DecisionMarkd\\DecisionMarkd.csproj",
+      "projectName": "DecisionMarkd",
+      "projectPath": "D:\\DEV\\Projects\\decision-marked\\src\\DecisionMarkd\\DecisionMarkd.csproj",
       "packagesPath": "C:\\Users\\xqzh7\\.nuget\\packages\\",
-      "outputPath": "D:\\DEV\\Projects\\MarkedDecision\\MarkedDecision\\obj\\",
+      "outputPath": "D:\\DEV\\Projects\\decision-marked\\src\\DecisionMarkd\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\",

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "2LWaRcHH8z9P7tNBQBF0DsYH0hUVQ7p1FqdqymBU7hrQYKg+Qaw9SDyYzpeQ8qXD6OhLBaPkfJZqVSlxoJV8tg==",
+  "dgSpecHash": "Dqrtg8iFDcV8tmloSmGWiSnHo4WlB1/jQEIaESzyGsXVBndxQbXbdVpsDjOuFywhxmsXPHwoS5vX3Us9hr5P9Q==",
   "success": true,
-  "projectFilePath": "D:\\DEV\\Projects\\MarkedDecision\\MarkedDecision\\MarkedDecision.csproj",
+  "projectFilePath": "D:\\DEV\\Projects\\decision-marked\\src\\DecisionMarkd\\DecisionMarkd.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\xqzh7\\.nuget\\packages\\handlebars.net\\1.10.1\\handlebars.net.1.10.1.nupkg.sha512",
     "C:\\Users\\xqzh7\\.nuget\\packages\\humanizer.core\\2.2.0\\humanizer.core.2.2.0.nupkg.sha512",

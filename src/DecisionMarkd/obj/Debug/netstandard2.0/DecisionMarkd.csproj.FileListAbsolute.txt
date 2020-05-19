@@ -1,0 +1,9 @@
+D:\DEV\Projects\decision-marked\src\DecisionMarkd\obj\Debug\netstandard2.0\DecisionMarkd.csprojAssemblyReference.cache
+D:\DEV\Projects\decision-marked\src\DecisionMarkd\obj\Debug\netstandard2.0\DecisionMarkd.AssemblyInfoInputs.cache
+D:\DEV\Projects\decision-marked\src\DecisionMarkd\obj\Debug\netstandard2.0\DecisionMarkd.AssemblyInfo.cs
+D:\DEV\Projects\decision-marked\src\DecisionMarkd\obj\Debug\netstandard2.0\DecisionMarkd.csproj.CoreCompileInputs.cache
+D:\DEV\Projects\decision-marked\src\DecisionMarkd\bin\Debug\netstandard2.0\DecisionMarkd.deps.json
+D:\DEV\Projects\decision-marked\src\DecisionMarkd\bin\Debug\netstandard2.0\DecisionMarkd.dll
+D:\DEV\Projects\decision-marked\src\DecisionMarkd\bin\Debug\netstandard2.0\DecisionMarkd.pdb
+D:\DEV\Projects\decision-marked\src\DecisionMarkd\obj\Debug\netstandard2.0\DecisionMarkd.dll
+D:\DEV\Projects\decision-marked\src\DecisionMarkd\obj\Debug\netstandard2.0\DecisionMarkd.pdb
