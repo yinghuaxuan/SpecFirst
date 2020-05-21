@@ -1,5 +1,0 @@
-D:\DEV\Projects\MarkedDecision\MarkedDecision\bin\Debug\netstandard2.0\MarkedDecision.deps.json
-D:\DEV\Projects\MarkedDecision\MarkedDecision\bin\Debug\netstandard2.0\MarkedDecision.dll
-D:\DEV\Projects\MarkedDecision\MarkedDecision\obj\Debug\netstandard2.0\MarkedDecision.csprojAssemblyReference.cache
-D:\DEV\Projects\MarkedDecision\MarkedDecision\obj\Debug\netstandard2.0\MarkedDecision.AssemblyInfoInputs.cache
-D:\DEV\Projects\MarkedDecision\MarkedDecision\obj\Debug\netstandard2.0\MarkedDecision.AssemblyInfo.cs

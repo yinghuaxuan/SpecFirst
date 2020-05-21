@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\DEV\\Projects\\decision-marked\\src\\DecisionMarkd\\DecisionMarkd.csproj": {}
+    "D:\\DEV\\Projects\\decision-markd\\src\\DecisionMarkd\\DecisionMarkd.csproj": {}
   },
   "projects": {
-    "D:\\DEV\\Projects\\decision-marked\\src\\DecisionMarkd\\DecisionMarkd.csproj": {
+    "D:\\DEV\\Projects\\decision-markd\\src\\DecisionMarkd\\DecisionMarkd.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\DEV\\Projects\\decision-marked\\src\\DecisionMarkd\\DecisionMarkd.csproj",
+        "projectUniqueName": "D:\\DEV\\Projects\\decision-markd\\src\\DecisionMarkd\\DecisionMarkd.csproj",
         "projectName": "DecisionMarkd",
-        "projectPath": "D:\\DEV\\Projects\\decision-marked\\src\\DecisionMarkd\\DecisionMarkd.csproj",
+        "projectPath": "D:\\DEV\\Projects\\decision-markd\\src\\DecisionMarkd\\DecisionMarkd.csproj",
         "packagesPath": "C:\\Users\\xqzh7\\.nuget\\packages\\",
-        "outputPath": "D:\\DEV\\Projects\\decision-marked\\src\\DecisionMarkd\\obj\\",
+        "outputPath": "D:\\DEV\\Projects\\decision-markd\\src\\DecisionMarkd\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\",
@@ -27,7 +27,12 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {},
+          "https://dotnet.myget.org/F/roslyn/api/v3/index.json": {},
+          "https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet-eng/nuget/v3/index.json": {},
+          "https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet-tools/nuget/v3/index.json": {},
+          "https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet5/nuget/v3/index.json": {},
+          "https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet5/nuget/v3/index.json": {}
         },
         "frameworks": {
           "netstandard2.0": {
@@ -51,9 +56,15 @@
               "target": "Package",
               "version": "[0.20.0, )"
             },
-            "Microsoft.CodeAnalysis.CSharp.Workspaces": {
+            "Microsoft.CodeAnalysis.Analyzers": {
+              "suppressParent": "All",
               "target": "Package",
-              "version": "[3.7.0-1.final, )"
+              "version": "[3.0.0-beta2.final, )"
+            },
+            "Microsoft.CodeAnalysis.CSharp.Workspaces": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.6.0-3.20207.2, )"
             },
             "NETStandard.Library": {
               "suppressParent": "All",

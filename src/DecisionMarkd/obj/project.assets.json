@@ -51,18 +51,18 @@
           "lib/netstandard2.0/Microsoft.Bcl.AsyncInterfaces.dll": {}
         }
       },
-      "Microsoft.CodeAnalysis.Analyzers/3.0.0": {
+      "Microsoft.CodeAnalysis.Analyzers/3.0.0-beta2.final": {
         "type": "package",
         "build": {
-          "build/_._": {}
+          "build/Microsoft.CodeAnalysis.Analyzers.props": {}
         }
       },
-      "Microsoft.CodeAnalysis.Common/3.7.0-1.final": {
+      "Microsoft.CodeAnalysis.Common/3.6.0-3.20207.2": {
         "type": "package",
         "dependencies": {
-          "Microsoft.CodeAnalysis.Analyzers": "3.0.0",
+          "Microsoft.CodeAnalysis.Analyzers": "3.0.0-beta2.20169.3",
           "System.Collections.Immutable": "1.5.0",
-          "System.Memory": "4.5.4",
+          "System.Memory": "4.5.3",
           "System.Reflection.Metadata": "1.6.0",
           "System.Runtime.CompilerServices.Unsafe": "4.7.0",
           "System.Text.Encoding.CodePages": "4.5.1",
@@ -116,10 +116,10 @@
           }
         }
       },
-      "Microsoft.CodeAnalysis.CSharp/3.7.0-1.final": {
+      "Microsoft.CodeAnalysis.CSharp/3.6.0-3.20207.2": {
         "type": "package",
         "dependencies": {
-          "Microsoft.CodeAnalysis.Common": "[3.7.0-1.final]"
+          "Microsoft.CodeAnalysis.Common": "[3.6.0-3.20207.2]"
         },
         "compile": {
           "lib/netstandard2.0/Microsoft.CodeAnalysis.CSharp.dll": {}
@@ -169,13 +169,13 @@
           }
         }
       },
-      "Microsoft.CodeAnalysis.CSharp.Workspaces/3.7.0-1.final": {
+      "Microsoft.CodeAnalysis.CSharp.Workspaces/3.6.0-3.20207.2": {
         "type": "package",
         "dependencies": {
           "Humanizer.Core": "2.2.0",
-          "Microsoft.CodeAnalysis.CSharp": "[3.7.0-1.final]",
-          "Microsoft.CodeAnalysis.Common": "[3.7.0-1.final]",
-          "Microsoft.CodeAnalysis.Workspaces.Common": "[3.7.0-1.final]"
+          "Microsoft.CodeAnalysis.CSharp": "[3.6.0-3.20207.2]",
+          "Microsoft.CodeAnalysis.Common": "[3.6.0-3.20207.2]",
+          "Microsoft.CodeAnalysis.Workspaces.Common": "[3.6.0-3.20207.2]"
         },
         "compile": {
           "lib/netstandard2.0/Microsoft.CodeAnalysis.CSharp.Workspaces.dll": {}
@@ -225,11 +225,11 @@
           }
         }
       },
-      "Microsoft.CodeAnalysis.Workspaces.Common/3.7.0-1.final": {
+      "Microsoft.CodeAnalysis.Workspaces.Common/3.6.0-3.20207.2": {
         "type": "package",
         "dependencies": {
           "Microsoft.Bcl.AsyncInterfaces": "1.1.0",
-          "Microsoft.CodeAnalysis.Common": "[3.7.0-1.final]",
+          "Microsoft.CodeAnalysis.Common": "[3.6.0-3.20207.2]",
           "System.Composition": "1.0.31"
         },
         "compile": {
@@ -876,10 +876,10 @@
         "version.txt"
       ]
     },
-    "Microsoft.CodeAnalysis.Analyzers/3.0.0": {
-      "sha512": "ojG5pGAhTPmjxRGTNvuszO3H8XPZqksDwr9xLd4Ae/JBjZZdl6GuoLk7uLMf+o7yl5wO0TAqoWcEKkEWqrZE5g==",
+    "Microsoft.CodeAnalysis.Analyzers/3.0.0-beta2.final": {
+      "sha512": "cpsWgxErWweGXoHjy9DeT00dJC3dlzAzohPt/i2qA85iQS26fWFNX5GVnnc/tClFJs3jpJYRVXgYDLeDwgs2CA==",
       "type": "package",
-      "path": "microsoft.codeanalysis.analyzers/3.0.0",
+      "path": "microsoft.codeanalysis.analyzers/3.0.0-beta2.final",
       "hasTools": true,
       "files": [
         ".nupkg.metadata",
@@ -917,7 +917,6 @@
         "analyzers/dotnet/vb/zh-Hans/Microsoft.CodeAnalysis.Analyzers.resources.dll",
         "analyzers/dotnet/vb/zh-Hant/Microsoft.CodeAnalysis.Analyzers.resources.dll",
         "build/Microsoft.CodeAnalysis.Analyzers.props",
-        "build/Microsoft.CodeAnalysis.Analyzers.targets",
         "documentation/Analyzer Configuration.md",
         "documentation/Microsoft.CodeAnalysis.Analyzers.md",
         "documentation/Microsoft.CodeAnalysis.Analyzers.sarif",
@@ -942,11 +941,9 @@
         "editorconfig/MicrosoftCodeAnalysisLocalizationRulesEnabled/.editorconfig",
         "editorconfig/MicrosoftCodeAnalysisPerformanceRulesDefault/.editorconfig",
         "editorconfig/MicrosoftCodeAnalysisPerformanceRulesEnabled/.editorconfig",
-        "editorconfig/MicrosoftCodeAnalysisReleaseTrackingRulesDefault/.editorconfig",
-        "editorconfig/MicrosoftCodeAnalysisReleaseTrackingRulesEnabled/.editorconfig",
         "editorconfig/PortedFromFxCopRulesDefault/.editorconfig",
         "editorconfig/PortedFromFxCopRulesEnabled/.editorconfig",
-        "microsoft.codeanalysis.analyzers.3.0.0.nupkg.sha512",
+        "microsoft.codeanalysis.analyzers.3.0.0-beta2.final.nupkg.sha512",
         "microsoft.codeanalysis.analyzers.nuspec",
         "rulesets/AllRulesDefault.ruleset",
         "rulesets/AllRulesDisabled.ruleset",
@@ -969,18 +966,16 @@
         "rulesets/MicrosoftCodeAnalysisLocalizationRulesEnabled.ruleset",
         "rulesets/MicrosoftCodeAnalysisPerformanceRulesDefault.ruleset",
         "rulesets/MicrosoftCodeAnalysisPerformanceRulesEnabled.ruleset",
-        "rulesets/MicrosoftCodeAnalysisReleaseTrackingRulesDefault.ruleset",
-        "rulesets/MicrosoftCodeAnalysisReleaseTrackingRulesEnabled.ruleset",
         "rulesets/PortedFromFxCopRulesDefault.ruleset",
         "rulesets/PortedFromFxCopRulesEnabled.ruleset",
         "tools/install.ps1",
         "tools/uninstall.ps1"
       ]
     },
-    "Microsoft.CodeAnalysis.Common/3.7.0-1.final": {
-      "sha512": "nQOeeYD1WPrgNckmCKZNYYNO6nVXYiIvE4/dQa8H3UC8NHvMxIIGJv8uo7eX5SLfX7Jlh8wtviTxOHgrCdsifA==",
+    "Microsoft.CodeAnalysis.Common/3.6.0-3.20207.2": {
+      "sha512": "SU1w21lGqrHKKKTG2bHWlSu30CEPw/sInblaHQ230mXxOAB1TXi28/Rxji35mNB+faVrcCVk5aYYeyK79l99GA==",
       "type": "package",
-      "path": "microsoft.codeanalysis.common/3.7.0-1.final",
+      "path": "microsoft.codeanalysis.common/3.6.0-3.20207.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -1018,14 +1013,14 @@
         "lib/netstandard2.0/tr/Microsoft.CodeAnalysis.resources.dll",
         "lib/netstandard2.0/zh-Hans/Microsoft.CodeAnalysis.resources.dll",
         "lib/netstandard2.0/zh-Hant/Microsoft.CodeAnalysis.resources.dll",
-        "microsoft.codeanalysis.common.3.7.0-1.final.nupkg.sha512",
+        "microsoft.codeanalysis.common.3.6.0-3.20207.2.nupkg.sha512",
         "microsoft.codeanalysis.common.nuspec"
       ]
     },
-    "Microsoft.CodeAnalysis.CSharp/3.7.0-1.final": {
-      "sha512": "vSB6obqbaWau8T543wHBTkb2LXTzsQ46bz38rwMAKO7XVaIz8pjlxzGvbNRRZ6nixg/M3UCpC6Y9/JYFwzfHjg==",
+    "Microsoft.CodeAnalysis.CSharp/3.6.0-3.20207.2": {
+      "sha512": "m7bRhBQY0KODv02cSaauvL+5RKcgFFyo734By9rvUC+Edsm1CdJsFQ1nb4s9sHxP9DeZSbxJ1DRCn6/Ir7SOHQ==",
       "type": "package",
-      "path": "microsoft.codeanalysis.csharp/3.7.0-1.final",
+      "path": "microsoft.codeanalysis.csharp/3.6.0-3.20207.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -1063,14 +1058,14 @@
         "lib/netstandard2.0/tr/Microsoft.CodeAnalysis.CSharp.resources.dll",
         "lib/netstandard2.0/zh-Hans/Microsoft.CodeAnalysis.CSharp.resources.dll",
         "lib/netstandard2.0/zh-Hant/Microsoft.CodeAnalysis.CSharp.resources.dll",
-        "microsoft.codeanalysis.csharp.3.7.0-1.final.nupkg.sha512",
+        "microsoft.codeanalysis.csharp.3.6.0-3.20207.2.nupkg.sha512",
         "microsoft.codeanalysis.csharp.nuspec"
       ]
     },
-    "Microsoft.CodeAnalysis.CSharp.Workspaces/3.7.0-1.final": {
-      "sha512": "8St0FuGlvCwXWi9Oi+eRAVQRYyl08UgF31tSOT4uVTKJUgDgZMVBtJKDrQCSQt3Ud+ZRHIb1cRz32DMbr++dbg==",
+    "Microsoft.CodeAnalysis.CSharp.Workspaces/3.6.0-3.20207.2": {
+      "sha512": "Nz7I7KMdp8iVRJ8/9WShdD3FJsQAZGLuY1XblSMz7GeCEGd36cYo5/JS6FV5s/+mIOPLL3L3VI+7/LjRnakhdg==",
       "type": "package",
-      "path": "microsoft.codeanalysis.csharp.workspaces/3.7.0-1.final",
+      "path": "microsoft.codeanalysis.csharp.workspaces/3.6.0-3.20207.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -1108,14 +1103,14 @@
         "lib/netstandard2.0/tr/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll",
         "lib/netstandard2.0/zh-Hans/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll",
         "lib/netstandard2.0/zh-Hant/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll",
-        "microsoft.codeanalysis.csharp.workspaces.3.7.0-1.final.nupkg.sha512",
+        "microsoft.codeanalysis.csharp.workspaces.3.6.0-3.20207.2.nupkg.sha512",
         "microsoft.codeanalysis.csharp.workspaces.nuspec"
       ]
     },
-    "Microsoft.CodeAnalysis.Workspaces.Common/3.7.0-1.final": {
-      "sha512": "60Ek14TdS+hgCIO5qPWL9SSyb0jmnRxP1sSIf1hq7T+Sl2W52EYFAxsWbwLd7NPdIbUY/oMNgn6epbUXzicELw==",
+    "Microsoft.CodeAnalysis.Workspaces.Common/3.6.0-3.20207.2": {
+      "sha512": "OS3kFGerBKfNQcfaCmeI81SfZ/AAtmj8JiVijjTuXF4SD1yyAwME9M7vIXmQkVCYS9cbIoGtkf3DIGE4RrTGkg==",
       "type": "package",
-      "path": "microsoft.codeanalysis.workspaces.common/3.7.0-1.final",
+      "path": "microsoft.codeanalysis.workspaces.common/3.6.0-3.20207.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -1153,7 +1148,7 @@
         "lib/netstandard2.0/tr/Microsoft.CodeAnalysis.Workspaces.resources.dll",
         "lib/netstandard2.0/zh-Hans/Microsoft.CodeAnalysis.Workspaces.resources.dll",
         "lib/netstandard2.0/zh-Hant/Microsoft.CodeAnalysis.Workspaces.resources.dll",
-        "microsoft.codeanalysis.workspaces.common.3.7.0-1.final.nupkg.sha512",
+        "microsoft.codeanalysis.workspaces.common.3.6.0-3.20207.2.nupkg.sha512",
         "microsoft.codeanalysis.workspaces.common.nuspec"
       ]
     },
@@ -3079,7 +3074,8 @@
     ".NETStandard,Version=v2.0": [
       "Handlebars.Net >= 1.10.1",
       "Markdig.Signed >= 0.20.0",
-      "Microsoft.CodeAnalysis.CSharp.Workspaces >= 3.7.0-1.final",
+      "Microsoft.CodeAnalysis.Analyzers >= 3.0.0-beta2.final",
+      "Microsoft.CodeAnalysis.CSharp.Workspaces >= 3.6.0-3.20207.2",
       "NETStandard.Library >= 2.0.3"
     ]
   },
@@ -3091,11 +3087,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\DEV\\Projects\\decision-marked\\src\\DecisionMarkd\\DecisionMarkd.csproj",
+      "projectUniqueName": "D:\\DEV\\Projects\\decision-markd\\src\\DecisionMarkd\\DecisionMarkd.csproj",
       "projectName": "DecisionMarkd",
-      "projectPath": "D:\\DEV\\Projects\\decision-marked\\src\\DecisionMarkd\\DecisionMarkd.csproj",
+      "projectPath": "D:\\DEV\\Projects\\decision-markd\\src\\DecisionMarkd\\DecisionMarkd.csproj",
       "packagesPath": "C:\\Users\\xqzh7\\.nuget\\packages\\",
-      "outputPath": "D:\\DEV\\Projects\\decision-marked\\src\\DecisionMarkd\\obj\\",
+      "outputPath": "D:\\DEV\\Projects\\decision-markd\\src\\DecisionMarkd\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\",
@@ -3111,7 +3107,11 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://api.nuget.org/v3/index.json": {}
+        "https://api.nuget.org/v3/index.json": {},
+        "https://dotnet.myget.org/F/roslyn/api/v3/index.json": {},
+        "https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet-eng/nuget/v3/index.json": {},
+        "https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet-tools/nuget/v3/index.json": {},
+        "https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet5/nuget/v3/index.json": {}
       },
       "frameworks": {
         "netstandard2.0": {
@@ -3135,9 +3135,15 @@
             "target": "Package",
             "version": "[0.20.0, )"
           },
-          "Microsoft.CodeAnalysis.CSharp.Workspaces": {
+          "Microsoft.CodeAnalysis.Analyzers": {
+            "suppressParent": "All",
             "target": "Package",
-            "version": "[3.7.0-1.final, )"
+            "version": "[3.0.0-beta2.final, )"
+          },
+          "Microsoft.CodeAnalysis.CSharp.Workspaces": {
+            "suppressParent": "All",
+            "target": "Package",
+            "version": "[3.6.0-3.20207.2, )"
           },
           "NETStandard.Library": {
             "suppressParent": "All",
