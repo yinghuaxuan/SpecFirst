@@ -5,6 +5,12 @@ VisualStudioVersion = 16.0.30105.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DecisionMarkd", "src\DecisionMarkd\DecisionMarkd.csproj", "{C5C3089E-FB73-44F3-8822-E94AFB57F704}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{F1D17C74-57E8-4F97-9117-A80C8EF6E5C8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{50D1B358-4753-4EC3-9514-F134E8628078}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DecisionMarkd.Tests", "DecisionMarkd.Tests\DecisionMarkd.Tests.csproj", "{59404847-FE0C-424E-9C23-67A764271EC7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,9 +21,17 @@ Global
 		{C5C3089E-FB73-44F3-8822-E94AFB57F704}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C5C3089E-FB73-44F3-8822-E94AFB57F704}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C5C3089E-FB73-44F3-8822-E94AFB57F704}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59404847-FE0C-424E-9C23-67A764271EC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59404847-FE0C-424E-9C23-67A764271EC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59404847-FE0C-424E-9C23-67A764271EC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59404847-FE0C-424E-9C23-67A764271EC7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C5C3089E-FB73-44F3-8822-E94AFB57F704} = {F1D17C74-57E8-4F97-9117-A80C8EF6E5C8}
+		{59404847-FE0C-424E-9C23-67A764271EC7} = {50D1B358-4753-4EC3-9514-F134E8628078}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1FD4215E-CB99-411F-AE83-3D3630C81257}
