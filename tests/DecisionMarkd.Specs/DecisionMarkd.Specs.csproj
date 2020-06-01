@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<LangVersion>preview</LangVersion>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<TargetFramework>net5.0</TargetFramework>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <Compile Remove="DecisionTable\DecisionTableValidator.generated.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="DecisionTable\DecisionTableValidator.spec.md" />
+	  <None Remove="TypeHelper\TypeHelper.spec.md" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <AdditionalFiles Include="TypeHelper\TypeHelper.spec.md" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
+		<PackageReference Include="xunit" Version="2.4.0" />
+		<PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
+		<PackageReference Include="coverlet.collector" Version="1.2.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="DecisionTable\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\src\DecisionMarkd\DecisionMarkd.csproj"
+						OutputItemType="Analyzer"
+						ReferenceOutputAssembly="false"/>
+	</ItemGroup>
+
+</Project>
