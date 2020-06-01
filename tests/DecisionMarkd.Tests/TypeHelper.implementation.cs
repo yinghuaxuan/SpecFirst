@@ -1,28 +1,31 @@
 ﻿
-namespace DecisionMarkd.Tests
+namespace DecisionMarkd.Specs
 {
-    using System;
     using DecisionMarkd.DecisionTable;
+    using System;
     using Xunit;
 
-    public partial class infer_type_from_value
+    public partial class infer_type_from_integer_value
     {
-        partial void infer_type_from_value_implementation(Int32 value_in_string, String hint_type, String actual_type)
+        partial void infer_type_from_integer_value_implementation(Int32 value_in_string, String hint_type, String actual_type)
         {
             Type type = TypeHelper.InferTypeFromValue(value_in_string.ToString(), GetTypeFromString(hint_type), out _);
             Assert.Equal(type, GetTypeFromString(actual_type));
         }
 
-        public Type GetTypeFromString(string type)
+        private Type GetTypeFromString(string type)
         {
             return type switch
             {
+                null => null,
                 "int" => typeof(int),
+                "int?" => typeof(int?),
                 "decimal" => typeof(decimal),
+                "decimal?" => typeof(decimal?),
                 "bool" => typeof(bool),
-                "date" => typeof(DateTime),
+                "datetime" => typeof(DateTime),
                 "string" => typeof(string),
-                _ => throw new InvalidOperationException()
+                _ => typeof(string)
             };
         }
     }

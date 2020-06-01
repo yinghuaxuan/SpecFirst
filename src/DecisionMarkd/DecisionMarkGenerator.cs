@@ -20,7 +20,7 @@
     {
         public void Initialize(InitializationContext context)
         {
-            Debugger.Launch();
+            //Debugger.Launch();
         }
 
         public void Execute(SourceGeneratorContext context)
@@ -78,15 +78,18 @@
             ITemplateGenerator templateGenerator = new XUnitTemplateGenerator();
             string[] sources = templateGenerator.Generate(context.Compilation.AssemblyName, decisionTables.ToArray());
 
-            string filePath = Path.GetDirectoryName(markdownFile.Path);
+            string filePath = @"D:\DEV\Projects\decision-markd\tests\DecisionMarkd.Tests"; // Path.GetDirectoryName(markdownFile.Path);
 
             string testFileName = $"{new FileInfo(markdownFile.Path).Name.Replace(".spec.md", "")}.generated.cs";
-            context.AddSource($"{testFileName}", SourceText.From(sources[0], Encoding.UTF8));
+            //context.AddSource($"{testFileName}", SourceText.From(sources[0], Encoding.UTF8));
             File.WriteAllText(Path.Combine(filePath!, testFileName), sources[0], Encoding.UTF8);
 
             string implementationFileName = $"{new FileInfo(markdownFile.Path).Name.Replace(".spec.md", "")}.implementation.cs";
-            context.AddSource($"{implementationFileName}", SourceText.From(sources[1], Encoding.UTF8));
-            File.WriteAllText(Path.Combine(filePath!, implementationFileName), sources[1], Encoding.UTF8);
+            if (!File.Exists(Path.Combine(filePath!, implementationFileName)))
+            {
+                //context.AddSource($"{implementationFileName}", SourceText.From(sources[1], Encoding.UTF8));
+                File.WriteAllText(Path.Combine(filePath!, implementationFileName), sources[1], Encoding.UTF8);
+            }
         }
     }
 }

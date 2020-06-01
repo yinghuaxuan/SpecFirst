@@ -13,11 +13,14 @@
 
 	<ItemGroup>
 	  <None Remove="DecisionTable\DecisionTableValidator.spec.md" />
-	  <None Remove="TypeHelper\TypeHelper.spec.md" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <AdditionalFiles Include="TypeHelper\TypeHelper.spec.md" />
+	  <AdditionalFiles Include="DecisionTable\TypeHelper.spec.md" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ApplicationDefinition Include="decisionmarkd.config" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -28,13 +31,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="DecisionTable\" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <ProjectReference Include="..\..\src\DecisionMarkd\DecisionMarkd.csproj"
-						OutputItemType="Analyzer"
-						ReferenceOutputAssembly="false"/>
+	  <ProjectReference Include="..\..\src\DecisionMarkd\DecisionMarkd.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
 	</ItemGroup>
 
 </Project>

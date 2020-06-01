@@ -1,5 +1,5 @@
 ﻿+-------------------------------+------------------------+---------------+----------------+
-|Infer Type from Value 
+|Infer type from integer value 
 +-------------------------------+------------------------+---------------+----------------+
 |#Comment                       | Value In String        |Hint Type      |Actual Type?
 +-------------------------------+------------------------+---------------+----------------+
@@ -7,10 +7,14 @@
 +-------------------------------+------------------------+---------------+----------------+
 |integer, same hint type        |12                      |int            |int
 +-------------------------------+------------------------+---------------+----------------+
-|integer, differentnt hint type |12                      |string         |string
+|integer, nullable hint type    |12                      |int?           |int?
 +-------------------------------+------------------------+---------------+----------------+
-|integer, differentnt hint type |12                      |decimal        |decimal
+|integer, compatable hint type  |12                      |decimal        |decimal
 +-------------------------------+------------------------+---------------+----------------+
-|integer, differentnt hint type |12                      |datetime       |string
+|integer, compatable hint type  |12                      |decimal?       |decimal?
 +-------------------------------+------------------------+---------------+----------------+
-|integer, differentnt hint type |12                      |bool           |string
+|integer, incompatable hint type|12                      |string         |string
++-------------------------------+------------------------+---------------+----------------+
+|integer, incompatable hint type|12                      |datetime       |string
++-------------------------------+------------------------+---------------+----------------+
+|integer, incompatable hint type|12                      |bool           |string

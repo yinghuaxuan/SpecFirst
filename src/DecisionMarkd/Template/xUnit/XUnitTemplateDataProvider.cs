@@ -41,12 +41,26 @@ namespace DecisionMarkd.Template.xUnit
                     int index = dataIndices[j];
                     if (variables[index].DataType == typeof(string))
                     {
-                        data = $"\"{decisionData[i, index]}\", ";
+                        if(string.Equals(decisionData[i, index].ToString(), "null", StringComparison.OrdinalIgnoreCase))
+                        {
+                            data = $"{decisionData[i, index]}, ";
+                        }
+                        else
+                        {
+                            data = $"\"{decisionData[i, index]}\", ";
+                        }
                     }
-                    else if (variables[index].DataType == typeof(DateTime))
+                    else if (variables[index].DataType == typeof(DateTime) || variables[index].DataType == typeof(DateTime?))
                     {
-                        DateTime date = (DateTime)decisionData[i, index];
-                        data = $"new DateTime({date.Year}, {date.Month}, {date.Day}), ";
+                        if (string.Equals(decisionData[i, index].ToString(), "null", StringComparison.OrdinalIgnoreCase))
+                        {
+                            data = $"{decisionData[i, index]}, ";
+                        }
+                        else
+                        {
+                            DateTime date = (DateTime)decisionData[i, index];
+                            data = $"new DateTime({date.Year}, {date.Month}, {date.Day}), ";
+                        }
                     }
                     else
                     {

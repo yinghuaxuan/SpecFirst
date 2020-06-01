@@ -59,9 +59,13 @@ namespace DecisionMarkd.DecisionTable
                 else if (int.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out int result))
                 {
                     type = isNullable ? typeof(int?) : typeof(int);
-                    if (type != hintType && hintType != null)
+                    if (type != hintType && hintType != typeof(decimal) && hintType != typeof(decimal?) && hintType != null)
                     {
                         type = typeof(string);
+                    }
+                    else if (type != hintType && (hintType == typeof(decimal) || hintType == typeof(decimal?)) && hintType != null)
+                    {
+                        type = isNullable ? typeof(decimal?) : typeof(decimal);
                     }
                     parsedValue = result;
                 }
