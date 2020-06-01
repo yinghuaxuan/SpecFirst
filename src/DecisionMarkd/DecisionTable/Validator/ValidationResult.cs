@@ -1,4 +1,4 @@
-﻿namespace DecisionMarkd
+﻿namespace DecisionMarkd.DecisionTable.Validator
 {
     using System.Collections.Generic;
     using System.Linq;

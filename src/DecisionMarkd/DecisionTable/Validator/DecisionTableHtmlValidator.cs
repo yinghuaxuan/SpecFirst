@@ -1,10 +1,10 @@
-﻿namespace DecisionMarkd
+﻿namespace DecisionMarkd.DecisionTable.Validator
 {
     using System.Collections.Generic;
     using System.Linq;
     using System.Xml.Linq;
 
-    public sealed class DecisionTableValidator : IDecisionTableValidator
+    public sealed class DecisionTableHtmlValidator : IDecisionTableHtmlValidator
     {
         public ValidationResult Validate(XElement document)
         {

@@ -1,8 +1,8 @@
-﻿namespace DecisionMarkd
+﻿namespace DecisionMarkd.DecisionTable.Validator
 {
     using System.Xml.Linq;
 
-    public interface IDecisionTableValidator
+    public interface IDecisionTableHtmlValidator
     {
         /// <summary>
         /// Validate a table as decision table.

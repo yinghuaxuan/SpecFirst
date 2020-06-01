@@ -1,4 +1,4 @@
-﻿namespace DecisionMarkd
+﻿namespace DecisionMarkd.DecisionTable.Parser
 {
     using System.Xml.Linq;
 
