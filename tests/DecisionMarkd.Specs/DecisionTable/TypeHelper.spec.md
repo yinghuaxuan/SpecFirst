@@ -25,18 +25,54 @@
 +-------------------------------+------------------------+---------------+----------------+
 |#Comment                       | Value In String        |Hint Type      |Actual Type?
 +-------------------------------+------------------------+---------------+----------------+
-|integer, no hint type          |12.5                    |null           |decimal
+|decimal, no hint type          |12.5                    |null           |decimal
 +-------------------------------+------------------------+---------------+----------------+
-|integer, same hint type        |12.5                    |decimal        |decimal
+|decimal, same hint type        |12.5                    |decimal        |decimal
 +-------------------------------+------------------------+---------------+----------------+
-|integer, nullable hint type    |12.5                    |decimal?       |decimal?
+|decimal, nullable hint type    |12.5                    |decimal?       |decimal?
 +-------------------------------+------------------------+---------------+----------------+
-|integer, incompatable hint type|12.5                    |int            |decimal
+|decimal, incompatable hint type|12.5                    |int            |decimal
 +-------------------------------+------------------------+---------------+----------------+
-|integer, incompatable hint type|12.5                    |int?           |decimal?
+|decimal, incompatable hint type|12.5                    |int?           |decimal?
 +-------------------------------+------------------------+---------------+----------------+
-|integer, incompatable hint type|12.5                    |string         |string
+|decimal, incompatable hint type|12.5                    |string         |string
 +-------------------------------+------------------------+---------------+----------------+
-|integer, incompatable hint type|12.5                    |datetime       |string
+|decimal, incompatable hint type|12.5                    |datetime       |string
 +-------------------------------+------------------------+---------------+----------------+
-|integer, incompatable hint type|12.5                    |bool           |string
+|decimal, incompatable hint type|12.5                    |bool           |string
+
+
++-------------------------------+------------------------+---------------+----------------+
+|Infer type from bool value 
++-------------------------------+------------------------+---------------+----------------+
+|#Comment                       | Value In String        |Hint Type      |Actual Type?
++-------------------------------+------------------------+---------------+----------------+
+|bool, no hint type             |true                    |null           |bool
++-------------------------------+------------------------+---------------+----------------+
+|bool, no hint type             |false                   |null           |bool
++-------------------------------+------------------------+---------------+----------------+
+|bool, same hint type           |true                    |bool           |bool
++-------------------------------+------------------------+---------------+----------------+
+|bool, same hint type           |false                   |bool           |bool
++-------------------------------+------------------------+---------------+----------------+
+|bool, nullable hint type       |true                    |bool?          |bool?
++-------------------------------+------------------------+---------------+----------------+
+|bool, nullable hint type       |false                   |bool?          |bool?
++-------------------------------+------------------------+---------------+----------------+
+|bool, case insensitive         |True                    |bool           |bool
++-------------------------------+------------------------+---------------+----------------+
+|bool, case insensitive         |False                   |bool           |bool
++-------------------------------+------------------------+---------------+----------------+
+|bool, case insensitive         |TRUE                    |bool           |bool
++-------------------------------+------------------------+---------------+----------------+
+|bool, case insensitive         |FALSE                   |bool           |bool
++-------------------------------+------------------------+---------------+----------------+
+|integer, incompatable hint type|true                    |int            |string
++-------------------------------+------------------------+---------------+----------------+
+|integer, incompatable hint type|true                    |int?           |string
++-------------------------------+------------------------+---------------+----------------+
+|integer, incompatable hint type|true                    |string         |string
++-------------------------------+------------------------+---------------+----------------+
+|integer, incompatable hint type|true                    |datetime       |string
++-------------------------------+------------------------+---------------+----------------+
+|integer, incompatable hint type|true                    |decimal        |string

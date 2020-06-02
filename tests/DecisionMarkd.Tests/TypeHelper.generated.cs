@@ -63,4 +63,40 @@ namespace DecisionMarkd.Specs
         partial void infer_type_from_decimal_value_implementation(Decimal value_in_string, String hint_type, String actual_type);
     }
 
+    public partial class infer_type_from_bool_value
+    {
+        [Theory]
+        [MemberData(nameof(get_test_data))]
+        public void infer_type_from_bool_value_tests(Boolean value_in_string, String hint_type, String actual_type)
+        {
+            infer_type_from_bool_value_implementation(value_in_string, hint_type, actual_type);
+        }
+
+        public static IEnumerable<object[]> get_test_data()
+        {
+            var data = new List<object[]>
+            {
+                new object[] { true, null, "bool" },
+                new object[] { false, null, "bool" },
+                new object[] { true, "bool", "bool" },
+                new object[] { false, "bool", "bool" },
+                new object[] { true, "bool?", "bool?" },
+                new object[] { false, "bool?", "bool?" },
+                new object[] { true, "bool", "bool" },
+                new object[] { false, "bool", "bool" },
+                new object[] { true, "bool", "bool" },
+                new object[] { false, "bool", "bool" },
+                new object[] { true, "int", "string" },
+                new object[] { true, "int?", "string" },
+                new object[] { true, "string", "string" },
+                new object[] { true, "datetime", "string" },
+                new object[] { true, "decimal", "string" },
+            };
+
+            return data;
+        }
+
+        partial void infer_type_from_bool_value_implementation(Boolean value_in_string, String hint_type, String actual_type);
+    }
+
 }

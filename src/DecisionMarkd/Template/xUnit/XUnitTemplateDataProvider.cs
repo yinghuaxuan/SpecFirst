@@ -1,4 +1,5 @@
 ﻿using DecisionMarkd.DecisionTable;
+using DecisionMarkd.Serialization;
 using DecisionMarkd.Template.Serialization;
 using System;
 using System.Collections.Generic;
@@ -9,10 +10,16 @@ namespace DecisionMarkd.Template.xUnit
     public class XUnitTemplateDataProvider
     {
         private SnakeCaseNamingStrategy _namingStrategy;
+        private StringSerializer _stringSerializer;
+        private DateTimeSerializer _datetimeSerializer;
+        private BooleanSerializer _booleanSerializer;
 
         public XUnitTemplateDataProvider()
         {
             _namingStrategy = new SnakeCaseNamingStrategy();
+            _stringSerializer = new StringSerializer();
+            _datetimeSerializer = new DateTimeSerializer();
+            _booleanSerializer = new BooleanSerializer();
         }
 
         public XUnitTemplateData[] GetTemplateData(DecisionTable.DecisionTable[] decisionTables)
@@ -54,26 +61,15 @@ namespace DecisionMarkd.Template.xUnit
                     int index = dataIndices[j];
                     if (variables[index].DataType == typeof(string))
                     {
-                        if(string.Equals(decisionData[i, index].ToString(), "null", StringComparison.OrdinalIgnoreCase))
-                        {
-                            data = $"{decisionData[i, index]}, ";
-                        }
-                        else
-                        {
-                            data = $"\"{decisionData[i, index]}\", ";
-                        }
+                        data = _stringSerializer.Serialize(decisionData[i, index]);
                     }
                     else if (variables[index].DataType == typeof(DateTime) || variables[index].DataType == typeof(DateTime?))
                     {
-                        if (string.Equals(decisionData[i, index].ToString(), "null", StringComparison.OrdinalIgnoreCase))
-                        {
-                            data = $"{decisionData[i, index]}, ";
-                        }
-                        else
-                        {
-                            DateTime date = (DateTime)decisionData[i, index];
-                            data = $"new DateTime({date.Year}, {date.Month}, {date.Day}), ";
-                        }
+                        data = _datetimeSerializer.Serialize(decisionData[i, index]);
+                    }
+                    else if (variables[index].DataType == typeof(bool) || variables[index].DataType == typeof(bool?))
+                    {
+                        data = _booleanSerializer.Serialize(decisionData[i, index]);
                     }
                     else
                     {
@@ -82,6 +78,7 @@ namespace DecisionMarkd.Template.xUnit
 
                     builder.Append(data);
                 }
+
                 testData.Add(builder.Remove(builder.Length - 2, 2).ToString());
             }
 
