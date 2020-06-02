@@ -8,7 +8,8 @@ namespace {{namespace_name}}
     using System;
     using System.Collections.Generic;
     using Xunit;
-
+    
+    {{#each list_of_fixtures}}
     public partial class {{class_name}}
     {
         [Theory]
@@ -32,6 +33,8 @@ namespace {{namespace_name}}
 
         partial void {{class_name}}_implementation({{parameter_declarations}});
     }
+
+    {{/each}}
 }";
 
         public const string IMPLEMENTATION_TEMPLATE = @"
@@ -39,6 +42,7 @@ namespace {{namespace_name}}
 {
     using System;
 
+    {{#each list_of_fixtures}}
     public partial class {{class_name}}
     {
         partial void {{class_name}}_implementation({{parameter_declarations}})
@@ -46,6 +50,8 @@ namespace {{namespace_name}}
             throw new NotImplementedException();
         }
     }
+
+    {{/each}}
 }";
     }
 }

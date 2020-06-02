@@ -15,7 +15,20 @@ namespace DecisionMarkd.Template.xUnit
             _namingStrategy = new SnakeCaseNamingStrategy();
         }
 
-        public XUnitTemplateData GetTemplateData(DecisionTable.DecisionTable decisionTable)
+        public XUnitTemplateData[] GetTemplateData(DecisionTable.DecisionTable[] decisionTables)
+        {
+            XUnitTemplateData[] templateData = new XUnitTemplateData[decisionTables.Length];
+            for (int i = 0; i < decisionTables.Length; i++)
+            {
+                DecisionTable.DecisionTable decisionTable = decisionTables[i];
+                XUnitTemplateData singleTemplateData = GetSingleTemplateData(decisionTable);
+                templateData[i] = singleTemplateData;
+            }
+
+            return templateData;
+        }
+
+        private XUnitTemplateData GetSingleTemplateData(DecisionTable.DecisionTable decisionTable)
         {
             XUnitTemplateData templateData = new XUnitTemplateData();
             templateData.ClassName = _namingStrategy.Parse(decisionTable.FixtureName);
