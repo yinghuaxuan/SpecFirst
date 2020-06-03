@@ -3,7 +3,7 @@ using System.Globalization;
 
 namespace DecisionMarkd.DecisionTable
 {
-    public class TypeHelper
+    public class TypeResolver
     {
         /// <summary>
         /// Supported data types: int, decimal, date, boolean, string, list/array,
@@ -32,6 +32,8 @@ namespace DecisionMarkd.DecisionTable
 
             if (char.IsDigit(value[0]))
             {
+                type = typeof(string);
+
                 if (value.Contains("."))
                 {
                     if (decimal.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out decimal result))
@@ -46,7 +48,7 @@ namespace DecisionMarkd.DecisionTable
                 }
                 else if (value.Contains("-"))
                 {
-                    if (DateTime.TryParse(value, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime result))
+                    if (DateTime.TryParseExact(value, "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime result))
                     {
                         type = isNullable ? typeof(DateTime?) : typeof(DateTime);
                         if (type != hintType && hintType != null)

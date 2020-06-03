@@ -99,4 +99,37 @@ namespace DecisionMarkd.Specs
         partial void infer_type_from_bool_value_implementation(Boolean value_in_string, String hint_type, String actual_type);
     }
 
+    public partial class infer_type_from_datetime_value
+    {
+        [Theory]
+        [MemberData(nameof(get_test_data))]
+        public void infer_type_from_datetime_value_tests(String value_in_string, String hint_type, String actual_type)
+        {
+            infer_type_from_datetime_value_implementation(value_in_string, hint_type, actual_type);
+        }
+
+        public static IEnumerable<object[]> get_test_data()
+        {
+            var data = new List<object[]>
+            {
+                new object[] { "2012-12-25 23:59:59", null, "datetime" },
+                new object[] { "2012-12-25 23:59:59", "datetime", "datetime" },
+                new object[] { "2012-12-25 23:59:59", "datetime?", "datetime?" },
+                new object[] { "2012-12-25 23:59:59", "int", "string" },
+                new object[] { "2012-12-25 23:59:59", "string", "string" },
+                new object[] { "2012-12-25 23:59:59", "decimal", "string" },
+                new object[] { "2012-12-25 23:59:59", "bool", "string" },
+                new object[] { "25/12/2012 23:59:59", "datetime", "string" },
+                new object[] { "2012-1-1 23:59:59", "datetime", "string" },
+                new object[] { "25 December 2012 23:59:59", "datetime", "string" },
+                new object[] { "0000-12-31 00:00:00", "datetime", "string" },
+                new object[] { "10000-01-01 00:00:01", "datetime", "string" },
+            };
+
+            return data;
+        }
+
+        partial void infer_type_from_datetime_value_implementation(String value_in_string, String hint_type, String actual_type);
+    }
+
 }

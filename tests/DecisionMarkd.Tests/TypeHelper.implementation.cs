@@ -9,8 +9,8 @@ namespace DecisionMarkd.Specs
     {
         partial void infer_type_from_integer_value_implementation(Int32 value_in_string, String hint_type, String actual_type)
         {
-            Type type = TypeHelper.InferTypeFromValue(value_in_string.ToString(), GetTypeFromString(hint_type), out _);
-            Assert.Equal(type, GetTypeFromString(actual_type));
+            Type type = TypeResolver.InferTypeFromValue(value_in_string.ToString(), GetTypeFromString(hint_type), out _);
+            Assert.Equal(GetTypeFromString(actual_type), type);
         }
     }
 
@@ -18,8 +18,8 @@ namespace DecisionMarkd.Specs
     {
         partial void infer_type_from_decimal_value_implementation(Decimal value_in_string, String hint_type, String actual_type)
         {
-            Type type = TypeHelper.InferTypeFromValue(value_in_string.ToString(), GetTypeFromString(hint_type), out _);
-            Assert.Equal(type, GetTypeFromString(actual_type));
+            Type type = TypeResolver.InferTypeFromValue(value_in_string.ToString(), GetTypeFromString(hint_type), out _);
+            Assert.Equal(GetTypeFromString(actual_type), type);
         }
     }
 
@@ -27,8 +27,17 @@ namespace DecisionMarkd.Specs
     {
         partial void infer_type_from_bool_value_implementation(Boolean value_in_string, String hint_type, String actual_type)
         {
-            Type type = TypeHelper.InferTypeFromValue(value_in_string.ToString(), GetTypeFromString(hint_type), out _);
-            Assert.Equal(type, GetTypeFromString(actual_type));
+            Type type = TypeResolver.InferTypeFromValue(value_in_string.ToString(), GetTypeFromString(hint_type), out _);
+            Assert.Equal(GetTypeFromString(actual_type), type);
+        }
+    }
+
+    public partial class infer_type_from_datetime_value : type_helper
+    {
+        partial void infer_type_from_datetime_value_implementation(String value_in_string, String hint_type, String actual_type)
+        {
+            Type type = TypeResolver.InferTypeFromValue(value_in_string.ToString(), GetTypeFromString(hint_type), out _);
+            Assert.Equal(GetTypeFromString(actual_type), type);
         }
     }
 
