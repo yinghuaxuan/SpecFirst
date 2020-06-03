@@ -2,7 +2,7 @@
 
 namespace DecisionMarkd.Serialization
 {
-    public class DateTimeSerializer
+    public class DateTimeDataSerializer
     {
         public string Serialize(object data)
         {

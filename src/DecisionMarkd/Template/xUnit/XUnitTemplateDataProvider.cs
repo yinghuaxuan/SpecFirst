@@ -10,16 +10,16 @@ namespace DecisionMarkd.Template.xUnit
     public class XUnitTemplateDataProvider
     {
         private SnakeCaseNamingStrategy _namingStrategy;
-        private StringSerializer _stringSerializer;
-        private DateTimeSerializer _datetimeSerializer;
-        private BooleanSerializer _booleanSerializer;
+        private StringDataSerializer _stringSerializer;
+        private DateTimeDataSerializer _datetimeSerializer;
+        private BooleanDataSerializer _booleanSerializer;
 
         public XUnitTemplateDataProvider()
         {
             _namingStrategy = new SnakeCaseNamingStrategy();
-            _stringSerializer = new StringSerializer();
-            _datetimeSerializer = new DateTimeSerializer();
-            _booleanSerializer = new BooleanSerializer();
+            _stringSerializer = new StringDataSerializer();
+            _datetimeSerializer = new DateTimeDataSerializer();
+            _booleanSerializer = new BooleanDataSerializer();
         }
 
         public XUnitTemplateData[] GetTemplateData(DecisionTable.DecisionTable[] decisionTables)

@@ -16,7 +16,7 @@
     using System.Xml.Linq;
 
     [Generator]
-    public sealed class DecisionMarkGenerator : ISourceGenerator
+    public sealed class DecisionMarkdGenerator : ISourceGenerator
     {
         public void Initialize(InitializationContext context)
         {

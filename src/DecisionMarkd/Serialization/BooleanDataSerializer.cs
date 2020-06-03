@@ -1,6 +1,6 @@
 ﻿namespace DecisionMarkd.Serialization
 {
-    public class BooleanSerializer
+    public class BooleanDataSerializer
     {
         public string Serialize(object data)
         {

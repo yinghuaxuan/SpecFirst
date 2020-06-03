@@ -5,7 +5,7 @@
 
     public class TableDataParser
     {
-        public object[,] Convert(string[,] data, out Type[] types)
+        public object[,] Parse(string[,] data, out Type[] types)
         {
             types = new Type[data.GetLength(1)];
             object[,] values = new object[data.GetLength(0), data.GetLength(1)];

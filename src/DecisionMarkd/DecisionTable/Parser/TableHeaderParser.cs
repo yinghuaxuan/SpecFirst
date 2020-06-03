@@ -4,7 +4,7 @@
 
     public class TableHeaderParser
     {
-        public DecisionVariable Convert(string header)
+        public DecisionVariable Parse(string header)
         {
             ReadOnlySpan<char> headerSpan = header.AsSpan();
 

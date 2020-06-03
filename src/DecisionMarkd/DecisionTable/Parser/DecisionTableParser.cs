@@ -27,15 +27,15 @@
             }
 
             string tableName = TryGetTableName(rows.First());
-            string className = _tableNameParser.Convert(tableName);
+            string className = _tableNameParser.Parse(tableName);
 
             IEnumerable<XElement> headerRowColumns = rows.Skip(1).First().Descendants("td");
-            DecisionVariable[] variables = headerRowColumns.Select(e => _tableHeaderParser.Convert(e.Value)).ToArray();
+            DecisionVariable[] variables = headerRowColumns.Select(e => _tableHeaderParser.Parse(e.Value)).ToArray();
 
             IEnumerable<XElement> dataRows = rows.Skip(2);
             string[,] data = GetDecisionData(headerRowColumns.Count(), dataRows);
 
-            object[,] decisionData = _tableDataParser.Convert(data, out Type[] dataTypes);
+            object[,] decisionData = _tableDataParser.Parse(data, out Type[] dataTypes);
 
             UpdateDecisionVariableTypesBasedOnData(variables, dataTypes);
 

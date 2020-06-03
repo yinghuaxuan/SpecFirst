@@ -2,7 +2,7 @@
 
 namespace DecisionMarkd.Serialization
 {
-    public class StringSerializer
+    public class StringDataSerializer
     {
         public string Serialize(object data)
         {
