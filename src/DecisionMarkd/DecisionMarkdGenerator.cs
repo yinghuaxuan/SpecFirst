@@ -7,6 +7,7 @@
     using Microsoft.CodeAnalysis;
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.IO;
     using System.Linq;
     using System.Text;
@@ -17,7 +18,7 @@
     {
         public void Initialize(InitializationContext context)
         {
-            //Debugger.Launch();
+            Debugger.Launch();
         }
 
         public void Execute(SourceGeneratorContext context)
@@ -39,12 +40,22 @@
 
             ITemplateGenerator templateGenerator = new XUnitTemplateGenerator();
             string[] sources = templateGenerator.Generate(settings.Namespace, decisionTables.ToArray());
-            WriteTestFiles(markdownFile, settings, sources);
+            WriteTestFiles(markdownFile, context, settings, sources);
         }
 
-        private static void WriteTestFiles(AdditionalText markdownFile, DecisionMarkdSettings settings, string[] sources)
+        private static void WriteTestFiles(AdditionalText markdownFile, SourceGeneratorContext context, DecisionMarkdSettings settings, string[] sources)
         {
-            string filePath = settings.TestFilePath ?? Path.GetDirectoryName(markdownFile.Path);
+            string filePath = Path.GetDirectoryName(markdownFile.Path);
+            if (!string.IsNullOrWhiteSpace(settings.TestFilePath))
+            {
+                string tempPath = Path.GetDirectoryName(markdownFile.Path);
+                string[] paths = tempPath.Split(new[] { context.Compilation.AssemblyName }, StringSplitOptions.RemoveEmptyEntries);
+                if (paths.Length == 2)
+                {
+                    filePath = settings.TestFilePath + paths[1];
+                    Directory.CreateDirectory(filePath); // create the directory in case it doesn't already exist
+                }
+            }
 
             string specName = $"{new FileInfo(markdownFile.Path).Name.Replace(settings.SpecFileExtension, "")}";
             string testFileName = settings.TestFileNamePattern.Replace("{spec_name}", specName);
