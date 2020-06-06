@@ -25,39 +25,46 @@
 
         public void Execute(SourceGeneratorContext context)
         {
+            var settings = new DecisionMarkdSettingManager(context).Settings;
             IEnumerable<AdditionalText> markdownFiles =
-                context.AdditionalFiles.Where(at => at.Path.EndsWith(".spec.md"));
+                context.AdditionalFiles.Where(at => at.Path.EndsWith(settings.SpecFileExtension));
             foreach (AdditionalText file in markdownFiles)
             {
-                ProcessMarkdownFile(file, context);
+                ProcessMarkdownFile(file, context, settings);
             }
         }
 
-        private void ProcessMarkdownFile(AdditionalText markdownFile, SourceGeneratorContext context)
+        private void ProcessMarkdownFile(AdditionalText markdownFile, SourceGeneratorContext context, DecisionMarkdSettings settings)
         {
-            string markdownText = markdownFile.GetText(context.CancellationToken).ToString();
-            string html;
-            try
-            {
-                MarkdownPipeline pipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions().Build();
-                html = Markdown.ToHtml(markdownText, pipeline);
-            }
-            catch (Exception e)
-            {
-                throw new InvalidOperationException($"Can not parse markdown file {markdownFile.Path}", e);
-            }
+            string html = TryParseMarkdownToHtml(markdownFile, context);
+            XDocument document = TryParseHtmlToXml(html);
+            List<DecisionTable.DecisionTable> decisionTables = TryExtractDecisionTables(document);
 
+            ITemplateGenerator templateGenerator = new XUnitTemplateGenerator();
+            string[] sources = templateGenerator.Generate(settings.Namespace, decisionTables.ToArray());
+            WriteTestFiles(markdownFile, settings, sources);
+        }
+
+        private static void WriteTestFiles(AdditionalText markdownFile, DecisionMarkdSettings settings, string[] sources)
+        {
+            string filePath = settings.TestFilePath ?? Path.GetDirectoryName(markdownFile.Path);
+
+            string specName = $"{new FileInfo(markdownFile.Path).Name.Replace(settings.SpecFileExtension, "")}";
+            string testFileName = settings.TestFileNamePattern.Replace("{spec_name}", specName);
+            //context.AddSource($"{testFileName}", SourceText.From(sources[0], Encoding.UTF8));
+            File.WriteAllText(Path.Combine(filePath!, testFileName), sources[0], Encoding.UTF8);
+
+            string implementationFileName = settings.ImplementationFileNamePattern.Replace("{spec_name}", specName);
+            if (!File.Exists(Path.Combine(filePath!, implementationFileName)))
+            {
+                //context.AddSource($"{implementationFileName}", SourceText.From(sources[1], Encoding.UTF8));
+                File.WriteAllText(Path.Combine(filePath!, implementationFileName), sources[1], Encoding.UTF8);
+            }
+        }
+
+        private static List<DecisionTable.DecisionTable> TryExtractDecisionTables(XDocument document)
+        {
             List<DecisionTable.DecisionTable> decisionTables = new List<DecisionTable.DecisionTable>();
-            XDocument document;
-            try
-            {
-                document = XDocument.Parse("<html>" + html + "</html>");
-            }
-            catch (Exception e)
-            {
-                throw new InvalidOperationException($"Can not parse the generated html text into xml document {markdownFile.Path}", e);
-            }
-
             IEnumerable<XElement> tables = document.Descendants("table");
             foreach (XElement table in tables)
             {
@@ -75,21 +82,39 @@
                 }
             }
 
-            ITemplateGenerator templateGenerator = new XUnitTemplateGenerator();
-            string[] sources = templateGenerator.Generate(context.Compilation.AssemblyName, decisionTables.ToArray());
+            return decisionTables;
+        }
 
-            string filePath = @"D:\DEV\Projects\decision-markd\tests\DecisionMarkd.Tests"; // Path.GetDirectoryName(markdownFile.Path);
-
-            string testFileName = $"{new FileInfo(markdownFile.Path).Name.Replace(".spec.md", "")}.generated.cs";
-            //context.AddSource($"{testFileName}", SourceText.From(sources[0], Encoding.UTF8));
-            File.WriteAllText(Path.Combine(filePath!, testFileName), sources[0], Encoding.UTF8);
-
-            string implementationFileName = $"{new FileInfo(markdownFile.Path).Name.Replace(".spec.md", "")}.implementation.cs";
-            if (!File.Exists(Path.Combine(filePath!, implementationFileName)))
+        private static XDocument TryParseHtmlToXml(string html)
+        {
+            XDocument document;
+            try
             {
-                //context.AddSource($"{implementationFileName}", SourceText.From(sources[1], Encoding.UTF8));
-                File.WriteAllText(Path.Combine(filePath!, implementationFileName), sources[1], Encoding.UTF8);
+                document = XDocument.Parse("<html>" + html + "</html>");
             }
+            catch (Exception e)
+            {
+                throw new InvalidOperationException($"Can not parse the generated html into xml", e);
+            }
+
+            return document;
+        }
+
+        private static string TryParseMarkdownToHtml(AdditionalText markdownFile, SourceGeneratorContext context)
+        {
+            string markdownText = markdownFile.GetText(context.CancellationToken).ToString();
+            string html;
+            try
+            {
+                MarkdownPipeline pipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions().Build();
+                html = Markdown.ToHtml(markdownText, pipeline);
+            }
+            catch (Exception e)
+            {
+                throw new InvalidOperationException($"Can not parse markdown file {markdownFile.Path} to HTML", e);
+            }
+
+            return html;
         }
     }
 }

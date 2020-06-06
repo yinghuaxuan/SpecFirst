@@ -1,5 +1,5 @@
 ﻿
-namespace DecisionMarkd.Specs
+namespace DecisionMarkd.Tests
 {
     using DecisionMarkd.DecisionTable;
     using System;

@@ -1,7 +1,6 @@
 ﻿using HandlebarsDotNet;
 using System;
 using System.Linq;
-using System.Text;
 
 namespace DecisionMarkd.Template.xUnit
 {

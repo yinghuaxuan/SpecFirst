@@ -12,10 +12,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="decisionmarkd.config" />
 	  <None Remove="DecisionTable\DecisionTableValidator.spec.md" />
 	</ItemGroup>
 
 	<ItemGroup>
+	  <AdditionalFiles Include="decisionmarkd.config" />
 	  <AdditionalFiles Include="DecisionTable\TypeHelper.spec.md" />
 	</ItemGroup>
 
