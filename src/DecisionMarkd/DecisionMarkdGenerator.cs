@@ -3,13 +3,10 @@
     using DecisionMarkd.DecisionTable.Parser;
     using DecisionMarkd.DecisionTable.Validator;
     using DecisionMarkd.Template.xUnit;
-    using HandlebarsDotNet;
     using Markdig;
     using Microsoft.CodeAnalysis;
-    using Microsoft.CodeAnalysis.Text;
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics;
     using System.IO;
     using System.Linq;
     using System.Text;
