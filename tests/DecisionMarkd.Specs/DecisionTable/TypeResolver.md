@@ -1,4 +1,18 @@
-﻿+-------------------------------+------------------------+---------------+----------------+
+﻿Each decision table will contain multiple rows & columns of data.  
+Each row of the decison table will become a test case for the 
+testing method and each column will become an input variable into 
+the method.  
+In order to generate the test case data in the correct format (for
+example, datetime will be converted to something like
+new DateTime(day, month, year) when generating the test data), we
+need to figure out the proper data type for each column.  
+The TypeResolver is designed for this task. The TypeResolver will 
+take in a value in string format and a hint type and produce the 
+final type. A hint type is the type resolved from previous values
+in the same column.
+
+
++-------------------------------+------------------------+---------------+----------------+
 |Infer type from integer value 
 +-------------------------------+------------------------+---------------+----------------+
 |#Comment                       | Value In String        |Hint Type      |Actual Type?

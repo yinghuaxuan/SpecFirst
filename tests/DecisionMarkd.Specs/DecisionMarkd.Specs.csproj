@@ -14,11 +14,13 @@
 	<ItemGroup>
 	  <None Remove="decisionmarkd.config" />
 	  <None Remove="DecisionTable\DecisionTableValidator.spec.md" />
+	  <None Remove="DecisionTable\Validator\DecisionTableValidator.spec.md" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <AdditionalFiles Include="decisionmarkd.config" />
-	  <AdditionalFiles Include="DecisionTable\TypeResolver.spec.md" />
+	  <AdditionalFiles Include="DecisionTable\TypeResolver.md" />
+	  <AdditionalFiles Include="DecisionTable\Validator\DecisionTableValidator.spec.md" />
 	</ItemGroup>
 
 	<ItemGroup>

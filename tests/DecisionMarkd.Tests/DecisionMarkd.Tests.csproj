@@ -17,4 +17,8 @@
     <ProjectReference Include="..\..\src\DecisionMarkd\DecisionMarkd.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DecisionTable\Validator\" />
+  </ItemGroup>
+
 </Project>

@@ -21,7 +21,7 @@ namespace DecisionMarkd.Serialization
             }
             else
             {
-                result = $"\"{data}\", ";
+                result = $"\"{data.ToString().Replace("\n", " ").Replace("\r", " ").Replace(@"""", @"\""")}\", ";
             }
 
             return result;
