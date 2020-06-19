@@ -19,7 +19,7 @@
 
 	<ItemGroup>
 	  <AdditionalFiles Include="decisionmarkd.config" />
-	  <AdditionalFiles Include="DecisionTable\TypeResolver.md" />
+	  <AdditionalFiles Include="DecisionTable\TypeResolver.spec.md" />
 	  <AdditionalFiles Include="DecisionTable\Validator\DecisionTableValidator.spec.md" />
 	</ItemGroup>
 
@@ -36,6 +36,10 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\..\src\DecisionMarkd\DecisionMarkd.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Serialization\" />
 	</ItemGroup>
 
 </Project>

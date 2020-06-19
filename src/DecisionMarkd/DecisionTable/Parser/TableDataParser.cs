@@ -14,7 +14,7 @@
             {
                 for (int j = 0; j < data.GetLength(1); j++)
                 {
-                    Type type = TypeResolver.InferTypeFromValue(data[i, j], types[j], out object value);
+                    Type type = TypeResolver.InferTypeFromText(data[i, j], types[j], out object value);
                     types[j] = type;
                     values[i, j] = value;
                 }

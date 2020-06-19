@@ -1,19 +1,20 @@
-﻿using System;
-using System.Globalization;
-
-namespace DecisionMarkd.DecisionTable
+﻿namespace DecisionMarkd.DecisionTable
 {
+    using System;
+    using System.Linq;
+    using System.Globalization;
+
     public class TypeResolver
     {
         /// <summary>
-        /// Supported data types: int, decimal, date, boolean, string, list/array,
+        /// Supported data types: int, decimal, date, boolean, string, array,
         /// Special keywords: null, blank
         /// </summary>
         /// <param name="value">The value in string.</param>
         /// <param name="hintType">The possible type of the value.</param>
         /// <param name="parsedValue">The value in its type.</param>
         /// <returns>The real type of the value.</returns>
-        public static Type InferTypeFromValue(string value, Type hintType, out object parsedValue)
+        public static Type InferTypeFromText(string value, Type hintType, out object parsedValue)
         {
             Type type = hintType;
             parsedValue = value;
@@ -30,60 +31,87 @@ namespace DecisionMarkd.DecisionTable
 
             bool isNullable = IsNullable(hintType);
 
-            if (char.IsDigit(value[0]))
+            if (char.IsDigit(value[0]) || (value[0] == '-' && char.IsDigit(value[1])))
             {
-                type = typeof(string);
-
-                if (value.Contains("."))
+                if (!value.Contains(".") && !value.Contains("E") && !value.Contains("e"))
                 {
-                    if (decimal.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out decimal result))
+                    if (int.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out int integerValue))
                     {
-                        type = isNullable ? typeof(decimal?) : typeof(decimal);
-                        if (type != hintType && hintType != typeof(int) && hintType != typeof(int?) && hintType != null)
-                        {
-                            type = typeof(string);
-                        }
-                        parsedValue = result;
+                        parsedValue = integerValue;
+                        return InferColumnTypeFromInteger(hintType, isNullable);
                     }
                 }
-                else if (value.Contains("-"))
+                
+                if (value.Count(v => v == '-') >= 2)
                 {
                     if (DateTime.TryParseExact(value, "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime result))
                     {
-                        type = isNullable ? typeof(DateTime?) : typeof(DateTime);
-                        if (type != hintType && hintType != null)
-                        {
-                            type = typeof(string);
-                        }
                         parsedValue = result;
+                        return InferColumnTypeFromDateTime(hintType, isNullable);
                     }
                 }
-                else if (int.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out int result))
+                
+                if (decimal.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out decimal decimalValue))
                 {
-                    type = isNullable ? typeof(int?) : typeof(int);
-                    if (type != hintType && hintType != typeof(decimal) && hintType != typeof(decimal?) && hintType != null)
-                    {
-                        type = typeof(string);
-                    }
-                    else if (type != hintType && (hintType == typeof(decimal) || hintType == typeof(decimal?)) && hintType != null)
-                    {
-                        type = isNullable ? typeof(decimal?) : typeof(decimal);
-                    }
-                    parsedValue = result;
+                    parsedValue = decimalValue;
+                    return InferColumnTypeFromDecimal(hintType, isNullable);
                 }
+
+                return typeof(string);
             }
-            else if (bool.TryParse(value, out bool result))
+
+            if (bool.TryParse(value, out bool booleanValue))
             {
-                type = isNullable ? typeof(bool?) : typeof(bool);
-                if (type != hintType && hintType != null)
-                {
-                    type = typeof(string);
-                }
-                parsedValue = result;
+                parsedValue = booleanValue;
+                return InferColumnTypeFromBoolean(hintType, isNullable);
             }
-            else
+
+            return typeof(string);
+        }
+
+        private static Type InferColumnTypeFromBoolean(Type hintType, bool isNullable)
+        {
+            var type = isNullable ? typeof(bool?) : typeof(bool);
+            if (type != hintType && hintType != null)
             {
                 type = typeof(string);
+            }
+
+            return type;
+        }
+
+        private static Type InferColumnTypeFromDecimal(Type hintType, bool isNullable)
+        {
+            var type = isNullable ? typeof(decimal?) : typeof(decimal);
+            if (type != hintType && hintType != typeof(int) && hintType != typeof(int?) && hintType != null)
+            {
+                type = typeof(string);
+            }
+
+            return type;
+        }
+
+        private static Type InferColumnTypeFromDateTime(Type hintType, bool isNullable)
+        {
+            var type = isNullable ? typeof(DateTime?) : typeof(DateTime);
+            if (type != hintType && hintType != null)
+            {
+                type = typeof(string);
+            }
+
+            return type;
+        }
+
+        private static Type InferColumnTypeFromInteger(Type hintType, bool isNullable)
+        {
+            var type = isNullable ? typeof(int?) : typeof(int);
+            if (type != hintType && hintType != typeof(decimal) && hintType != typeof(decimal?) && hintType != null)
+            {
+                type = typeof(string);
+            }
+            else if (type != hintType && (hintType == typeof(decimal) || hintType == typeof(decimal?)) && hintType != null)
+            {
+                type = isNullable ? typeof(decimal?) : typeof(decimal);
             }
 
             return type;
