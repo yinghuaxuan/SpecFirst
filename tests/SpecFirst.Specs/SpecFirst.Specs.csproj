@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<LangVersion>8.0</LangVersion>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<TargetFramework>net5.0</TargetFramework>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <Compile Remove="DecisionTable\DecisionTableValidator.generated.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="decisionmarkd.config" />
+	  <None Remove="DecisionTable\DecisionTableValidator.spec.md" />
+	  <None Remove="DecisionTable\Validator\DecisionTableValidator.spec.md" />
+	  <None Remove="specfirst.config" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <AdditionalFiles Include="DecisionTable\TypeResolver.spec.md" />
+	  <AdditionalFiles Include="DecisionTable\Validator\DecisionTableValidator.spec.md" />
+	  <AdditionalFiles Include="specfirst.config" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
+		<PackageReference Include="xunit" Version="2.4.0" />
+		<PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
+		<PackageReference Include="coverlet.collector" Version="1.2.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\src\SpecFirst\SpecFirst.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Serialization\" />
+	</ItemGroup>
+
+</Project>

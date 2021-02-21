@@ -1,0 +1,64 @@
+﻿using Microsoft.CodeAnalysis;
+using System.IO;
+using System.Linq;
+using System.Xml.Linq;
+
+namespace SpecFirst.Setting
+{
+    public class SpecFirstSettingManager
+    {
+        const string DefaultTestingFramework = "xUnit";
+        const string DefaultTestFileName = "{spec_name}.generated.cs";
+        const string DefaultImplementationFileName = "{spec_name}.implementation.generated.cs";
+        const string DefaultSpecFileExtension = ".spec.md";
+
+        public SpecFirstSettingManager(GeneratorExecutionContext context)
+        {
+            AdditionalText settingFile =
+                context
+                .AdditionalFiles
+                .FirstOrDefault(f => f.Path.EndsWith("specfirst.config", System.StringComparison.OrdinalIgnoreCase));
+            if (settingFile != null)
+            {
+                Settings = Parse(
+                    settingFile.Path,
+                    context.Compilation.Assembly.Name);
+            }
+            else
+            {
+                Settings = Default(context.Compilation.AssemblyName);
+            }
+        }
+
+        public SpecFirstSettings Settings { get; set; }
+
+        private SpecFirstSettings Parse(string settingFile, string defaultNamespace)
+        {
+            XDocument settings = XDocument.Load(settingFile);
+            return new SpecFirstSettings
+            {
+                TestingFramework = settings.Descendants("TestingFramework").FirstOrDefault()?.Value ?? DefaultTestingFramework,
+                TestFileNamePattern = settings.Descendants("TestFileNamePattern").FirstOrDefault()?.Value ?? DefaultTestFileName,
+                ImplementationFileNamePattern = settings.Descendants("ImplementationFileNamePattern").FirstOrDefault()?.Value ?? DefaultImplementationFileName,
+                TestFilePath = settings.Descendants("TestFilePath").FirstOrDefault()?.Value ?? string.Empty,
+                ImplementationFilePath = settings.Descendants("ImplementationFilePath").FirstOrDefault()?.Value ?? string.Empty,
+                Namespace = settings.Descendants("Namespace").FirstOrDefault()?.Value ?? defaultNamespace,
+                SpecFileExtension = settings.Descendants("SpecFileExtension").FirstOrDefault()?.Value ?? DefaultSpecFileExtension
+            };
+        }
+
+        private SpecFirstSettings Default(string defaultNamespace)
+        {
+            return new SpecFirstSettings
+            {
+                TestingFramework = DefaultTestingFramework,
+                TestFileNamePattern = DefaultTestFileName,
+                ImplementationFileNamePattern = DefaultImplementationFileName,
+                TestFilePath = string.Empty,
+                ImplementationFilePath = string.Empty,
+                SpecFileExtension = DefaultSpecFileExtension,
+                Namespace = defaultNamespace
+            };
+        }
+    }
+}
