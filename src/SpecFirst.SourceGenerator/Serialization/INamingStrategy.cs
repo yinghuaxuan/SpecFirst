@@ -1,4 +1,4 @@
-﻿namespace SpecFirst.Template.Serialization
+﻿namespace SpecFirst.TestsGenerator.Serialization
 {
     public interface INamingStrategy
     {

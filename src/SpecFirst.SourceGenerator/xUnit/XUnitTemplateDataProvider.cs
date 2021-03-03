@@ -1,11 +1,10 @@
-﻿namespace SpecFirst.Template.xUnit
+﻿namespace SpecFirst.TestsGenerator.xUnit
 {
     using System.Linq;
-    using DecisionMarkd.Template.xUnit;
-    using SpecFirst.Core.Converter;
     using SpecFirst.Core.DecisionTable;
     using SpecFirst.Serialization;
-    using SpecFirst.Template.Serialization;
+    using SpecFirst.TestsGenerator.Converter;
+    using SpecFirst.TestsGenerator.Serialization;
 
     public class XUnitTemplateDataProvider
     {
@@ -13,8 +12,8 @@
         private readonly StringDataSerializer _stringSerializer;
         private readonly DateTimeDataSerializer _datetimeSerializer;
         private readonly BooleanDataSerializer _booleanSerializer;
-        private readonly DecisionDataToTestDataConverter _decisionDataToTestDataConverter;
-        private readonly DecisionVariablesToParametersConverter _decisionVariablesToParametersConverter;
+        private readonly TableDataToTestDataConverter _tableDataToTestDataConverter;
+        private readonly TableHeaderToParametersConverter _tableHeaderToParametersConverter;
 
         public XUnitTemplateDataProvider()
         {
@@ -22,8 +21,8 @@
             _stringSerializer = new StringDataSerializer();
             _datetimeSerializer = new DateTimeDataSerializer();
             _booleanSerializer = new BooleanDataSerializer();
-            _decisionDataToTestDataConverter = new DecisionDataToTestDataConverter(_stringSerializer, _datetimeSerializer, _booleanSerializer);
-            _decisionVariablesToParametersConverter = new DecisionVariablesToParametersConverter();
+            _tableDataToTestDataConverter = new TableDataToTestDataConverter(_stringSerializer, _datetimeSerializer, _booleanSerializer);
+            _tableHeaderToParametersConverter = new TableHeaderToParametersConverter();
         }
 
         public XUnitTemplateData[] GetTemplateData(DecisionTable[] decisionTables)
@@ -44,12 +43,12 @@
             XUnitTemplateData templateData = new XUnitTemplateData();
             templateData.ClassName = _namingStrategy.Parse(decisionTable.TableName);
             string[] methodParameters = 
-                _decisionVariablesToParametersConverter.Convert(decisionTable.TableHeaders, out int[] selectedDataIndices);
+                _tableHeaderToParametersConverter.Convert(decisionTable.TableHeaders, out int[] selectedDataIndices);
             templateData.TestMethodParameterDeclarations = methodParameters[0];
             templateData.ImplementationMethodParameterDeclarations = methodParameters[1];
             templateData.ImplementationMethodParameters = methodParameters[2];
             templateData.TestData = 
-                _decisionDataToTestDataConverter.Convert(
+                _tableDataToTestDataConverter.Convert(
                     decisionTable.TableHeaders.Select(v => v.DataType).ToArray(),
                     decisionTable.TableData,
                     selectedDataIndices);

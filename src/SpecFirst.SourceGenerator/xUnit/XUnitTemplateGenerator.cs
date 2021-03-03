@@ -1,16 +1,15 @@
-﻿namespace SpecFirst.Template.xUnit
+﻿namespace SpecFirst.TestsGenerator.xUnit
 {
     using System;
     using System.Linq;
-    using DecisionMarkd.Template.xUnit;
     using HandlebarsDotNet;
     using SpecFirst.Core.DecisionTable;
 
-    public class XUnitSourceGenerator : ITestSourceGenerator
+    public class XUnitTestsGenerator : ITestsGenerator
     {
-        private XUnitTemplateDataProvider _templateDataProvider;
+        private readonly XUnitTemplateDataProvider _templateDataProvider;
 
-        public XUnitSourceGenerator()
+        public XUnitTestsGenerator()
         {
             _templateDataProvider = new XUnitTemplateDataProvider();
         }

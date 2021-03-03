@@ -2,7 +2,6 @@
 namespace DecisionMarkd.Tests
 {
     using System;
-    using SpecFirst.DecisionTable;
     using Xunit;
 
     public partial class infer_type_from_integer_text : type_helper

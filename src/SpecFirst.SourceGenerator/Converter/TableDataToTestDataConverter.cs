@@ -1,17 +1,20 @@
-﻿namespace SpecFirst.Core.Converter
+﻿namespace SpecFirst.TestsGenerator.Converter
 {
     using System;
     using System.Collections.Generic;
     using System.Text;
     using SpecFirst.Serialization;
 
-    public class DecisionDataToTestDataConverter
+    public class TableDataToTestDataConverter
     {
         private readonly StringDataSerializer _stringSerializer;
         private readonly DateTimeDataSerializer _datetimeSerializer;
         private readonly BooleanDataSerializer _booleanSerializer;
 
-        public DecisionDataToTestDataConverter(StringDataSerializer stringSerializer, DateTimeDataSerializer datetimeSerializer, BooleanDataSerializer booleanSerializer)
+        public TableDataToTestDataConverter(
+            StringDataSerializer stringSerializer,
+            DateTimeDataSerializer datetimeSerializer,
+            BooleanDataSerializer booleanSerializer)
         {
             _stringSerializer = stringSerializer;
             _datetimeSerializer = datetimeSerializer;

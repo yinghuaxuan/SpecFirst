@@ -1,4 +1,4 @@
-﻿namespace DecisionMarkd.Template.xUnit
+﻿namespace SpecFirst.TestsGenerator.xUnit
 {
     public class XUnitTemplate
     {

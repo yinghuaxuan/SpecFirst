@@ -1,5 +1,7 @@
 ﻿namespace SpecFirst.Core.DecisionTable.Parser
 {
+    using System;
+
     public class TableHeaderParser
     {
         public TableHeader Parse(string header)

@@ -1,15 +1,16 @@
-﻿namespace SpecFirst.Core.Converter
+﻿namespace SpecFirst.TestsGenerator.Converter
 {
     using System.Collections.Generic;
     using System.Text;
     using System.Text.RegularExpressions;
     using SpecFirst.Core.DecisionTable;
+    using SpecFirst.TestsGenerator.Serialization;
 
-    public class DecisionVariablesToParametersConverter
+    public class TableHeaderToParametersConverter
     {
-        private SnakeCaseNamingStrategy _namingStrategy;
+        private readonly SnakeCaseNamingStrategy _namingStrategy;
 
-        public DecisionVariablesToParametersConverter()
+        public TableHeaderToParametersConverter()
         {
             _namingStrategy = new SnakeCaseNamingStrategy();
         }

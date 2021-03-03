@@ -1,11 +1,10 @@
 ﻿
 namespace DecisionMarkd.Tests
 {
-    using SpecFirst.DecisionTable.Validator;
     using System;
-    using System.IO;
     using System.Linq;
     using System.Xml.Linq;
+    using SpecFirst.Core.DecisionTable.Validator;
     using Xunit;
 
     public partial class decision_table_validator

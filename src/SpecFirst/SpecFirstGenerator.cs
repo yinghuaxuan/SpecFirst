@@ -1,9 +1,7 @@
 ﻿namespace SpecFirst
 {
-    using DecisionMarkd.Template.xUnit;
     using Microsoft.CodeAnalysis;
     using SpecFirst.Setting;
-    using SpecFirst.Template.xUnit;
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
@@ -12,16 +10,20 @@
     using System.Text;
     using SpecFirst.Core.DecisionTable;
     using SpecFirst.MarkdownParser;
+    using SpecFirst.TestsGenerator;
+    using SpecFirst.TestsGenerator.xUnit;
 
     [Generator]
     public sealed class SpecFirstGenerator : ISourceGenerator
     {
         private SpecFirstMarkdownParser _markdownParser;
+        private ITestsGenerator _testsGenerator;
 
         public void Initialize(GeneratorInitializationContext context)
         {
             Debugger.Launch();
             _markdownParser = new SpecFirstMarkdownParser();
+            _testsGenerator = new XUnitTestsGenerator();
         }
 
         public void Execute(GeneratorExecutionContext context)
@@ -40,8 +42,7 @@
             string markdownText = markdownFile.GetText(context.CancellationToken).ToString();
             List<DecisionTable> decisionTables = _markdownParser.Parse(markdownText);
 
-            ITestSourceGenerator testSourceGenerator = new XUnitSourceGenerator();
-            string[] sources = testSourceGenerator.Generate(settings.Namespace, decisionTables.ToArray());
+            string[] sources = _testsGenerator.Generate(settings.Namespace, decisionTables.ToArray());
             PersistTestFiles(markdownFile, context, settings, sources);
         }
 
