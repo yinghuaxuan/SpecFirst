@@ -1,6 +1,5 @@
-﻿namespace SpecFirst.DecisionTable.Parser
+﻿namespace SpecFirst.Core.DecisionTable.Parser
 {
-    using SpecFirst.DecisionTable;
     using System;
 
     public class TableDataParser

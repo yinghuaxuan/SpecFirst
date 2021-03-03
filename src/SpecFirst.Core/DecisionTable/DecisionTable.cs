@@ -1,4 +1,4 @@
-﻿namespace SpecFirst.DecisionTable
+﻿namespace SpecFirst.Core.DecisionTable
 {
     public sealed class DecisionTable
     {

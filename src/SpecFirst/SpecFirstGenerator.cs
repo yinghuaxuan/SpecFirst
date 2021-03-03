@@ -1,9 +1,6 @@
 ﻿namespace SpecFirst
 {
-    using SpecFirst.DecisionTable.Parser;
-    using SpecFirst.DecisionTable.Validator;
     using DecisionMarkd.Template.xUnit;
-    using Markdig;
     using Microsoft.CodeAnalysis;
     using SpecFirst.Setting;
     using SpecFirst.Template.xUnit;
@@ -13,14 +10,18 @@
     using System.IO;
     using System.Linq;
     using System.Text;
-    using System.Xml.Linq;
+    using SpecFirst.Core.DecisionTable;
+    using SpecFirst.MarkdownParser;
 
     [Generator]
     public sealed class SpecFirstGenerator : ISourceGenerator
     {
+        private SpecFirstMarkdownParser _markdownParser;
+
         public void Initialize(GeneratorInitializationContext context)
         {
             Debugger.Launch();
+            _markdownParser = new SpecFirstMarkdownParser();
         }
 
         public void Execute(GeneratorExecutionContext context)
@@ -36,9 +37,8 @@
          
         private void ProcessMarkdownFile(AdditionalText markdownFile, GeneratorExecutionContext context, SpecFirstSettings settings)
         {
-            string html = TryParseMarkdownToHtml(markdownFile, context);
-            XDocument document = TryParseHtmlToXml(html);
-            List<DecisionTable.DecisionTable> decisionTables = TryExtractDecisionTables(document);
+            string markdownText = markdownFile.GetText(context.CancellationToken).ToString();
+            List<DecisionTable> decisionTables = _markdownParser.Parse(markdownText);
 
             ITestSourceGenerator testSourceGenerator = new XUnitSourceGenerator();
             string[] sources = testSourceGenerator.Generate(settings.Namespace, decisionTables.ToArray());
@@ -89,63 +89,6 @@
                 //context.AddSource($"{implementationFileName}", SourceText.From(sources[1], Encoding.UTF8));
                 File.WriteAllText(Path.Combine(filePath!, implementationFileName), sources[1], Encoding.UTF8);
             }
-        }
-
-        private static List<DecisionTable.DecisionTable> TryExtractDecisionTables(XDocument document)
-        {
-            List<DecisionTable.DecisionTable> decisionTables = new List<DecisionTable.DecisionTable>();
-            IEnumerable<XElement> tables = document.Descendants("table");
-            foreach (XElement table in tables)
-            {
-                if (new DecisionTableHtmlValidator().Validate(table).IsValid)
-                {
-                    try
-                    {
-                        DecisionTable.DecisionTable decisionTable = new DecisionTableParser().Parse(table);
-                        decisionTables.Add(decisionTable);
-                    }
-                    catch (Exception e)
-                    {
-                        // do nothing
-                    }
-                }
-            }
-
-            return decisionTables;
-        }
-
-        private static XDocument TryParseHtmlToXml(string html)
-        {
-            XDocument document;
-            try
-            {
-                document = XDocument.Parse("<html>" + html + "</html>");
-            }
-            catch (Exception e)
-            {
-                throw new InvalidOperationException($"Can not parse the generated html into xml", e);
-            }
-
-            return document;
-        }
-
-        private static string TryParseMarkdownToHtml(AdditionalText markdownFile, GeneratorExecutionContext context)
-        {
-            string markdownText = markdownFile.GetText(context.CancellationToken).ToString();
-            string html = null;
-            try
-            {
-                var engine = new Jurassic.ScriptEngine();
-                engine.ExecuteFile(@"D:\DEV\Projects\spec-first\src\SpecFirst\Script\test.js");
-                //MarkdownPipeline pipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions().Build();
-                //html = Markdown.ToHtml(markdownText, pipeline);
-            }
-            catch (Exception e)
-            {
-                throw new InvalidOperationException($"Can not parse markdown file {markdownFile.Path} to HTML", e);
-            }
-
-            return html;
         }
     }
 }

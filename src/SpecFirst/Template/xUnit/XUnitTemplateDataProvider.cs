@@ -1,18 +1,20 @@
-﻿using DecisionMarkd.Converter;
-using SpecFirst.Serialization;
-using SpecFirst.Template.Serialization;
-using System.Linq;
-
-namespace DecisionMarkd.Template.xUnit
+﻿namespace SpecFirst.Template.xUnit
 {
+    using System.Linq;
+    using DecisionMarkd.Template.xUnit;
+    using SpecFirst.Core.Converter;
+    using SpecFirst.Core.DecisionTable;
+    using SpecFirst.Serialization;
+    using SpecFirst.Template.Serialization;
+
     public class XUnitTemplateDataProvider
     {
-        private SnakeCaseNamingStrategy _namingStrategy;
-        private StringDataSerializer _stringSerializer;
-        private DateTimeDataSerializer _datetimeSerializer;
-        private BooleanDataSerializer _booleanSerializer;
-        private DecisionDataToTestDataConverter _decisionDataToTestDataConverter;
-        private DecisionVariablesToParametersConverter _decisionVariablesToParametersConverter;
+        private readonly SnakeCaseNamingStrategy _namingStrategy;
+        private readonly StringDataSerializer _stringSerializer;
+        private readonly DateTimeDataSerializer _datetimeSerializer;
+        private readonly BooleanDataSerializer _booleanSerializer;
+        private readonly DecisionDataToTestDataConverter _decisionDataToTestDataConverter;
+        private readonly DecisionVariablesToParametersConverter _decisionVariablesToParametersConverter;
 
         public XUnitTemplateDataProvider()
         {
@@ -24,12 +26,12 @@ namespace DecisionMarkd.Template.xUnit
             _decisionVariablesToParametersConverter = new DecisionVariablesToParametersConverter();
         }
 
-        public XUnitTemplateData[] GetTemplateData(SpecFirst.DecisionTable.DecisionTable[] decisionTables)
+        public XUnitTemplateData[] GetTemplateData(DecisionTable[] decisionTables)
         {
             XUnitTemplateData[] templateData = new XUnitTemplateData[decisionTables.Length];
             for (int i = 0; i < decisionTables.Length; i++)
             {
-                SpecFirst.DecisionTable.DecisionTable decisionTable = decisionTables[i];
+                DecisionTable decisionTable = decisionTables[i];
                 XUnitTemplateData singleTemplateData = GetSingleTemplateData(decisionTable);
                 templateData[i] = singleTemplateData;
             }
@@ -37,7 +39,7 @@ namespace DecisionMarkd.Template.xUnit
             return templateData;
         }
 
-        private XUnitTemplateData GetSingleTemplateData(SpecFirst.DecisionTable.DecisionTable decisionTable)
+        private XUnitTemplateData GetSingleTemplateData(DecisionTable decisionTable)
         {
             XUnitTemplateData templateData = new XUnitTemplateData();
             templateData.ClassName = _namingStrategy.Parse(decisionTable.TableName);

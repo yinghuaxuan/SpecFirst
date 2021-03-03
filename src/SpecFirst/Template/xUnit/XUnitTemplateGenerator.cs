@@ -1,10 +1,11 @@
-﻿using HandlebarsDotNet;
-using SpecFirst.Template.xUnit;
-using System;
-using System.Linq;
-
-namespace DecisionMarkd.Template.xUnit
+﻿namespace SpecFirst.Template.xUnit
 {
+    using System;
+    using System.Linq;
+    using DecisionMarkd.Template.xUnit;
+    using HandlebarsDotNet;
+    using SpecFirst.Core.DecisionTable;
+
     public class XUnitSourceGenerator : ITestSourceGenerator
     {
         private XUnitTemplateDataProvider _templateDataProvider;
@@ -14,7 +15,7 @@ namespace DecisionMarkd.Template.xUnit
             _templateDataProvider = new XUnitTemplateDataProvider();
         }
 
-        public string[] Generate(string namespaceName, SpecFirst.DecisionTable.DecisionTable[] decisionTables)
+        public string[] Generate(string namespaceName, DecisionTable[] decisionTables)
         {
             XUnitTemplateData[] templateData = _templateDataProvider.GetTemplateData(decisionTables);
             var data = new

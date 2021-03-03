@@ -1,4 +1,4 @@
-﻿namespace SpecFirst.DecisionTable.Parser
+﻿namespace SpecFirst.Core.DecisionTable.Parser
 {
     public class TableNameParser
     {

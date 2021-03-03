@@ -1,11 +1,10 @@
-﻿using SpecFirst.DecisionTable;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Xml.Linq;
-
-namespace SpecFirst.DecisionTable.Parser
+﻿namespace SpecFirst.Core.DecisionTable.Parser
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Xml.Linq;
+
     public sealed class DecisionTableParser : IDecisionTableParser
     {
         private TableNameParser _tableNameParser;

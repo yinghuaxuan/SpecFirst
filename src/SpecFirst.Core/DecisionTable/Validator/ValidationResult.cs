@@ -1,4 +1,4 @@
-﻿namespace SpecFirst.DecisionTable.Validator
+﻿namespace SpecFirst.Core.DecisionTable.Validator
 {
     public class ValidationResult
     {

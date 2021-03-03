@@ -1,15 +1,15 @@
-﻿using SpecFirst.Serialization;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace DecisionMarkd.Converter
+﻿namespace SpecFirst.Core.Converter
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+    using SpecFirst.Serialization;
+
     public class DecisionDataToTestDataConverter
     {
-        private StringDataSerializer _stringSerializer;
-        private DateTimeDataSerializer _datetimeSerializer;
-        private BooleanDataSerializer _booleanSerializer;
+        private readonly StringDataSerializer _stringSerializer;
+        private readonly DateTimeDataSerializer _datetimeSerializer;
+        private readonly BooleanDataSerializer _booleanSerializer;
 
         public DecisionDataToTestDataConverter(StringDataSerializer stringSerializer, DateTimeDataSerializer datetimeSerializer, BooleanDataSerializer booleanSerializer)
         {

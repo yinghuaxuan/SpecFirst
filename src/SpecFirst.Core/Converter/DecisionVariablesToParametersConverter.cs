@@ -1,11 +1,10 @@
-﻿using SpecFirst.DecisionTable;
-using SpecFirst.Template.Serialization;
-using System.Collections.Generic;
-using System.Text;
-using System.Text.RegularExpressions;
-
-namespace DecisionMarkd.Converter
+﻿namespace SpecFirst.Core.Converter
 {
+    using System.Collections.Generic;
+    using System.Text;
+    using System.Text.RegularExpressions;
+    using SpecFirst.Core.DecisionTable;
+
     public class DecisionVariablesToParametersConverter
     {
         private SnakeCaseNamingStrategy _namingStrategy;

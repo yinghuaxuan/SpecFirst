@@ -1,8 +1,8 @@
-﻿namespace SpecFirst.DecisionTable
+﻿namespace SpecFirst.Core.DecisionTable
 {
     using System;
-    using System.Linq;
     using System.Globalization;
+    using System.Linq;
 
     public class TypeResolver
     {
