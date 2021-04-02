@@ -1,4 +1,4 @@
-﻿namespace SpecFirst.TestsGenerator.Converter
+﻿namespace SpecFirst.Core.Converter
 {
     public class TableNameToTestNameConverter
     {

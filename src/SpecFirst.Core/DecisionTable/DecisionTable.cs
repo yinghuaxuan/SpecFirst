@@ -2,11 +2,11 @@
 {
     public sealed class DecisionTable
     {
-        public DecisionTable(string fixtureName, TableHeader[] variables, object[,] decisionData)
+        public DecisionTable(string fixtureName, TableHeader[] variables, object[,] tableData)
         {
             TableName = fixtureName;
             TableHeaders = variables;
-            TableData = decisionData;
+            TableData = tableData;
         }
 
         public string TableName { get; }

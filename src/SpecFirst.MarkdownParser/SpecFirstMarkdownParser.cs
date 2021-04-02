@@ -3,6 +3,8 @@ namespace SpecFirst.MarkdownParser
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
+    using System.Reflection;
     using System.Xml.Linq;
     using Jurassic;
     using SpecFirst.Core;
@@ -15,6 +17,7 @@ namespace SpecFirst.MarkdownParser
         public List<DecisionTable> Parse(string markdownText)
         {
             string html = TryParseMarkdownToHtml(markdownText);
+            html = html.Replace("<br>", "<br/>");
             XDocument document = TryParseHtmlToXml(html);
             List<DecisionTable> decisionTables = TryExtractDecisionTables(document);
             return decisionTables;
@@ -26,7 +29,7 @@ namespace SpecFirst.MarkdownParser
             IEnumerable<XElement> tables = document.Descendants("table");
             foreach (XElement table in tables)
             {
-                if (new DecisionTableHtmlValidator().Validate(table).IsValid)
+                if (new DecisionTableHtmlValidator().Validate(table, out _))
                 {
                     try
                     {
@@ -65,7 +68,7 @@ namespace SpecFirst.MarkdownParser
             {
                 var engine = new ScriptEngine();
                 engine.SetGlobalValue("markdownTable", markdownText);
-                engine.ExecuteFile("bundle.js");
+                engine.ExecuteFile(GetScriptFile());
                 html = engine.GetGlobalValue("result").ToString();
             }
             catch (Exception e)
@@ -74,6 +77,13 @@ namespace SpecFirst.MarkdownParser
             }
 
             return html;
+        }
+
+        public static string GetScriptFile()
+        {
+            var assembly = Assembly.GetExecutingAssembly().Location;
+            var directory = Path.GetDirectoryName(assembly);
+            return Path.Combine(directory, "Script\\bundle.js");
         }
     }
 }

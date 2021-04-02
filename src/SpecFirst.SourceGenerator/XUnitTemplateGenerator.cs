@@ -3,6 +3,7 @@
     using System;
     using System.Linq;
     using HandlebarsDotNet;
+    using SpecFirst.Core;
     using SpecFirst.Core.DecisionTable;
 
     public class XUnitTestsGenerator : ITestsGenerator
@@ -23,26 +24,28 @@
                 list_of_fixtures = templateData.Select(t => new
                 {
                     class_name = t.ClassName,
-                    parameter_declarations = t.TestMethodParameterDeclarations,
-                    parameters = t.ImplementationMethodParameters,
+                    test_parameters = t.TestMethodParameters,
+                    impl_arguments = t.ImplMethodArguments,
+                    impl_parameters = t.ImplMethodParameters,
+                    impl_return_values = t.ImplMethodReturnValues,
                     list_of_test_data = t.TestData
                 })
             };
 
-            string testSources = GenerateTestSources(data);
-            string implementationSources = GenerateImplmentationSources(data);
+            string testSources = GenerateTestMethods(data);
+            string implementationSources = GenerateTestImplementations(data);
 
             return new[] { testSources, implementationSources };
         }
 
-        private string GenerateTestSources(object data)
+        private string GenerateTestMethods(object data)
         {
             Func<object, string> compiled = Handlebars.Compile(XUnitTemplate.TEST_TEMPLATE);
 
             return compiled(data);
         }
 
-        private string GenerateImplmentationSources(object data)
+        private string GenerateTestImplementations(object data)
         {
             Func<object, string> compiled = Handlebars.Compile(XUnitTemplate.IMPLEMENTATION_TEMPLATE);
 

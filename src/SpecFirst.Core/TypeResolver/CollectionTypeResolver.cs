@@ -1,10 +1,10 @@
-﻿namespace SpecFirst.Core.DecisionTable
+﻿namespace SpecFirst.Core.TypeResolver
 {
     using System;
     using System.Globalization;
     using System.Linq;
 
-    public class TypeResolver
+    public class CollectionTypeResolver
     {
         /// <summary>
         /// Supported data types: int, decimal, date, boolean, string, array,
@@ -14,7 +14,7 @@
         /// <param name="hintType">The possible type of the value.</param>
         /// <param name="parsedValue">The value in its type.</param>
         /// <returns>The real type of the value.</returns>
-        public static Type InferTypeFromText(string value, Type hintType, out object parsedValue)
+        public static Type Resolve(string value, Type hintType, out object parsedValue)
         {
             Type type = hintType;
             parsedValue = value;

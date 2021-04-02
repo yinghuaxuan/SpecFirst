@@ -6,24 +6,24 @@
 
     public sealed class DecisionTableHtmlValidator : IDecisionTableHtmlValidator
     {
-        public ValidationResult Validate(XElement document)
+        public bool Validate(XElement document, out IEnumerable<string> errors)
         {
-            string error = null;
+            errors = new List<string>();
 
-            IEnumerable<XElement> rows = document.Descendants("tr");
+            IEnumerable<XElement> rows = document.Descendants("tr").ToList();
             if (rows.Count() < 3)
             {
-                return new ValidationResult("Decision table must have at least three rows");
+                errors.Append("Decision table must have at least three rows");
             }
 
             XElement firstRow = rows.First();
-            IEnumerable<XElement> columns = firstRow.Descendants("td");
+            IEnumerable<XElement> columns = firstRow.Descendants("td").Union(firstRow.Descendants("th"));
             if (columns.Count() != 1)
             {
-                return new ValidationResult("The first row of the decision table must have a single column");
+                errors.Append("The first row of the decision table must have a single td or th column");
             }
 
-            return new ValidationResult(error);
+            return !errors.Any();
         }
     }
 }

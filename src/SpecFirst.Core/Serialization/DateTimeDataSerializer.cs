@@ -1,23 +1,14 @@
-﻿using System;
-
-namespace SpecFirst.Serialization
+﻿namespace SpecFirst.Core.Serialization
 {
-    public class DateTimeDataSerializer
+    using System;
+
+    public class DateTimeDataSerializer : IDataSerializer
     {
         public string Serialize(object data)
         {
-            string result = null;
-            if (string.Equals(data.ToString(), "null", StringComparison.OrdinalIgnoreCase))
-            {
-                result = $"{data.ToString().ToLowerInvariant()}, ";
-            }
-            else
-            {
-                DateTime date = (DateTime)data;
-                result = $"new DateTime({date.Year}, {date.Month}, {date.Day}), ";
-            }
+            DateTime date = (DateTime) data;
 
-            return result;
+            return $"new DateTime({date.Year}, {date.Month}, {date.Day}, {date.Hour}, {date.Minute}, {date.Second}, {date.Millisecond})";
         }
     }
 }

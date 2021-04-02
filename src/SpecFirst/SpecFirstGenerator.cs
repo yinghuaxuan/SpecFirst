@@ -2,15 +2,14 @@
 {
     using Microsoft.CodeAnalysis;
     using SpecFirst.Setting;
-    using System;
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.IO;
     using System.Linq;
     using System.Text;
+    using SpecFirst.Core;
     using SpecFirst.Core.DecisionTable;
     using SpecFirst.MarkdownParser;
-    using SpecFirst.TestsGenerator;
     using SpecFirst.TestsGenerator.xUnit;
 
     [Generator]
@@ -18,73 +17,55 @@
     {
         private SpecFirstMarkdownParser _markdownParser;
         private ITestsGenerator _testsGenerator;
+        private SpecFirstSettingManager _settingManager;
 
         public void Initialize(GeneratorInitializationContext context)
         {
-            Debugger.Launch();
+            //Debugger.Launch();
             _markdownParser = new SpecFirstMarkdownParser();
             _testsGenerator = new XUnitTestsGenerator();
         }
 
         public void Execute(GeneratorExecutionContext context)
         {
-            var settings = new SpecFirstSettingManager(context).Settings;
+            _settingManager = new SpecFirstSettingManager(context);
             IEnumerable<AdditionalText> markdownFiles =
-                context.AdditionalFiles.Where(at => at.Path.EndsWith(settings.SpecFileExtension));
+                context.AdditionalFiles.Where(at => at.Path.EndsWith(_settingManager.Settings.SpecFileExtension));
             foreach (AdditionalText file in markdownFiles)
             {
-                ProcessMarkdownFile(file, context, settings);
+                ProcessMarkdownFile(file, context);
             }
         }
          
-        private void ProcessMarkdownFile(AdditionalText markdownFile, GeneratorExecutionContext context, SpecFirstSettings settings)
+        private void ProcessMarkdownFile(AdditionalText markdownFile, GeneratorExecutionContext context)
         {
-            string markdownText = markdownFile.GetText(context.CancellationToken).ToString();
+            var markdownText = markdownFile.GetText(context.CancellationToken)?.ToString();
             List<DecisionTable> decisionTables = _markdownParser.Parse(markdownText);
-
-            string[] sources = _testsGenerator.Generate(settings.Namespace, decisionTables.ToArray());
-            PersistTestFiles(markdownFile, context, settings, sources);
+            string[] sources = _testsGenerator.Generate(_settingManager.GetTestProject(), decisionTables.ToArray());
+            PersistTestFiles(markdownFile, sources);
         }
 
-        private static void PersistTestFiles(AdditionalText markdownFile, GeneratorExecutionContext context, SpecFirstSettings settings, string[] sources)
+        private void PersistTestFiles(AdditionalText markdownFile, string[] sources)
         {
-            var filePath = GetFilePath(markdownFile, context, settings);
+            var filePath = _settingManager.GetTestFilePath(markdownFile);
 
             Directory.CreateDirectory(filePath!); // create the directory in case it doesn't already exist
 
-            var testFile = PersistTestFile(markdownFile, settings, filePath, sources);
+            PersistTestFile(markdownFile, filePath, sources);
 
-            PersistTestImplementationFile(settings, testFile, filePath, sources);
+            PersistTestImplFile(markdownFile, filePath, sources);
         }
 
-        private static string GetFilePath(AdditionalText additionalText, GeneratorExecutionContext generatorExecutionContext, SpecFirstSettings specFirstSettings)
+        private void PersistTestFile(AdditionalText markdownFile, string filePath, string[] sources)
         {
-            string filePath = Path.GetDirectoryName(additionalText.Path);
-            if (!string.IsNullOrWhiteSpace(specFirstSettings.TestFilePath))
-            {
-                string tempPath = Path.GetDirectoryName(additionalText.Path);
-                string[] paths = tempPath!.Split(new[] {generatorExecutionContext.Compilation.AssemblyName}, StringSplitOptions.RemoveEmptyEntries);
-                if (paths.Length == 2)
-                {
-                    filePath = specFirstSettings.TestFilePath + paths[1];
-                }
-            }
-
-            return filePath;
-        }
-
-        private static string PersistTestFile(AdditionalText markdownFile, SpecFirstSettings settings, string filePath, string[] sources)
-        {
-            string specName = $"{new FileInfo(markdownFile.Path).Name.Replace(settings.SpecFileExtension, "")}";
-            string testFileName = settings.TestFileNamePattern.Replace("{spec_name}", specName);
+            string testFileName = _settingManager.GetTestFile(markdownFile);
             //context.AddSource($"{testFileName}", SourceText.From(sources[0], Encoding.UTF8));
             File.WriteAllText(Path.Combine(filePath!, testFileName), sources[0], Encoding.UTF8);
-            return specName;
         }
 
-        private static void PersistTestImplementationFile(SpecFirstSettings settings, string specName, string filePath, string[] sources)
+        private void PersistTestImplFile(AdditionalText markdownFile, string filePath, string[] sources)
         {
-            string implementationFileName = settings.ImplementationFileNamePattern.Replace("{spec_name}", specName);
+            string implementationFileName = _settingManager.GetTestImplFile(markdownFile);
             if (!File.Exists(Path.Combine(filePath!, implementationFileName)))
             {
                 //context.AddSource($"{implementationFileName}", SourceText.From(sources[1], Encoding.UTF8));

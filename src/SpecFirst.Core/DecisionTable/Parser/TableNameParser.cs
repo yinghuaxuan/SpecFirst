@@ -1,10 +1,15 @@
 ﻿namespace SpecFirst.Core.DecisionTable.Parser
 {
-    public class TableNameParser
+    using System.Linq;
+    using System.Xml.Linq;
+
+    public sealed class TableNameParser
     {
-        public string Parse(string tableName)
+        public string Parse(XElement table)
         {
-            return tableName;
+            var firstRow = table.Descendants("tr").First();
+            var column = firstRow.Descendants("th").Union(firstRow.Descendants("td")).First();
+            return column.Value;
         }
     }
 }

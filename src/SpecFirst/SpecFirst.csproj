@@ -20,7 +20,7 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\SpecFirst.Core\SpecFirst.Core.csproj" />
 	  <ProjectReference Include="..\SpecFirst.MarkdownParser\SpecFirst.MarkdownParser.csproj" />
-	  <ProjectReference Include="..\SpecFirst.SourceGenerator\SpecFirst.TestsGenerator.csproj" />
+	  <ProjectReference Include="..\SpecFirst.SourceGenerator\SpecFirst.TestsGenerator.xUnit.csproj" />
 	</ItemGroup>
 
 </Project>

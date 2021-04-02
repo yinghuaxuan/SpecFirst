@@ -1,14 +1,15 @@
 ﻿namespace SpecFirst.Core.Serialization
 {
+    using System;
     using System.Diagnostics;
 
-    public class BooleanDataSerializer : IDataSerializer
+    public class IntegerDataSerializer : IDataSerializer
     {
         public string Serialize(object data)
         {
-            Debug.Assert(data is bool);
+            Debug.Assert(data is int);
 
-            return data.ToString().ToLowerInvariant();
+            return data.ToString();
         }
     }
 }

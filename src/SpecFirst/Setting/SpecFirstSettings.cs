@@ -4,10 +4,8 @@
     {
         public string SpecFileExtension { get; set; }
         public string TestingFramework { get; set; }
-        public string TestFileNamePattern { get; set; }
-        public string ImplementationFileNamePattern { get; set; }
-        public string TestFilePath { get; set; }
-        public string ImplementationFilePath { get; set; }
-        public string Namespace { get; set; }
+        public string TestProject { get; set; }
+        public string TestFile { get; set; }
+        public string TestImplFile { get; set; }
     }
 }
