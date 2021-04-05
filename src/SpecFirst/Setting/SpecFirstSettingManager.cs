@@ -58,13 +58,13 @@
         public string GetTestFilePath(AdditionalText specFile)
         {
             string specPath = Path.GetDirectoryName(specFile.Path);
-            //string[] paths = specPath!.Split(
-            //    new[] { _context.Compilation.AssemblyName },
-            //    StringSplitOptions.RemoveEmptyEntries);
-            //if (paths.Length == 2)
-            //{
-            //    return Path.Combine(paths[0], GetTestProject(), paths[1]);
-            //}
+            string[] paths = specPath!.Split(
+                new[] { _context.Compilation.AssemblyName },
+                StringSplitOptions.RemoveEmptyEntries);
+            if (paths.Length == 2)
+            {
+                return Path.Combine(paths[0], GetTestProject(), paths[1].TrimStart('\\'));
+            }
 
             return specPath;
         }

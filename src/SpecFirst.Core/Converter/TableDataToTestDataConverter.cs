@@ -11,6 +11,7 @@
         private readonly IDataSerializer _stringSerializer;
         private readonly IDataSerializer _integerSerializer;
         private readonly IDataSerializer _decimalSerializer;
+        private readonly IDataSerializer _doubleSerializer;
         private readonly IDataSerializer _datetimeSerializer;
         private readonly IDataSerializer _booleanSerializer;
 
@@ -18,12 +19,14 @@
             IDataSerializer stringSerializer,
             IDataSerializer integerSerializer,
             IDataSerializer decimalSerializer,
+            IDataSerializer doubleSerializer,
             IDataSerializer datetimeSerializer,
             IDataSerializer booleanSerializer)
         {
             _stringSerializer = stringSerializer;
             _integerSerializer = integerSerializer;
             _decimalSerializer = decimalSerializer;
+            _doubleSerializer = doubleSerializer;
             _datetimeSerializer = datetimeSerializer;
             _booleanSerializer = booleanSerializer;
         }
@@ -38,7 +41,7 @@
                 builder.Clear();
                 for (int j = 0; j < decisionData.GetLength(1); j++)
                 {
-                    if(tableHeaders[j].TableHeaderType == TableHeaderType.Input)
+                    if(tableHeaders[j].TableHeaderType != TableHeaderType.Comment)
                     {
                         var data = Convert(decisionData, i, j);
                         builder.Append($"{data}, ");
@@ -61,6 +64,9 @@
                     break;
                 case decimal _:
                     data = _decimalSerializer.Serialize(decisionData[i, j]);
+                    break;
+                case double _:
+                    data = _doubleSerializer.Serialize(decisionData[i, j]);
                     break;
                 case DateTime _:
                     data = _datetimeSerializer.Serialize(decisionData[i, j]);
