@@ -21,8 +21,8 @@
         {
             var tableName = _tableNameParser.Parse(table);
             var tableHeaders = _tableHeadersParser.Parse(table).ToArray();
-            object[,] tableData = _tableDataParser.Parse(table, out Type[] dataTypes);
-            UpdateTableHeaderTypesBasedOnData(tableHeaders, dataTypes);
+            object[,] tableData = _tableDataParser.Parse(table, out Type[] columnTypes);
+            UpdateTableHeaderTypesBasedOnData(tableHeaders, columnTypes);
             return new DecisionTable(tableName, tableHeaders, tableData);
         }
 
