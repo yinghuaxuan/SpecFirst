@@ -21,9 +21,10 @@
 
         public void Initialize(GeneratorInitializationContext context)
         {
-            //Debugger.Launch();
+            Debugger.Launch();
             _markdownParser = new SpecFirstMarkdownParser();
             _testsGenerator = new XUnitTestsGenerator();
+            
         }
 
         public void Execute(GeneratorExecutionContext context)

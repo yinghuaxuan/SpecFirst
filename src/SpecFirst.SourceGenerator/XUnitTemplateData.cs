@@ -7,6 +7,8 @@
         public string ImplMethodParameters { get; set; }
         public string ImplMethodArguments { get; set; }
         public string ImplMethodReturnValues { get; set; }
+        public string ImplMethodReturnTypes { get; set; }
         public string[] TestData { get; set; }
+        public string AssertStatements { get; set; }
     }
 }

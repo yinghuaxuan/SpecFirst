@@ -1,14 +1,11 @@
-﻿The TypeResolver has two functions:
-* Figure out the actual type of each individual data  
-In order to generate the test case data in the correct format (for
-example, datetime will be converted to something like
-new DateTime(day, month, year) when generating the test data), we
-need to figure out the actual type of the data. 
-* Figure out the actual type of the column   
-The type of the column will be used to generate signatures for
-the test method parameters.
+﻿The TypeResolver is to infer the type of the data from 
+its text representation.  
 
-## Resolve type for scala values
+The following data types are supported:
+- number (integer, double, decimal)
+- datetime
+- boolean
+- string (if text is not any of the types above)
 
 ### Resolve type for numbers
 - If the text is a number and it does not contain '.', 

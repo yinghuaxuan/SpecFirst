@@ -11,7 +11,9 @@ namespace SpecFirst.Specs.Tests
         [MemberData(nameof(get_test_data))]
         public void infer_type_from_number_text_tests(Object number, String actual_type)
         {
-            infer_type_from_number_text_implementation(number);
+            String actual_type_output = infer_type_from_number_text_implementation(number);
+            Assert.Equal(actual_type_output, actual_type);
+
         }
 
         public static IEnumerable<object[]> get_test_data()
@@ -22,7 +24,7 @@ namespace SpecFirst.Specs.Tests
                 new object[] { 12, "integer" },
                 new object[] { 12, "integer" },
                 new object[] { -12, "integer" },
-                new object[] { -103E+06, "integer" },
+                new object[] { -103000000, "integer" },
                 new object[] { 2147483647, "integer" },
                 new object[] { -2147483648, "integer" },
                 new object[] { 2147483648D, "double" },
@@ -67,7 +69,9 @@ namespace SpecFirst.Specs.Tests
         [MemberData(nameof(get_test_data))]
         public void infer_type_from_boolean_text_tests(Object text_value, String actual_type)
         {
-            infer_type_from_boolean_text_implementation(text_value);
+            String actual_type_output = infer_type_from_boolean_text_implementation(text_value);
+            Assert.Equal(actual_type_output, actual_type);
+
         }
 
         public static IEnumerable<object[]> get_test_data()
@@ -98,7 +102,9 @@ namespace SpecFirst.Specs.Tests
         [MemberData(nameof(get_test_data))]
         public void infer_type_from_datetime_text_tests(Object text_value, String actual_type)
         {
-            infer_type_from_datetime_text_implementation(text_value);
+            String actual_type_output = infer_type_from_datetime_text_implementation(text_value);
+            Assert.Equal(actual_type_output, actual_type);
+
         }
 
         public static IEnumerable<object[]> get_test_data()

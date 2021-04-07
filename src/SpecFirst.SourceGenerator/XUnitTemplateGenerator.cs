@@ -28,6 +28,8 @@
                     impl_arguments = t.ImplMethodArguments,
                     impl_parameters = t.ImplMethodParameters,
                     impl_return_values = t.ImplMethodReturnValues,
+                    impl_return_types = t.ImplMethodReturnTypes,
+                    assert_statements = t.AssertStatements,
                     list_of_test_data = t.TestData
                 })
             };

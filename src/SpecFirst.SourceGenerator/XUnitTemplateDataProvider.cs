@@ -42,16 +42,17 @@
         {
             var methodParameters = 
                 _tableHeaderToTestSignatureConverter.Convert(decisionTable.TableHeaders);
-            var testData = _tableDataToTestDataConverter.Convert(
-                                    decisionTable.TableHeaders.ToArray(),
-                                    decisionTable.TableData);
+            var testData = 
+                _tableDataToTestDataConverter.Convert(decisionTable.TableHeaders.ToArray(), decisionTable.TableData);
             XUnitTemplateData templateData = new XUnitTemplateData
             {
                 ClassName = _namingStrategy.Resolve(decisionTable.TableName),
                 TestMethodParameters = methodParameters[0],
                 ImplMethodParameters = methodParameters[1],
                 ImplMethodArguments = methodParameters[2],
-                ImplMethodReturnValues = methodParameters[3],
+                ImplMethodReturnTypes = methodParameters[3],
+                ImplMethodReturnValues = methodParameters[4],
+                AssertStatements = methodParameters[5],
                 TestData = testData
             };
 

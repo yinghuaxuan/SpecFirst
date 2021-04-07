@@ -6,7 +6,7 @@
     {
         /// <summary>
         /// Supported data types: int, decimal, date, boolean, string, array,
-        /// Special keywords: null, blank
+        /// Special keywords: null
         /// </summary>
         /// <param name="types">An array of types.</param>
         /// <returns>The most compatible type of all types.</returns>

@@ -16,7 +16,8 @@ namespace {{namespace_name}}
         [MemberData(nameof(get_test_data))]
         public void {{class_name}}_tests({{test_parameters}})
         {
-            {{class_name}}_implementation({{impl_arguments}});
+            {{impl_return_values}} = {{class_name}}_implementation({{impl_arguments}});
+            {{assert_statements}}
         }
 
         public static IEnumerable<object[]> get_test_data()
@@ -31,7 +32,7 @@ namespace {{namespace_name}}
             return data;
         }
 
-        private partial {{impl_return_values}} {{class_name}}_implementation({{impl_parameters}});
+        private partial {{impl_return_types}} {{class_name}}_implementation({{impl_parameters}});
     }
 
     {{/each}}
@@ -45,7 +46,7 @@ namespace {{namespace_name}}
     {{#each list_of_fixtures}}
     public partial class {{class_name}}
     {
-        private partial {{impl_return_values}} {{class_name}}_implementation({{impl_parameters}})
+        private partial {{impl_return_types}} {{class_name}}_implementation({{impl_parameters}})
         {
             throw new NotImplementedException();
         }
