@@ -5,7 +5,7 @@ namespace SpecFirst.Specs.Tests
 
     public partial class infer_type_from_number_text
     {
-        private partial String infer_type_from_number_text_implementation(Object number)
+        private partial (String, String) infer_type_from_number_text_implementation(Object number)
         {
             throw new NotImplementedException();
         }

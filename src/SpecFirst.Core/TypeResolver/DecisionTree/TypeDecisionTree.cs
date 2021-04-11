@@ -38,7 +38,7 @@
             return new TypeDecisionNode
             {
                 ShouldProcess = c => true,
-                NodeType = (s) => new TypeValuePair(typeof(string), s)
+                NodeType = (s) => new TypeValuePair(typeof(string), s.Trim('\"'))
             };
         }
     }

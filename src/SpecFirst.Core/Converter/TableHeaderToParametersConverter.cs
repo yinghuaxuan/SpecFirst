@@ -17,11 +17,11 @@
         {
             var sanitizedName = ReplaceIllegalCharacters(tableHeader.Name);
             var parameterName = _namingStrategy.Resolve(sanitizedName);
-            var parameterType = tableHeader.DataType.Name;
+            var parameterType = tableHeader.DataType;
 
             return new[]
             {
-                parameterType,
+                CSharpTypeAlias.Alias(parameterType),
                 parameterName
             };
         }

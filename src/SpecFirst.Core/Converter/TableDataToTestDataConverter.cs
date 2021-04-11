@@ -9,24 +9,18 @@
     public class TableDataToTestDataConverter
     {
         private readonly IDataSerializer _stringSerializer;
-        private readonly IDataSerializer _integerSerializer;
-        private readonly IDataSerializer _decimalSerializer;
-        private readonly IDataSerializer _doubleSerializer;
+        private readonly IDataSerializer _numberSerializer;
         private readonly IDataSerializer _datetimeSerializer;
         private readonly IDataSerializer _booleanSerializer;
 
         public TableDataToTestDataConverter(
             IDataSerializer stringSerializer,
-            IDataSerializer integerSerializer,
-            IDataSerializer decimalSerializer,
-            IDataSerializer doubleSerializer,
+            IDataSerializer numberSerializer,
             IDataSerializer datetimeSerializer,
             IDataSerializer booleanSerializer)
         {
             _stringSerializer = stringSerializer;
-            _integerSerializer = integerSerializer;
-            _decimalSerializer = decimalSerializer;
-            _doubleSerializer = doubleSerializer;
+            _numberSerializer = numberSerializer;
             _datetimeSerializer = datetimeSerializer;
             _booleanSerializer = booleanSerializer;
         }
@@ -59,14 +53,8 @@
             string data;
             switch (decisionData[i, j])
             {
-                case int _:
-                    data = _integerSerializer.Serialize(decisionData[i, j]);
-                    break;
-                case decimal _:
-                    data = _decimalSerializer.Serialize(decisionData[i, j]);
-                    break;
-                case double _:
-                    data = _doubleSerializer.Serialize(decisionData[i, j]);
+                case NumberValue _:
+                    data = _numberSerializer.Serialize(decisionData[i, j]);
                     break;
                 case DateTime _:
                     data = _datetimeSerializer.Serialize(decisionData[i, j]);

@@ -24,8 +24,8 @@ namespace {{namespace_name}}
         {
             var data = new List<object[]>
             {
-                {{#each list_of_test_data}}
-                new object[] { {{{this}}} },
+                {{#each test_data_and_comments}}
+                new object[] { {{{this.TestData}}} }, // {{this.Comment}}
                 {{/each}}
             };
 

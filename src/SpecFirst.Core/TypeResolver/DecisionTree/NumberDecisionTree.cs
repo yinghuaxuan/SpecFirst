@@ -134,7 +134,7 @@
                 ShouldProcess = c => char.IsDigit(c),
                 NodeType = (s) =>
                 {
-                    if (double.TryParse(s, out var d)) return new TypeValuePair(typeof(double), d);
+                    if (double.TryParse(s, out var d)) return new TypeValuePair(typeof(double), new NumberValue(s, d));
                     return new TypeValuePair(typeof(string), s);
                 }
             };
@@ -159,8 +159,8 @@
             node.ShouldProcess = c => { return char.IsDigit(c); };
             node.NodeType = (s) =>
             {
-                if (int.TryParse(s, NumberStyles.Any, CultureInfo.InvariantCulture, out var i)) return new TypeValuePair(typeof(int), i);
-                if (double.TryParse(s, NumberStyles.Any, CultureInfo.InvariantCulture, out var d)) return new TypeValuePair(typeof(double), d);
+                if (int.TryParse(s, NumberStyles.Any, CultureInfo.InvariantCulture, out var i)) return new TypeValuePair(typeof(int), new NumberValue(s, i));
+                if (double.TryParse(s, NumberStyles.Any, CultureInfo.InvariantCulture, out var d)) return new TypeValuePair(typeof(double), new NumberValue(s, d));
                 return new TypeValuePair(typeof(string), s);
             };
             return node;
@@ -191,7 +191,7 @@
                 ShouldProcess = c => c == 'M' || c == 'm',
                 NodeType = (s) => 
                 {
-                    if (decimal.TryParse(s.TrimEnd('M', 'm'), NumberStyles.Any, CultureInfo.InvariantCulture, out var m)) return new TypeValuePair(typeof(decimal), m);
+                    if (decimal.TryParse(s.TrimEnd('M', 'm'), NumberStyles.Any, CultureInfo.InvariantCulture, out var m)) return new TypeValuePair(typeof(decimal), new NumberValue(s, m));
                     return new TypeValuePair(typeof(string), s);
                 }
             };
@@ -204,7 +204,7 @@
                 ShouldProcess = c => c == 'D' || c == 'd',
                 NodeType = (s) =>
                 {
-                    if (double.TryParse(s.TrimEnd('D', 'd'), out var d)) return new TypeValuePair(typeof(double), d);
+                    if (double.TryParse(s.TrimEnd('D', 'd'), out var d)) return new TypeValuePair(typeof(double), new NumberValue(s, d));
                     return new TypeValuePair(typeof(string), s);
                 }
             };

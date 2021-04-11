@@ -7,6 +7,7 @@
     using System.IO;
     using System.Linq;
     using System.Text;
+    using Microsoft.CodeAnalysis.Text;
     using SpecFirst.Core;
     using SpecFirst.Core.DecisionTable;
     using SpecFirst.MarkdownParser;
@@ -43,33 +44,33 @@
             var markdownText = markdownFile.GetText(context.CancellationToken)?.ToString();
             List<DecisionTable> decisionTables = _markdownParser.Parse(markdownText);
             string[] sources = _testsGenerator.Generate(_settingManager.GetTestProject(), decisionTables.ToArray());
-            PersistTestFiles(markdownFile, sources);
+            PersistTestFiles(markdownFile, sources, context);
         }
 
-        private void PersistTestFiles(AdditionalText markdownFile, string[] sources)
+        private void PersistTestFiles(AdditionalText markdownFile, string[] sources, GeneratorExecutionContext context)
         {
             var filePath = _settingManager.GetTestFilePath(markdownFile);
 
             Directory.CreateDirectory(filePath!); // create the directory in case it doesn't already exist
 
-            PersistTestFile(markdownFile, filePath, sources);
+            PersistTestFile(markdownFile, filePath, sources, context);
 
-            PersistTestImplFile(markdownFile, filePath, sources);
+            PersistTestImplFile(markdownFile, filePath, sources, context);
         }
 
-        private void PersistTestFile(AdditionalText markdownFile, string filePath, string[] sources)
+        private void PersistTestFile(AdditionalText markdownFile, string filePath, string[] sources, GeneratorExecutionContext context)
         {
             string testFileName = _settingManager.GetTestFile(markdownFile);
-            //context.AddSource($"{testFileName}", SourceText.From(sources[0], Encoding.UTF8));
+            context.AddSource($"{testFileName}", SourceText.From(sources[0], Encoding.UTF8));
             File.WriteAllText(Path.Combine(filePath!, testFileName), sources[0], Encoding.UTF8);
         }
 
-        private void PersistTestImplFile(AdditionalText markdownFile, string filePath, string[] sources)
+        private void PersistTestImplFile(AdditionalText markdownFile, string filePath, string[] sources, GeneratorExecutionContext context)
         {
             string implementationFileName = _settingManager.GetTestImplFile(markdownFile);
+            context.AddSource($"{implementationFileName}", SourceText.From(sources[1], Encoding.UTF8));
             if (!File.Exists(Path.Combine(filePath!, implementationFileName)))
             {
-                //context.AddSource($"{implementationFileName}", SourceText.From(sources[1], Encoding.UTF8));
                 File.WriteAllText(Path.Combine(filePath!, implementationFileName), sources[1], Encoding.UTF8);
             }
         }

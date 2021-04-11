@@ -1,7 +1,5 @@
 ﻿namespace SpecFirst.Core.Converter
 {
-    using System;
-    using System.Collections.Generic;
     using System.Text;
     using SpecFirst.Core.DecisionTable;
 
@@ -56,7 +54,7 @@
             var implMethodParameters = implMethodParametersBuilder.Remove(implMethodParametersBuilder.Length - 2, 2).ToString();
             var implMethodArguments = implMethodArgumentsBuilder.Remove(implMethodArgumentsBuilder.Length - 2, 2).ToString();
             var implMethodReturnTypes = GetImplMethodReturnTypes(numberOfReturnValues, implMethodReturnTypesBuilder);
-            var implMethodReturnValues = implMethodReturnValuesBuilder.Remove(implMethodReturnValuesBuilder.Length - 2, 2).ToString();
+            var implMethodReturnValues = GetImplMethodReturnValues(numberOfReturnValues, implMethodReturnValuesBuilder);
             var assertStatements = assertStatementsBuilder.ToString();
 
             return new[]
@@ -88,23 +86,24 @@
 
             return implMethodReturnValues;
         }
-    }
 
-    public class TypeNamePair
-    {
-        public TypeNamePair(Type type, string name) : this(type, name, null)
+        private static string GetImplMethodReturnValues(int numberOfReturnValues, StringBuilder implMethodReturnValuesBuilder)
         {
-        }
+            string implMethodReturnValues;
+            if (numberOfReturnValues == 1) // return parameter type only, e.g. string
+            {
+                implMethodReturnValues = implMethodReturnValuesBuilder.Remove(implMethodReturnValuesBuilder.Length - 2, 2).ToString();
+            }
+            else if (numberOfReturnValues > 1) // return tuple, e.g. (string s1, string s2)
+            {
+                implMethodReturnValues = implMethodReturnValuesBuilder.Remove(implMethodReturnValuesBuilder.Length - 2, 2).Append(")").Insert(0, "(").ToString();
+            }
+            else // return "void"
+            {
+                implMethodReturnValues = implMethodReturnValuesBuilder.ToString();
+            }
 
-        public TypeNamePair(Type type, string name, string direction)
-        {
-            Type = type;
-            Name = name;
-            Direction = direction;
+            return implMethodReturnValues;
         }
-
-        public Type Type { get; set; }
-        public string Name { get; set; }
-        public string Direction { get; set; }
     }
 }

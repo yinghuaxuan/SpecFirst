@@ -30,7 +30,7 @@
                     impl_return_values = t.ImplMethodReturnValues,
                     impl_return_types = t.ImplMethodReturnTypes,
                     assert_statements = t.AssertStatements,
-                    list_of_test_data = t.TestData
+                    test_data_and_comments = t.TestDataAndComments
                 })
             };
 
