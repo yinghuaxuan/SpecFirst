@@ -1,4 +1,4 @@
-﻿namespace SpecFirst.Core
+﻿namespace SpecFirst.Core.TypeResolver
 {
     public class NumberValue
     {

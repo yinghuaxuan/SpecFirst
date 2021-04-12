@@ -1,10 +1,12 @@
-﻿namespace SpecFirst.Core.Converter
+﻿namespace SpecFirst.TestsGenerator.xUnit.Converter
 {
     using System;
     using System.Collections.Generic;
     using System.Text;
+    using SpecFirst.Core;
     using SpecFirst.Core.DecisionTable;
     using SpecFirst.Core.Serialization;
+    using SpecFirst.Core.TypeResolver;
 
     public class TableDataToTestDataConverter
     {

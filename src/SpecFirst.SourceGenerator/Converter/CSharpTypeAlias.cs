@@ -1,4 +1,4 @@
-﻿namespace SpecFirst.Core.Converter
+﻿namespace SpecFirst.TestsGenerator.xUnit.Converter
 {
     using System;
     using System.Collections.Generic;

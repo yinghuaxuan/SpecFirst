@@ -13,8 +13,7 @@ namespace SpecFirst.Specs.Tests
         {
             (string actual_type_output, string parsed_number_output) = infer_type_from_number_text_implementation(number);
             Assert.Equal(actual_type_output, actual_type);
-Assert.Equal(parsed_number_output, parsed_number);
-
+            Assert.Equal(parsed_number_output, parsed_number);
         }
 
         public static IEnumerable<object[]> get_test_data()
@@ -72,7 +71,6 @@ Assert.Equal(parsed_number_output, parsed_number);
         {
             string actual_type_output = infer_type_from_boolean_text_implementation(text_value);
             Assert.Equal(actual_type_output, actual_type);
-
         }
 
         public static IEnumerable<object[]> get_test_data()
@@ -105,7 +103,6 @@ Assert.Equal(parsed_number_output, parsed_number);
         {
             string actual_type_output = infer_type_from_datetime_text_implementation(text_value);
             Assert.Equal(actual_type_output, actual_type);
-
         }
 
         public static IEnumerable<object[]> get_test_data()

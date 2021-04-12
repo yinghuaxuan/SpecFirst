@@ -16,8 +16,14 @@ namespace {{namespace_name}}
         [MemberData(nameof(get_test_data))]
         public void {{class_name}}_tests({{test_parameters}})
         {
+            {{#if impl_return_values}}
             {{impl_return_values}} = {{class_name}}_implementation({{impl_arguments}});
-            {{assert_statements}}
+            {{else}}
+            {{class_name}}_implementation({{impl_arguments}});
+            {{/if}}
+            {{#each assert_statements}}
+            {{{this}}};
+            {{/each}}
         }
 
         public static IEnumerable<object[]> get_test_data()

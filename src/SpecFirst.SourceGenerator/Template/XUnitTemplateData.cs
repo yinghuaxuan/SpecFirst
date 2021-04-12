@@ -10,8 +10,8 @@
         public string ImplMethodArguments { get; set; }
         public string ImplMethodReturnValues { get; set; }
         public string ImplMethodReturnTypes { get; set; }
-        public List<TestDataAndComment> TestDataAndComments { get; set; }
-        public string AssertStatements { get; set; }
+        public IEnumerable<TestDataAndComment> TestDataAndComments { get; set; }
+        public IEnumerable<string> AssertStatements { get; set; }
     }
 
     public class TestDataAndComment

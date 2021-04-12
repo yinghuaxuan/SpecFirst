@@ -2,9 +2,9 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using SpecFirst.Core.Converter;
     using SpecFirst.Core.DecisionTable;
     using SpecFirst.Core.Serialization;
+    using SpecFirst.TestsGenerator.xUnit.Converter;
 
     public class XUnitTemplateDataProvider
     {
@@ -21,7 +21,7 @@
             var numberSerializer = new NumberDataSerializer();
             _tableDataToTestDataConverter = new TableDataToTestDataConverter(stringSerializer, numberSerializer, datetimeSerializer, booleanSerializer);
             _namingStrategy = new SnakeCaseNamingStrategy();
-            var parameterConverter = new TableHeaderToParametersConverter(_namingStrategy);
+            var parameterConverter = new TableHeaderToParameterConverter(_namingStrategy);
             _tableHeaderToTestSignatureConverter = new TableHeaderToTestSignatureConverter(parameterConverter);
             _tableDataToCommentsConverter = new TableDataToCommentsConverter();
         }
@@ -41,7 +41,7 @@
 
         private XUnitTemplateData GetTemplateData(DecisionTable decisionTable)
         {
-            var methodParameters = 
+            var signature = 
                 _tableHeaderToTestSignatureConverter.Convert(decisionTable.TableHeaders);
             var testData = 
                 _tableDataToTestDataConverter.Convert(decisionTable.TableHeaders, decisionTable.TableData);
@@ -50,12 +50,12 @@
             XUnitTemplateData templateData = new XUnitTemplateData
             {
                 ClassName = _namingStrategy.Resolve(decisionTable.TableName),
-                TestMethodParameters = methodParameters[0],
-                ImplMethodParameters = methodParameters[1],
-                ImplMethodArguments = methodParameters[2],
-                ImplMethodReturnTypes = methodParameters[3],
-                ImplMethodReturnValues = methodParameters[4],
-                AssertStatements = methodParameters[5],
+                TestMethodParameters = signature.TestMethodInputParameters,
+                ImplMethodParameters = signature.ImplMethodInputParameters,
+                ImplMethodArguments = signature.ImplMethodInputArguments,
+                ImplMethodReturnTypes = signature.ImplMethodReturnTypes,
+                ImplMethodReturnValues = signature.ImplMethodReturnValues,
+                AssertStatements = signature.AssertStatements,
                 TestDataAndComments = GetTestDataAndComments(testData, comments)
             };
 
