@@ -134,7 +134,7 @@
                 ShouldProcess = c => char.IsDigit(c),
                 NodeType = (s) =>
                 {
-                    if (double.TryParse(s, out var d)) return new TypeValuePair(typeof(double), new NumberValue(s, d));
+                    if (ParseDouble(s, out var typeValuePair)) return typeValuePair;
                     return new TypeValuePair(typeof(string), s);
                 }
             };
@@ -160,7 +160,7 @@
             node.NodeType = (s) =>
             {
                 if (int.TryParse(s, NumberStyles.Any, CultureInfo.InvariantCulture, out var i)) return new TypeValuePair(typeof(int), new NumberValue(s, i));
-                if (double.TryParse(s, NumberStyles.Any, CultureInfo.InvariantCulture, out var d)) return new TypeValuePair(typeof(double), new NumberValue(s, d));
+                if (ParseDouble(s, out var typeValuePair)) return typeValuePair;
                 return new TypeValuePair(typeof(string), s);
             };
             return node;
@@ -189,9 +189,9 @@
             return new TypeDecisionNode
             {
                 ShouldProcess = c => c == 'M' || c == 'm',
-                NodeType = (s) => 
+                NodeType = (s) =>
                 {
-                    if (decimal.TryParse(s.TrimEnd('M', 'm'), NumberStyles.Any, CultureInfo.InvariantCulture, out var m)) return new TypeValuePair(typeof(decimal), new NumberValue(s, m));
+                    if (ParseDecimal(s, out var typeValuePair)) return typeValuePair;
                     return new TypeValuePair(typeof(string), s);
                 }
             };
@@ -204,7 +204,7 @@
                 ShouldProcess = c => c == 'D' || c == 'd',
                 NodeType = (s) =>
                 {
-                    if (double.TryParse(s.TrimEnd('D', 'd'), out var d)) return new TypeValuePair(typeof(double), new NumberValue(s, d));
+                    if (ParseDouble(s, out var typeValuePair)) return typeValuePair;
                     return new TypeValuePair(typeof(string), s);
                 }
             };
@@ -253,6 +253,35 @@
                 ShouldProcess = c => true,
                 NodeType = (s) => new TypeValuePair(typeof(string), s)
             };
+        }
+
+        private static bool ParseDecimal(string s, out TypeValuePair typeValuePair)
+        {
+            typeValuePair = null;
+
+            if (decimal.TryParse(s.TrimEnd('M', 'm'), NumberStyles.Any, CultureInfo.InvariantCulture, out var m))
+            {
+                typeValuePair = new TypeValuePair(typeof(decimal), new NumberValue(s, m));
+                return true;
+            }
+
+            return false;
+        }
+
+        private static bool ParseDouble(string s, out TypeValuePair typeValuePair)
+        {
+            typeValuePair = null;
+
+            if (double.TryParse(s.TrimEnd('D', 'd'), out var d))
+            {
+                if (!double.IsInfinity(d))
+                {
+                    typeValuePair = new TypeValuePair(typeof(double), new NumberValue(s, d));
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }

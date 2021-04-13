@@ -23,6 +23,7 @@
         {
             parsedValue = null;
             TypeValuePair typeValuePair;
+            value = value.Trim();
             var root = _typeDecisionTree.Root;
             var currentNode = root;
             for (var index = 0; index < value.Length; index++)

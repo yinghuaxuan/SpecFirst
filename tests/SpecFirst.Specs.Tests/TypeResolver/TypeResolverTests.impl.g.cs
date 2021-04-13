@@ -2,28 +2,32 @@
 namespace SpecFirst.Specs.Tests
 {
     using System;
+    using SpecFirst.Core.TypeResolver;
 
     public partial class infer_type_from_number_text
     {
-        private partial (String, String) infer_type_from_number_text_implementation(Object number)
+        private partial (string, string) infer_type_from_number_text_implementation(string number)
         {
-            throw new NotImplementedException();
+            var type = ScalaValueTypeResolver.Resolve(number, out var parsedValue);
+            return (TypeHelper.GetTypeString(type), TypeHelper.Convert(parsedValue));
         }
     }
 
     public partial class infer_type_from_boolean_text
     {
-        private partial String infer_type_from_boolean_text_implementation(Object text_value)
+        private partial (string, string) infer_type_from_boolean_text_implementation(string text_value)
         {
-            throw new NotImplementedException();
+            var type = ScalaValueTypeResolver.Resolve(text_value, out var parsedValue);
+            return (TypeHelper.GetTypeString(type), TypeHelper.Convert(parsedValue));
         }
     }
 
     public partial class infer_type_from_datetime_text
     {
-        private partial String infer_type_from_datetime_text_implementation(Object text_value)
+        private partial (string, string) infer_type_from_datetime_text_implementation(string text_value)
         {
-            throw new NotImplementedException();
+            var type = ScalaValueTypeResolver.Resolve(text_value, out var parsedValue);
+            return (TypeHelper.GetTypeString(type), TypeHelper.Convert(parsedValue));
         }
     }
 
