@@ -9,11 +9,11 @@ namespace SpecFirst.Specs.Tests
     {
         [Theory]
         [MemberData(nameof(get_test_data))]
-        public void infer_type_from_number_text_tests(string number, string actual_type, string parsed_number)
+        public void infer_type_from_number_text_tests(string text_value, string actual_type, string serialized_value)
         {
-            (string actual_type_output, string parsed_number_output) = infer_type_from_number_text_implementation(number);
+            (string actual_type_output, string serialized_value_output) = infer_type_from_number_text_implementation(text_value);
             Assert.Equal(actual_type_output, actual_type);
-            Assert.Equal(parsed_number_output, parsed_number);
+            Assert.Equal(serialized_value_output, serialized_value);
         }
 
         public static IEnumerable<object[]> get_test_data()
@@ -60,18 +60,18 @@ namespace SpecFirst.Specs.Tests
             return data;
         }
 
-        private partial (string, string) infer_type_from_number_text_implementation(string number);
+        private partial (string, string) infer_type_from_number_text_implementation(string text_value);
     }
 
     public partial class infer_type_from_boolean_text
     {
         [Theory]
         [MemberData(nameof(get_test_data))]
-        public void infer_type_from_boolean_text_tests(string text_value, string actual_type, string parsed_value)
+        public void infer_type_from_boolean_text_tests(string text_value, string actual_type, string serialized_value)
         {
-            (string actual_type_output, string parsed_value_output) = infer_type_from_boolean_text_implementation(text_value);
+            (string actual_type_output, string serialized_value_output) = infer_type_from_boolean_text_implementation(text_value);
             Assert.Equal(actual_type_output, actual_type);
-            Assert.Equal(parsed_value_output, parsed_value);
+            Assert.Equal(serialized_value_output, serialized_value);
         }
 
         public static IEnumerable<object[]> get_test_data()
@@ -100,11 +100,11 @@ namespace SpecFirst.Specs.Tests
     {
         [Theory]
         [MemberData(nameof(get_test_data))]
-        public void infer_type_from_datetime_text_tests(string text_value, string actual_type, string parsed_value)
+        public void infer_type_from_datetime_text_tests(string text_value, string actual_type, string serialized_value)
         {
-            (string actual_type_output, string parsed_value_output) = infer_type_from_datetime_text_implementation(text_value);
+            (string actual_type_output, string serialized_value_output) = infer_type_from_datetime_text_implementation(text_value);
             Assert.Equal(actual_type_output, actual_type);
-            Assert.Equal(parsed_value_output, parsed_value);
+            Assert.Equal(serialized_value_output, serialized_value);
         }
 
         public static IEnumerable<object[]> get_test_data()
@@ -123,6 +123,39 @@ namespace SpecFirst.Specs.Tests
         }
 
         private partial (string, string) infer_type_from_datetime_text_implementation(string text_value);
+    }
+
+    public partial class infer_type_from_string_text
+    {
+        [Theory]
+        [MemberData(nameof(get_test_data))]
+        public void infer_type_from_string_text_tests(string text_value, string actual_type, string serialized_value)
+        {
+            (string actual_type_output, string serialized_value_output) = infer_type_from_string_text_implementation(text_value);
+            Assert.Equal(actual_type_output, actual_type);
+            Assert.Equal(serialized_value_output, serialized_value);
+        }
+
+        public static IEnumerable<object[]> get_test_data()
+        {
+            var data = new List<object[]>
+            {
+                new object[] { "this is a string", "string", "this is a string" }, // string without quote
+                new object[] { "this is a string", "string", "this is a string" }, // fully quoted string is same as string without quote
+                new object[] { "\"this is a string\"", "string", "\"this is a string\"" }, // escape fully quoted string to keep the quotes
+                new object[] { "this is a \"string\"", "string", "this is a \"string\"" }, // string with quotes in it
+                new object[] { "this is a \"string\"", "string", "this is a \"string\"" }, // string with nested quotes in it
+                new object[] { "this is a \"string", "string", "this is a \"string" }, // string with one quote in it
+                new object[] { "this is a \\string", "string", "this is a \\string" }, // string with a backslash in it
+                new object[] { "this is a \"string", "string", "this is a \"string" }, // string with escape characters
+                new object[] { "this is a \"string", "string", "this is a \"string" }, // quoted string with escape characters
+                new object[] { "this is a <string>", "string", "this is a <string>" }, // string with great than and less than character
+            };
+
+            return data;
+        }
+
+        private partial (string, string) infer_type_from_string_text_implementation(string text_value);
     }
 
 }

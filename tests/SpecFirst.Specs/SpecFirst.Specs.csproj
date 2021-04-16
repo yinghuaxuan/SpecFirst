@@ -17,9 +17,11 @@
 	  <None Remove="DecisionTable\Experiment.md" />
 	  <None Remove="DecisionTable\Validator\DecisionTableValidator.spec.md1" />
 	  <None Remove="specfirst.config" />
+	  <None Remove="TypeResolver\CollectionTypeResolver.spec.md1" />
 	</ItemGroup>
 
 	<ItemGroup>
+	  <AdditionalFiles Include="TypeResolver\CollectionTypeResolver.spec.md1" />
 	  <AdditionalFiles Include="TypeResolver\TypeResolver.spec.md" />
 	  <AdditionalFiles Include="DecisionTable\Validator\DecisionTableValidator.spec.md1" />
 	  <AdditionalFiles Include="specfirst.config" />
