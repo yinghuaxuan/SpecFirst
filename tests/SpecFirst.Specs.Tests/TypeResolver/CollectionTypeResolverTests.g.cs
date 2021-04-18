@@ -21,14 +21,14 @@ namespace SpecFirst.Specs.Tests
             {
                 new object[] { "[1, 2, 3, 4]", "integer", "new int[] {1, 2, 3, 4}" }, // integer only
                 new object[] { "[3M, 12.5M, 0.0M]", "decimal", "new decimal[] {3M, 12.5M, 0.0M}" }, // decimal only
-                new object[] { "\"[12.5, 3D, 5d, 0.0D]", "double", "new double[] {12.5, 3D, 5d, 0.0D}" }, // double only
+                new object[] { "[12.5, 3D, 5d, 0.0D]", "double", "new double[] {12.5, 3D, 5d, 0.0D}" }, // double only
                 new object[] { "[input, \"output\", comment, \"-12\"]", "string", "new string[] {input, \"output\", comment, \"-12\"}" }, // string only
                 new object[] { "[input, \"output, comment, -12\"]", "string", "new string[] {input, \"output, comment, -12\"}" }, // string only
                 new object[] { "[1, 2, 1M, 2m]", "decimal", "new decimal[] {1, 2, 1M, 2m}" }, // integer and decimal
                 new object[] { "[1, 2, 1D, 2d]", "double", "new double[] {1, 2, 1D, 2d}" }, // integer and double
                 new object[] { "[1D, 1d, 1M, 1m]", "object", "new object[] {1D, 1d, 1M, 1m}" }, // decimal and double
                 new object[] { "[1, 1D, 1d, 1M, 1m, \"1\"]", "object", "new object[] {1, 1D, 1d, 1M, 1m, \"1\"}" }, // number and string
-                new object[] { "[1, 1D, 1d, 1M, 1m, \"1", "object", "new object[] {1, 1D, 1d, 1M, 1m, \"1\"}" }, // missing ending bracket
+                new object[] { "[1, 1D, 1d, 1M, 1m, \"1\"", "object", "new object[] {1, 1D, 1d, 1M, 1m, \"1\"}" }, // missing ending bracket
                 new object[] { "[[1, 1D, 1d, 1M, 1m, \"1\"]", "string", "[[1, 1D, 1d, 1M, 1m, \"1\"]" }, // extra starting bracket
                 new object[] { "[1, 1D, 1d, 1M, 1m, \"1\"]]", "string", "[1, 1D, 1d, 1M, 1m, \"1\"]]" }, // extra ending bracket
                 new object[] { "[1,,]", "string", "[1,,]" }, // empty comma

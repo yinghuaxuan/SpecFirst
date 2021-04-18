@@ -15,15 +15,15 @@
 	  <None Remove="decisionmarkd.config" />
 	  <None Remove="DecisionTable\DecisionTableValidator.spec.md" />
 	  <None Remove="DecisionTable\Experiment.md" />
-	  <None Remove="DecisionTable\Validator\DecisionTableValidator.spec.md1" />
+	  <None Remove="DecisionTable\Validator\DecisionTableValidator.spec.md" />
 	  <None Remove="specfirst.config" />
-	  <None Remove="TypeResolver\CollectionTypeResolver.spec.md1" />
+	  <None Remove="TypeResolver\CollectionTypeResolver.spec.md" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <AdditionalFiles Include="TypeResolver\CollectionTypeResolver.spec.md1" />
-	  <AdditionalFiles Include="TypeResolver\TypeResolver.spec.md" />
-	  <AdditionalFiles Include="DecisionTable\Validator\DecisionTableValidator.spec.md1" />
+	  <AdditionalFiles Include="TypeResolver\CollectionTypeResolver.spec.md" />
+	  <AdditionalFiles Include="TypeResolver\ScalaValueTypeResolver.spec.md" />
+	  <AdditionalFiles Include="DecisionTable\Validator\DecisionTableValidator.spec.md" />
 	  <AdditionalFiles Include="specfirst.config" />
 	</ItemGroup>
 

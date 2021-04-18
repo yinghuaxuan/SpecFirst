@@ -18,7 +18,6 @@
 
   <ItemGroup>
     <Folder Include="DecisionTable\Validator\" />
-    <Folder Include="TypeResolver\" />
   </ItemGroup>
 
 </Project>

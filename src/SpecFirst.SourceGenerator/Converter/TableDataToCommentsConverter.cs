@@ -18,7 +18,7 @@
                 {
                     if(tableHeaders[j].TableHeaderType == TableHeaderType.Comment)
                     {
-                        builder.Append($"{decisionData[i, j]}, ");
+                        builder.Append($"{SanitizeString(decisionData[i, j].ToString())}, ");
                     }
                 }
 
@@ -26,6 +26,13 @@
             }
 
             return testData.ToArray();
+        }
+
+        private string SanitizeString(string value)
+        {
+            return value
+                .Replace("\n", " ")
+                .Replace("\r", " ");
         }
     }
 }

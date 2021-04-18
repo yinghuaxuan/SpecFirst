@@ -94,19 +94,22 @@ For all other formats, we interpret them as string.
 For any text other than number, boolean and datetime, we will interpret them as string.  
 We allow certain special characters and escape characters in the text.
 
-| Infer type from string text                                                                                     ||||
-| #Comment                                            | Text Value           | Actual Type? | Serialized Value?      |
-| --------------------------------------------------- | -------------------- | ------------ | ---------------------- |
-| string without quote                                | this is a string     | string       | "this is a string"     |
-| fully quoted string is same as string without quote | "this is a string"   | string       | "this is a string"     |
-| escape fully quoted string to keep the quotes       | "\"this is a string\"" | string       | "\"this is a string\""   |
-| string with quotes in it                            | this is a "string"   | string       | "this is a \"string\"" |
-| string with nested quotes in it                     | "this is a "string"" | string       | "this is a \"string\"" |
-| string with one quote in it                         | this is a "string    | string       | "this is a \"string"   |
-| string with a backslash in it                       | this is a \\string   | string       | "this is a \\string"   |
-| string with escape characters                       | this is a \"string   | string       | "this is a \"string"   |
-| quoted string with escape characters                | "this is a \"string" | string       | "this is a \"string"   |
-| string with great than and less than character      | "this is a <string>" | string       | "this is a <string>"   |
+| Infer type from string text                                                                                       ||||
+| #Comment                                            | Text Value             | Actual Type? | Serialized Value?      |
+| --------------------------------------------------- | ---------------------- | ------------ | ---------------------- |
+| string without quote                                | this is a string       | string       | "this is a string"     |
+| fully quoted string is same as string without quote | "this is a string"     | string       | "this is a string"     |
+| escape fully quoted string to keep the quotes       | "\"this is a string\"" | string       | "\"this is a string\"" |
+| half quoted string will keep the quotes             | "this is a string      | string       | "this is a string      |
+| half quoted string will keep the quotes             | this is a string"      | string       | this is a string"      |
+| string with quotes in it                            | this is a "string"     | string       | "this is a \"string\"" |
+| string with nested quotes in it                     | "this is a "string""   | string       | "this is a \"string\"" |
+| string with one quote in it                         | this is a "string      | string       | "this is a \"string"   |
+| string with a backslash in it                       | this is a \\string     | string       | "this is a \\string"   |
+| string with escape characters                       | this is a \"string     | string       | "this is a \"string"   |
+| quoted string with escape characters                | "this is a \"string"   | string       | "this is a \"string"   |
+| string with great than and less than character      | "this is a \<string\>"   | string       | "this is a \<string\>"   |
+| white spaces will be kept                           | "  "                   | string       | "  "                   |
 
 
 

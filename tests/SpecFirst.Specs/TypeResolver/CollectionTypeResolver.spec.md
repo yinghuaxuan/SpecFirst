@@ -6,7 +6,7 @@ It will return the most compatible type for the collection.
 | ------------------------------- | ----------------------------------- | ---------------- | ------------------------------------------------ |
 | integer only                    | "[1, 2, 3, 4]"                      | integer          | "new int[] {1, 2, 3, 4}"                         |
 | decimal only                    | "[3M, 12.5M, 0.0M]"                 | decimal          | new decimal[] {3M, 12.5M, 0.0M}                  |
-| double only                     | "[12.5, 3D, 5d, 0.0D]               | double           | new double[] {12.5, 3D, 5d, 0.0D}                |
+| double only                     | "[12.5, 3D, 5d, 0.0D]"               | double           | new double[] {12.5, 3D, 5d, 0.0D}                |
 | string only                     | "[input, "output", comment, "-12"]" | string           | "new string[] {input, "output", comment, "-12"}" |
 | string only                     | "[input, "output, comment, -12"]"   | string           | new string[] {input, "output, comment, -12"}     |
 | integer and decimal             | "[1, 2, 1M, 2m]"                    | decimal          | new decimal[] {1, 2, 1M, 2m}                     |

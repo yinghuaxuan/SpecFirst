@@ -143,6 +143,8 @@ namespace SpecFirst.Specs.Tests
                 new object[] { "this is a string", "string", "this is a string" }, // string without quote
                 new object[] { "this is a string", "string", "this is a string" }, // fully quoted string is same as string without quote
                 new object[] { "\"this is a string\"", "string", "\"this is a string\"" }, // escape fully quoted string to keep the quotes
+                new object[] { "\"this is a string", "string", "\"this is a string" }, // half quoted string will keep the quotes
+                new object[] { "this is a string\"", "string", "this is a string\"" }, // half quoted string will keep the quotes
                 new object[] { "this is a \"string\"", "string", "this is a \"string\"" }, // string with quotes in it
                 new object[] { "this is a \"string\"", "string", "this is a \"string\"" }, // string with nested quotes in it
                 new object[] { "this is a \"string", "string", "this is a \"string" }, // string with one quote in it
@@ -150,6 +152,7 @@ namespace SpecFirst.Specs.Tests
                 new object[] { "this is a \"string", "string", "this is a \"string" }, // string with escape characters
                 new object[] { "this is a \"string", "string", "this is a \"string" }, // quoted string with escape characters
                 new object[] { "this is a <string>", "string", "this is a <string>" }, // string with great than and less than character
+                new object[] { "  ", "string", "  " }, // white spaces will be kept
             };
 
             return data;

@@ -28,8 +28,8 @@
 
             return 
                 value
-                //.Replace("\n", " ")
-                //.Replace("\r", " ")
+                .Replace("\n", " ")
+                .Replace("\r", " ")
                 //.Replace(@"""", @"\""")
                 .Replace("\\", "\\\\")
                 .Replace("\"", "\\\"")
