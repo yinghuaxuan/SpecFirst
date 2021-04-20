@@ -2,7 +2,7 @@
 {
     using System.Diagnostics;
 
-    public class BooleanDataSerializer : IDataSerializer
+    public class BooleanDataSerializer : IPrimitiveDataSerializer
     {
         public string Serialize(object data)
         {

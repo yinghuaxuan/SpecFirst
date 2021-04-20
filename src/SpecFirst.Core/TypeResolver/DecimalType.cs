@@ -1,14 +1,14 @@
 ﻿namespace SpecFirst.Core.TypeResolver
 {
-    public class NumberValue
+    public class DecimalType
     {
-        public NumberValue(string originalValue, object parsedValue)
+        public DecimalType(string originalValue, decimal parsedValue)
         {
             OriginalValue = originalValue;
             ParsedValue = parsedValue;
         }
 
         public string OriginalValue { get; }
-        public object ParsedValue { get; }
+        public decimal ParsedValue { get; }
     }
 }

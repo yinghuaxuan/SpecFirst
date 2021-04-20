@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using SpecFirst.Core.DecisionTable;
 
     public class UnitTest
     {
@@ -16,12 +15,12 @@
             {
                 switch (parameter.Direction)
                 {
-                    case TableHeaderType.Comment:
+                    case ParameterDirection.Comment:
                         break;
-                    case TableHeaderType.Input:
+                    case ParameterDirection.Input:
                         _inputParameters.Add(parameter);
                         break;
-                    case TableHeaderType.Output:
+                    case ParameterDirection.Output:
                         _outParameters.Add(parameter);
                         break;
                     default:

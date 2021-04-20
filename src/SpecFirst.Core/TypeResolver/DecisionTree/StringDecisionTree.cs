@@ -1,6 +1,6 @@
 ﻿namespace SpecFirst.Core.TypeResolver
 {
-    public class StringDecisionTree
+    public static class StringDecisionTree
     {
         public static TypeDecisionNode Construct()
         {

@@ -1,6 +1,6 @@
 ﻿namespace SpecFirst.Core.TypeResolver
 {
-    public class BooleanDecisionTree
+    public static class BooleanDecisionTree
     {
         public static TypeDecisionNode ConstructTrueTree()
         {

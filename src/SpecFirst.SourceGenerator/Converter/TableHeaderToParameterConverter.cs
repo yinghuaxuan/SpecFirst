@@ -1,5 +1,6 @@
 ﻿namespace SpecFirst.TestsGenerator.xUnit.Converter
 {
+    using System;
     using System.Text.RegularExpressions;
     using SpecFirst.Core.DecisionTable;
     using SpecFirst.Core.Serialization;
@@ -24,13 +25,28 @@
             {
                 Type = CSharpTypeAlias.Alias(parameterType),
                 Name = parameterName,
-                Direction = tableHeader.TableHeaderType
+                Direction = Map(tableHeader.TableHeaderType)
             };
         }
 
         private string ReplaceIllegalCharacters(string input)
         {
             return Regex.Replace(input, @"[^\w@-]", "_");
+        }
+
+        private ParameterDirection Map(TableHeaderType tableHeaderType)
+        {
+            switch (tableHeaderType)
+            {
+                case TableHeaderType.Comment:
+                    return ParameterDirection.Comment;
+                case TableHeaderType.Input:
+                    return ParameterDirection.Input;
+                case TableHeaderType.Output:
+                    return ParameterDirection.Output;
+                default:
+                    throw new InvalidOperationException();
+            }
         }
     }
 }

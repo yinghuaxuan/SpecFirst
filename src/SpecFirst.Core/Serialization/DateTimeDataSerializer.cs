@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class DateTimeDataSerializer : IDataSerializer
+    public class DateTimeDataSerializer : IPrimitiveDataSerializer
     {
         public string Serialize(object data)
         {

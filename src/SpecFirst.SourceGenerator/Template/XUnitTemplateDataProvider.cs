@@ -19,7 +19,8 @@
             var datetimeSerializer = new DateTimeDataSerializer();
             var booleanSerializer = new BooleanDataSerializer();
             var numberSerializer = new NumberDataSerializer();
-            _tableDataToTestDataConverter = new TableDataToTestDataConverter(stringSerializer, numberSerializer, datetimeSerializer, booleanSerializer);
+            var arraySerializer = new ArrayDataSerializer(stringSerializer, numberSerializer, datetimeSerializer, booleanSerializer);
+            _tableDataToTestDataConverter = new TableDataToTestDataConverter(stringSerializer, numberSerializer, datetimeSerializer, booleanSerializer, arraySerializer);
             _namingStrategy = new SnakeCaseNamingStrategy();
             var parameterConverter = new TableHeaderToParameterConverter(_namingStrategy);
             _tableHeaderToTestSignatureConverter = new TableHeaderToTestSignatureConverter(parameterConverter);

@@ -2,12 +2,14 @@
 namespace SpecFirst.Specs.Tests
 {
     using System;
+    using SpecFirst.Core.TypeResolver;
 
     public partial class infer_type_from_collection_text
     {
-        private partial string infer_type_from_collection_text_implementation(string collection, string parsed_collection)
+        private partial (string, string) infer_type_from_collection_text_implementation(string collection)
         {
-            throw new NotImplementedException();
+            var type = CollectionTypeResolver.Resolve(collection, out var parsedValue);
+            return (TypeHelper.GetTypeString(type), TypeHelper.Serialize(parsedValue, type));
         }
     }
 

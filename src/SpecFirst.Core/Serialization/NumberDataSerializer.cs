@@ -1,22 +1,42 @@
 ﻿namespace SpecFirst.Core.Serialization
 {
     using System;
-    using System.Diagnostics;
     using SpecFirst.Core.TypeResolver;
 
-    public class NumberDataSerializer : IDataSerializer
+    public class NumberDataSerializer : IPrimitiveDataSerializer
     {
         public string Serialize(object data)
         {
-            var value = data as NumberValue;
+            switch (data)
+            {
+                case IntType value:
+                    return SerializeInt(value);
+                case DecimalType value:
+                    return SerializeDecimal(value);
+                case DoubleType value:
+                    return SerializeDouble(value);
+                default:
+                    throw new InvalidOperationException();
+            }
+        }
 
-            Debug.Assert(!(value is null));
-
-            if (value.ParsedValue is double && !value.OriginalValue.EndsWith("D", StringComparison.OrdinalIgnoreCase))
+        private string SerializeDouble(DoubleType value)
+        {
+            if (!value.OriginalValue.EndsWith("D", StringComparison.OrdinalIgnoreCase))
             {
                 return $"{value.OriginalValue}D";
             }
 
+            return value.OriginalValue.ToUpper().TrimStart('+');
+        }
+
+        private string SerializeInt(IntType value)
+        {
+            return value.OriginalValue.ToUpper().TrimStart('+');
+        }
+
+        private string SerializeDecimal(DecimalType value)
+        {
             return value.OriginalValue.ToUpper().TrimStart('+');
         }
     }
