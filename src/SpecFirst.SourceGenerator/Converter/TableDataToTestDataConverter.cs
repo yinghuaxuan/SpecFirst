@@ -6,6 +6,7 @@
     using SpecFirst.Core.DecisionTable;
     using SpecFirst.Core.Serialization;
     using SpecFirst.Core.TypeResolver;
+    using SpecFirst.TestsGenerator.xUnit.Serialization;
 
     public class TableDataToTestDataConverter
     {

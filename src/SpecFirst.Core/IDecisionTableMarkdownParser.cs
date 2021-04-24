@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
 
-    public interface IMarkdownParser
+    public interface IDecisionTableMarkdownParser
     {
         List<DecisionTable.DecisionTable> Parse(string markdownText);
     }

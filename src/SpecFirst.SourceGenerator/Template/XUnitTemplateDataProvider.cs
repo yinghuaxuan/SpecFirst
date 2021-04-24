@@ -5,6 +5,7 @@
     using SpecFirst.Core.DecisionTable;
     using SpecFirst.Core.Serialization;
     using SpecFirst.TestsGenerator.xUnit.Converter;
+    using SpecFirst.TestsGenerator.xUnit.Serialization;
 
     public class XUnitTemplateDataProvider
     {

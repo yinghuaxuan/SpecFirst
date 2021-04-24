@@ -16,14 +16,14 @@
     [Generator]
     public sealed class SpecFirstGenerator : ISourceGenerator
     {
-        private SpecFirstMarkdownParser _markdownParser;
+        private SpecFirstDecisionTableMarkdownParser _markdownParser;
         private ITestsGenerator _testsGenerator;
         private SpecFirstSettingManager _settingManager;
 
         public void Initialize(GeneratorInitializationContext context)
         {
             Debugger.Launch();
-            _markdownParser = new SpecFirstMarkdownParser();
+            _markdownParser = new SpecFirstDecisionTableMarkdownParser();
             _testsGenerator = new XUnitTestsGenerator();
             
         }
@@ -51,7 +51,7 @@
         {
             var filePath = _settingManager.GetTestFilePath(markdownFile);
 
-            Directory.CreateDirectory(filePath!); // create the directory in case it doesn't already exist
+            Directory.CreateDirectory(filePath!); // create the directory in case it doesn't exist
 
             PersistTestFile(markdownFile, filePath, sources, context);
 

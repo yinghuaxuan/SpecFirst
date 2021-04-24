@@ -12,8 +12,17 @@ namespace SpecFirst.MarkdownParser
     using SpecFirst.Core.DecisionTable.Parser;
     using SpecFirst.Core.DecisionTable.Validator;
 
-    public class SpecFirstMarkdownParser : IMarkdownParser
+    public sealed class SpecFirstDecisionTableMarkdownParser : IDecisionTableMarkdownParser
     {
+        private readonly IDecisionTableParser _tableParser;
+        private readonly IDecisionTableHtmlValidator _tableValidator;
+
+        public SpecFirstDecisionTableMarkdownParser()
+        {
+            _tableParser = new DecisionTableParser();
+            _tableValidator = new DecisionTableHtmlValidator();
+        }
+
         public List<DecisionTable> Parse(string markdownText)
         {
             string html = TryParseMarkdownToHtml(markdownText);
@@ -23,17 +32,17 @@ namespace SpecFirst.MarkdownParser
             return decisionTables;
         }
 
-        private static List<DecisionTable> TryExtractDecisionTables(XDocument document)
+        private List<DecisionTable> TryExtractDecisionTables(XDocument document)
         {
             List<DecisionTable> decisionTables = new List<DecisionTable>();
             IEnumerable<XElement> tables = document.Descendants("table");
             foreach (XElement table in tables)
             {
-                if (new DecisionTableHtmlValidator().Validate(table, out _))
+                if (_tableValidator.Validate(table, out _))
                 {
                     try
                     {
-                        DecisionTable decisionTable = new DecisionTableParser().Parse(table);
+                        DecisionTable decisionTable = _tableParser.Parse(table);
                         decisionTables.Add(decisionTable);
                     }
                     catch (Exception e)

@@ -6,7 +6,7 @@
     using System.Xml.Linq;
     using SpecFirst.Core.TypeResolver;
 
-    public class TableDataParser
+    public sealed class TableDataParser
     {
         public object[,] Parse(XElement decisionTable, out Type[] types)
         {

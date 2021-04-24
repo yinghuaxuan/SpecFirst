@@ -5,6 +5,7 @@
     using System.Text.RegularExpressions;
     using SpecFirst.Core.Serialization;
     using SpecFirst.Core.TypeResolver;
+    using SpecFirst.TestsGenerator.xUnit.Serialization;
 
     public static class TypeHelper
     {

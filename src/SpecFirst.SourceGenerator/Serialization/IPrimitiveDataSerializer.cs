@@ -1,4 +1,4 @@
-﻿namespace SpecFirst.Core.Serialization
+﻿namespace SpecFirst.TestsGenerator.xUnit.Serialization
 {
     public interface IPrimitiveDataSerializer
     {
