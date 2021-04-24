@@ -35,11 +35,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\src\SpecFirst\SpecFirst.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <Folder Include="Serialization\" />
 	</ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\SpecFirst.SourceGenerator\SpecFirst.TestsGenerator.xUnit.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+  </ItemGroup>
 
 </Project>
