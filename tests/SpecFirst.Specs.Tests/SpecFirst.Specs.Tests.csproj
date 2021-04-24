@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -13,11 +13,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\SpecFirst\SpecFirst.csproj" />
+    <Folder Include="DecisionTable\Validator\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DecisionTable\Validator\" />
+    <ProjectReference Include="..\..\src\SpecFirst.SourceGenerator\SpecFirst.TestsGenerator.xUnit.csproj" />
   </ItemGroup>
 
 </Project>

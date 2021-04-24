@@ -51,7 +51,7 @@
         {
             var filePath = _settingManager.GetTestFilePath(markdownFile);
 
-            Directory.CreateDirectory(filePath!); // create the directory in case it doesn't exist
+            Directory.CreateDirectory(filePath); // create the directory in case it doesn't exist
 
             PersistTestFile(markdownFile, filePath, sources, context);
 
@@ -62,16 +62,16 @@
         {
             string testFileName = _settingManager.GetTestFile(markdownFile);
             context.AddSource($"{testFileName}", SourceText.From(sources[0], Encoding.UTF8));
-            File.WriteAllText(Path.Combine(filePath!, testFileName), sources[0], Encoding.UTF8);
+            File.WriteAllText(Path.Combine(filePath, testFileName), sources[0], Encoding.UTF8);
         }
 
         private void PersistTestImplFile(AdditionalText markdownFile, string filePath, string[] sources, GeneratorExecutionContext context)
         {
             string implementationFileName = _settingManager.GetTestImplFile(markdownFile);
             context.AddSource($"{implementationFileName}", SourceText.From(sources[1], Encoding.UTF8));
-            if (!File.Exists(Path.Combine(filePath!, implementationFileName)))
+            if (!File.Exists(Path.Combine(filePath, implementationFileName)))
             {
-                File.WriteAllText(Path.Combine(filePath!, implementationFileName), sources[1], Encoding.UTF8);
+                File.WriteAllText(Path.Combine(filePath, implementationFileName), sources[1], Encoding.UTF8);
             }
         }
     }

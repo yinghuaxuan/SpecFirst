@@ -58,7 +58,7 @@
         public string GetTestFilePath(AdditionalText specFile)
         {
             string specPath = Path.GetDirectoryName(specFile.Path);
-            string[] paths = specPath!.Split(
+            string[] paths = specPath.Split(
                 new[] { _context.Compilation.AssemblyName },
                 StringSplitOptions.RemoveEmptyEntries);
             if (paths.Length == 2)
