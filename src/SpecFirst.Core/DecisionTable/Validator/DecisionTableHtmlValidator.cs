@@ -1,5 +1,6 @@
 ﻿namespace SpecFirst.Core.DecisionTable.Validator
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Xml.Linq;
@@ -21,6 +22,11 @@
             if (columns.Count() != 1)
             {
                 errorList.Add("The first row of the decision table must have a single column");
+            }
+
+            if (columns.ElementAt(0).Value.TrimStart().StartsWith("comment", StringComparison.OrdinalIgnoreCase))
+            {
+                errorList.Add("The first row is a comment row");
             }
 
             errors = errorList;

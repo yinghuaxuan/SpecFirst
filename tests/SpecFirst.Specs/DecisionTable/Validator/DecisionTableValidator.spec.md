@@ -70,6 +70,42 @@
 |                          | \</tr\>                  |           |                                    |\
 |                          | \</tbody\>               |           |                                    |\
 |                          | \</table\>               |           |                                 |   
+| Table marked             | \<table\>                | false     | The first row is a comment row      |\
+| as comment               | \<tbody\>                |           |     |\
+|                          | \<tr\>                   |           |                                    |\
+|                          | \<td\>                   |           |                                    |\
+|                          | Comment      |           |                                    |\
+|                          | \</td\>                  |           |                                    |\
+|                          | \</tr\>                  |           |                                    |\
+|                          | \<tr\>                   |           |                                    |\
+|                          | \<td\>                   |           |                                    |\
+|                          | Decision Table Name      |           |                                    |\
+|                          | \</td\>                  |           |                                    |\
+|                          | \</tr\>                  |           |                                    |\
+|                          | \<tr\>                   |           |                                    |\
+|                          | \<td\>                   |           |                                    |\
+|                          | Decision Table Header 1  |           |                                    |\
+|                          | \</td\>                  |           |                                    |\
+|                          | \<td\>                   |           |                                    |\
+|                          | Decision Table Header 2  |           |                                    |\
+|                          | \</td\>                  |           |                                    |\
+|                          | \<td\>                   |           |                                    |\
+|                          | Decision Table Header 3? |           |                                    |\
+|                          | \</td\>                  |           |                                    |\
+|                          | \</tr\>                  |           |                                    |\
+|                          | \<tr\>                   |           |                                    |\
+|                          | \<td\>                   |           |                                    |\
+|                          | Decision Table Data 1    |           |                                    |\
+|                          | \</td\>                  |           |                                    |\
+|                          | \<td\>                   |           |                                    |\
+|                          | Decision Table Data 2    |           |                                    |\
+|                          | \</td\>                  |           |                                    |\
+|                          | \<td\>                   |           |                                    |\
+|                          | Decision Table Data 3    |           |                                    |\
+|                          | \</td\>                  |           |                                    |\
+|                          | \</tr\>                  |           |                                    |\
+|                          | \</tbody\>               |           |                                    |\
+|                          | \</table\>               |           |                                 |   
 | Table with               | \<table\>                | true      | ""                                 |\
 | 1 name and               | \<tbody\>                |           |                                    |\
 | 1 header                 | \<tr\>                   |           |                                    |\
@@ -134,6 +170,4 @@
 |                          | \</tr\>                  |           |                                    |\
 |                          | \</tbody\>               |           |                                    |\
 |                          | \</table\>               |           |                                 |   
-
-
 
