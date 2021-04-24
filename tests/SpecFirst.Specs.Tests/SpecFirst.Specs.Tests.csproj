@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\SpecFirst.SourceGenerator\SpecFirst.TestsGenerator.xUnit.csproj" />
+    <ProjectReference Include="..\..\src\SpecFirst.TestsGenerator.xUnit\SpecFirst.TestsGenerator.xUnit.csproj" />
   </ItemGroup>
 
 </Project>

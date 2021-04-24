@@ -39,7 +39,7 @@
 	</ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\SpecFirst.SourceGenerator\SpecFirst.TestsGenerator.xUnit.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+    <ProjectReference Include="..\..\src\SpecFirst.TestsGenerator.xUnit\SpecFirst.TestsGenerator.xUnit.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
 
 </Project>
