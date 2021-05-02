@@ -2,12 +2,18 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>Latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <AssemblyName>SpecFirst</AssemblyName>
+    <RootNamespace>SpecFirst</RootNamespace>
+    <IncludeSymbols>False</IncludeSymbols>
+    <NoWarn>$(NoWarn);NU5128</NoWarn>
+    <Description>The source generator to auto generate tests from decision tables written in markdown files. It requires two more packages to work: the package to parse markdown decision tables into decision table objects; and the package to generate tests for the target testing framework</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Description>Parse decision tables in the markdown files to decision tables object using markdown-it parser. The decision table objects will be used by the source generator to auto-generate tests</Description>
-    <Version>1.6.0</Version>
-    <Authors>yinghuaxuan</Authors>
-    <Company />
-    <Product />
+    <Version>1.12.0</Version>
+    <Company></Company>
+    <Product></Product>
     <PackageLicenseExpression>BSD-2</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/yinghuaxuan/spec-first</PackageProjectUrl>
     <RepositoryUrl>https://github.com/yinghuaxuan/spec-first</RepositoryUrl>
@@ -15,20 +21,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Script\bundle.js" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Script\bundle.js">
-      <Pack>true</Pack>
-      <PackagePath>lib\netstandard2.0\Script</PackagePath>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Jurassic" Version="3.1.0" PrivateAssets="all" />
-    <PackageReference Include="SpecFirst.Core" Version="1.2.0" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.1" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.CodeAnalysis" Version="3.8.0" PrivateAssets="all" />
+    <PackageReference Include="SpecFirst.Core" Version="1.2.0" />
+    <PackageReference Update="NETStandard.Library" PrivateAssets="all" />
   </ItemGroup>
 
   <Target Name="AddNuGetDlls" BeforeTargets="_GetPackageFiles">
@@ -47,11 +43,10 @@
 
     <ItemGroup>
       <!-- Update the collection of items to pack with the DLLs from the NuGet packages -->
-      <None Include="@(_PackagesToPack)" Pack="true" PackagePath="lib\netstandard2.0" Visible="false" />
+      <None Include="@(_PackagesToPack)" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
 
       <!-- Add the DLL produced by the current project to the NuGet package -->
-      <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="lib\netstandard2.0" Visible="false" />
+      <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
     </ItemGroup>
   </Target>
-
 </Project>

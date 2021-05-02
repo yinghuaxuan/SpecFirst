@@ -1,36 +1,28 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <IsPackable>true</IsPackable>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Description>The source generator to generate c# xUnit tests from markdown decision tables</Description>
+    <Version>1.7.0</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Description>Parse decision tables in the markdown files to decision tables object using markdown-it parser. The decision table objects will be used by the source generator to auto-generate tests</Description>
-    <Version>1.6.0</Version>
     <Authors>yinghuaxuan</Authors>
-    <Company />
+    <Company></Company>
     <Product />
-    <PackageLicenseExpression>BSD-2</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/yinghuaxuan/spec-first</PackageProjectUrl>
     <RepositoryUrl>https://github.com/yinghuaxuan/spec-first</RepositoryUrl>
     <PackageTags>source generator</PackageTags>
+    <PackageLicenseExpression>BSD-2</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Script\bundle.js" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Script\bundle.js">
-      <Pack>true</Pack>
-      <PackagePath>lib\netstandard2.0\Script</PackagePath>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Jurassic" Version="3.1.0" PrivateAssets="all" />
+    <!-- Add PrivateAssets="all" because SpecFirst analyzer need these dependencies to be included in the package-->
+    <PackageReference Include="Handlebars.Net" Version="1.10.1" PrivateAssets="all"/>
     <PackageReference Include="SpecFirst.Core" Version="1.2.0" PrivateAssets="all" />
+    <!-- Automatically install xunit package when this package is installed -->
+    <PackageReference Include="xunit" Version="2.4.0" />
   </ItemGroup>
-
+  
   <Target Name="AddNuGetDlls" BeforeTargets="_GetPackageFiles">
     <!-- Merge the collection of PackageReference and Assemblies using the NuGetPackageId key.
            This produces a new list containing the DLL path and the "IncludeInPackage" metadata-->
@@ -53,5 +45,4 @@
       <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="lib\netstandard2.0" Visible="false" />
     </ItemGroup>
   </Target>
-
 </Project>
