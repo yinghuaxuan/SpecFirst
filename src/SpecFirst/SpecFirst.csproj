@@ -11,7 +11,7 @@
     <NoWarn>$(NoWarn);NU5128</NoWarn>
     <Description>The source generator to auto generate tests from decision tables written in markdown files. It requires two more packages to work: the package to parse markdown decision tables into decision table objects; and the package to generate tests for the target testing framework</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.25.0</Version>
+    <Version>1.29.0</Version>
     <Company></Company>
     <Product></Product>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>

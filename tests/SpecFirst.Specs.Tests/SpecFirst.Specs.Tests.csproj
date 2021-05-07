@@ -7,7 +7,6 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
-    <PackageReference Include="SpecFirst.xUnit" Version="1.7.0" />
     <PackageReference Include="xunit" Version="2.4.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
     <PackageReference Include="coverlet.collector" Version="1.2.0" />
@@ -19,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\SpecFirst.Core\SpecFirst.Core.csproj" />
+    <ProjectReference Include="..\..\src\SpecFirst.xUnit\SpecFirst.xUnit.csproj" />
   </ItemGroup>
 
 </Project>

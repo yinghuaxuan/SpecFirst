@@ -16,11 +16,6 @@
     [Generator]
     public sealed class SpecFirstGenerator : ISourceGenerator
     {
-        private static DateTime _lastGenerationRun = DateTime.MinValue;
-        private static readonly TimeSpan _generationMinThreshold = TimeSpan.FromSeconds(30);
-        private static bool _generationInProgress = false;
-        private static readonly object _generationLock = new();
-
         private IDecisionTableMarkdownParser? _markdownParser;
         private ITestsGenerator? _testsGenerator;
         private SpecFirstSettingManager? _settingManager;
@@ -32,29 +27,15 @@
 
         public void Execute(GeneratorExecutionContext context)
         {
-            if(DateTime.Now - _lastGenerationRun > _generationMinThreshold && !_generationInProgress)
+            _settingManager = new SpecFirstSettingManager(context);
+            _markdownParser = GetMarkdownParser(context);
+            _testsGenerator = GetTestGenerator(context);
+
+            IEnumerable<AdditionalText> markdownFiles =
+                context.AdditionalFiles.Where(at => at.Path.EndsWith(_settingManager.Settings.SpecFileExtension));
+            foreach (AdditionalText file in markdownFiles)
             {
-                lock (_generationLock)
-                {
-                    if (DateTime.Now - _lastGenerationRun > _generationMinThreshold)
-                    {
-                        _generationInProgress = true;
-
-                        _settingManager = new SpecFirstSettingManager(context);
-                        _markdownParser = GetMarkdownParser(context);
-                        _testsGenerator = GetTestGenerator(context);
-
-                        IEnumerable<AdditionalText> markdownFiles =
-                            context.AdditionalFiles.Where(at => at.Path.EndsWith(_settingManager.Settings.SpecFileExtension));
-                        foreach (AdditionalText file in markdownFiles)
-                        {
-                            ProcessMarkdownFile(file, context);
-                        }
-
-                        _lastGenerationRun = DateTime.Now;
-                        _generationInProgress = false;
-                    }
-                }
+                ProcessMarkdownFile(file, context);
             }
         }
 
