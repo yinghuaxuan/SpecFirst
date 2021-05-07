@@ -1,4 +1,4 @@
-﻿namespace SpecFirst.Specs.Tests
+﻿namespace SpecFirst.Specs
 {
     using System;
     using System.Linq;

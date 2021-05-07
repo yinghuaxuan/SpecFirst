@@ -4,6 +4,7 @@
     using Microsoft.CodeAnalysis;
     using SpecFirst.Setting;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.IO;
     using System.Linq;
     using System.Reflection;
@@ -15,26 +16,45 @@
     [Generator]
     public sealed class SpecFirstGenerator : ISourceGenerator
     {
-        private IDecisionTableMarkdownParser _markdownParser;
-        private ITestsGenerator _testsGenerator;
-        private SpecFirstSettingManager _settingManager;
+        private static DateTime _lastGenerationRun = DateTime.MinValue;
+        private static readonly TimeSpan _generationMinThreshold = TimeSpan.FromSeconds(30);
+        private static bool _generationInProgress = false;
+        private static readonly object _generationLock = new();
+
+        private IDecisionTableMarkdownParser? _markdownParser;
+        private ITestsGenerator? _testsGenerator;
+        private SpecFirstSettingManager? _settingManager;
 
         public void Initialize(GeneratorInitializationContext context)
         {
-            //Debugger.Launch();
+            Debugger.Launch();
         }
 
         public void Execute(GeneratorExecutionContext context)
         {
-            _settingManager = new SpecFirstSettingManager(context);
-            _markdownParser = GetMarkdownParser(context);
-            _testsGenerator = GetTestGenerator(context);
-
-            IEnumerable<AdditionalText> markdownFiles =
-                context.AdditionalFiles.Where(at => at.Path.EndsWith(_settingManager.Settings.SpecFileExtension));
-            foreach (AdditionalText file in markdownFiles)
+            if(DateTime.Now - _lastGenerationRun > _generationMinThreshold && !_generationInProgress)
             {
-                ProcessMarkdownFile(file, context);
+                lock (_generationLock)
+                {
+                    if (DateTime.Now - _lastGenerationRun > _generationMinThreshold)
+                    {
+                        _generationInProgress = true;
+
+                        _settingManager = new SpecFirstSettingManager(context);
+                        _markdownParser = GetMarkdownParser(context);
+                        _testsGenerator = GetTestGenerator(context);
+
+                        IEnumerable<AdditionalText> markdownFiles =
+                            context.AdditionalFiles.Where(at => at.Path.EndsWith(_settingManager.Settings.SpecFileExtension));
+                        foreach (AdditionalText file in markdownFiles)
+                        {
+                            ProcessMarkdownFile(file, context);
+                        }
+
+                        _lastGenerationRun = DateTime.Now;
+                        _generationInProgress = false;
+                    }
+                }
             }
         }
 
@@ -110,17 +130,19 @@
         private void PersistTestFile(AdditionalText markdownFile, string filePath, string[] sources, GeneratorExecutionContext context)
         {
             string testFileName = _settingManager.GetTestFile(markdownFile);
-            context.AddSource($"{testFileName}", SourceText.From(sources[0], Encoding.UTF8));
-            File.WriteAllText(Path.Combine(filePath, testFileName), sources[0], Encoding.UTF8);
+            //context.AddSource($"{testFileName}", SourceText.From(sources[0], Encoding.UTF8));
+            var testFile = Path.Combine(filePath, testFileName);
+            File.WriteAllText(testFile, sources[0], Encoding.UTF8);
         }
 
         private void PersistTestImplFile(AdditionalText markdownFile, string filePath, string[] sources, GeneratorExecutionContext context)
         {
             string implementationFileName = _settingManager.GetTestImplFile(markdownFile);
-            context.AddSource($"{implementationFileName}", SourceText.From(sources[1], Encoding.UTF8));
-            if (!File.Exists(Path.Combine(filePath, implementationFileName)))
+            var implementationFile = Path.Combine(filePath, implementationFileName);
+            if (!File.Exists(implementationFile))
             {
-                File.WriteAllText(Path.Combine(filePath, implementationFileName), sources[1], Encoding.UTF8);
+                //context.AddSource($"{implementationFileName}", SourceText.From(sources[1], Encoding.UTF8));
+                File.WriteAllText(implementationFile, sources[1], Encoding.UTF8);
             }
         }
     }

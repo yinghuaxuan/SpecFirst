@@ -8,10 +8,6 @@
 		<Version>2.0.0</Version>
 	</PropertyGroup>
 
-	<ItemGroup>
-	  <Compile Remove="DecisionTable\DecisionTableValidator.generated.cs" />
-	</ItemGroup>
-
   <ItemGroup>
 	  <AdditionalFiles Include="TypeResolver\CollectionTypeResolver.spec.md" />
 	  <AdditionalFiles Include="TypeResolver\ScalaValueTypeResolver.spec.md" />
@@ -21,16 +17,18 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
-		<PackageReference Include="SpecFirst" Version="1.12.0" />
-		<PackageReference Include="SpecFirst.MarkdownParser" Version="1.6.0" />
-		<PackageReference Include="SpecFirst.TestsGenerator.xUnit" Version="1.6.0" />
-		<PackageReference Include="xunit" Version="2.4.0" />
-		<PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
 		<PackageReference Include="coverlet.collector" Version="1.2.0" />
+		<PackageReference Include="SpecFirst" Version="1.25.0" />
+		<PackageReference Include="SpecFirst.MarkdownParser" Version="1.6.0" />
+		<PackageReference Include="SpecFirst.xUnit" Version="1.9.0" />
 	</ItemGroup>
 
-	<ItemGroup>
+  <ItemGroup>
 	  <Folder Include="Serialization\" />
 	</ItemGroup>
+
+  <!--<ItemGroup>
+    <ProjectReference Include="..\..\src\SpecFirst\SpecFirst.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+  </ItemGroup>-->
 
 </Project>

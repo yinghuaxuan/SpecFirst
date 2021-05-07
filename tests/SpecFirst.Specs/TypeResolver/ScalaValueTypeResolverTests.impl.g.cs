@@ -1,13 +1,15 @@
 ﻿
-namespace {spec_name}Tests.g.cs
+namespace SpecFirst.Specs
 {
     using System;
+    using SpecFirst.Core.TypeResolver;
 
     public partial class infer_type_from_number_text
     {
         private partial (string, string) infer_type_from_number_text_implementation(string text_value)
         {
-            throw new NotImplementedException();
+            var type = TypeResolver.Resolve(text_value, out var parsedValue);
+            return (TypeHelper.GetTypeString(type), TypeHelper.Serialize(parsedValue, type));
         }
     }
 
@@ -15,7 +17,8 @@ namespace {spec_name}Tests.g.cs
     {
         private partial (string, string) infer_type_from_boolean_text_implementation(string text_value)
         {
-            throw new NotImplementedException();
+            var type = TypeResolver.Resolve(text_value, out var parsedValue);
+            return (TypeHelper.GetTypeString(type), TypeHelper.Serialize(parsedValue, type));
         }
     }
 
@@ -23,7 +26,8 @@ namespace {spec_name}Tests.g.cs
     {
         private partial (string, string) infer_type_from_datetime_text_implementation(string text_value)
         {
-            throw new NotImplementedException();
+            var type = TypeResolver.Resolve(text_value, out var parsedValue);
+            return (TypeHelper.GetTypeString(type), TypeHelper.Serialize(parsedValue, type));
         }
     }
 
@@ -31,7 +35,8 @@ namespace {spec_name}Tests.g.cs
     {
         private partial (string, string) infer_type_from_string_text_implementation(string text_value)
         {
-            throw new NotImplementedException();
+            var type = TypeResolver.Resolve(text_value, out var parsedValue);
+            return (TypeHelper.GetTypeString(type), parsedValue.ToString());
         }
     }
 
