@@ -6,7 +6,13 @@
     {
         public static Type Resolve(string value, out object parsedValue)
         {
-            value = string.IsNullOrWhiteSpace(value) ? value : value.Trim();
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                parsedValue = value;
+                return typeof(string);
+            }
+
+            value = value.Trim();
             Type type;
             if (value.StartsWith("["))
             {
