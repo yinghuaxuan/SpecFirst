@@ -5,9 +5,9 @@ namespace SpecFirst.Specs.Tests
     using System.Xml.Linq;
     using SpecFirst.Core.DecisionTable.Validator;
 
-    public partial class decision_table_validator
+    public partial class is_table_a_decision_table
     {
-        private partial (bool, string) decision_table_validator_implementation(string decision_table)
+        private partial (bool, string) is_table_a_decision_table_implementation(string decision_table)
         {
             var table = XElement.Parse(decision_table);
             var valid = new DecisionTableHtmlValidator().Validate(table, out var errors);

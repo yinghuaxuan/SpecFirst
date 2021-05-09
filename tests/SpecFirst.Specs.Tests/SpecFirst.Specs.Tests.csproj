@@ -13,10 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DecisionTable\Validator\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\src\SpecFirst.Core\SpecFirst.Core.csproj" />
     <ProjectReference Include="..\..\src\SpecFirst.xUnit\SpecFirst.xUnit.csproj" />
   </ItemGroup>
