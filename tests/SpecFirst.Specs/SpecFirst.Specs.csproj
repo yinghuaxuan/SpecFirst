@@ -5,38 +5,29 @@
 
 	<PropertyGroup>
 		<TargetFramework>net5.0</TargetFramework>
+		<Version>2.0.0</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Compile Remove="DecisionTable\DecisionTableValidator.generated.cs" />
+	  <None Remove="DecisionTable\Validator\DecisionTable.spec.md" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <None Remove="decisionmarkd.config" />
-	  <None Remove="DecisionTable\DecisionTableValidator.spec.md" />
-	  <None Remove="DecisionTable\Experiment.md" />
-	  <None Remove="DecisionTable\Validator\DecisionTableValidator.spec.md1" />
-	  <None Remove="specfirst.config" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <AdditionalFiles Include="TypeResolver\TypeResolver.spec.md" />
-	  <AdditionalFiles Include="DecisionTable\Validator\DecisionTableValidator.spec.md1" />
+  <ItemGroup>
+	  <AdditionalFiles Include="DecisionTable\Validator\DecisionTable.spec.md" />
+	  <AdditionalFiles Include="TypeResolver\CollectionTypeResolver.spec.md" />
+	  <AdditionalFiles Include="TypeResolver\ScalaValueTypeResolver.spec.md" />
 	  <AdditionalFiles Include="specfirst.config" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
-		<PackageReference Include="xunit" Version="2.4.0" />
-		<PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
 		<PackageReference Include="coverlet.collector" Version="1.2.0" />
+		<PackageReference Include="SpecFirst" Version="1.30.0" />
+		<PackageReference Include="SpecFirst.MarkdownParser" Version="1.7.0" />
+		<PackageReference Include="SpecFirst.xUnit" Version="1.10.0" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <ProjectReference Include="..\..\src\SpecFirst\SpecFirst.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
-	</ItemGroup>
-
-	<ItemGroup>
+  <ItemGroup>
 	  <Folder Include="Serialization\" />
 	</ItemGroup>
 

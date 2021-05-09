@@ -25,21 +25,13 @@
             var negativeNumberDecisionTree = NumberDecisionTree.ConstructNegativeNumberDecisionTree(numberDecisionTree);
             var trueDecisionTree = BooleanDecisionTree.ConstructTrueTree();
             var falseDecisionTree = BooleanDecisionTree.ConstructFalseTree();
+            var stringDecisionTree = StringDecisionTree.Construct();
             _root.ChildNodes.Add(numberDecisionTree);
             _root.ChildNodes.Add(positiveNumberDecisionTree);
             _root.ChildNodes.Add(negativeNumberDecisionTree);
             _root.ChildNodes.Add(trueDecisionTree);
             _root.ChildNodes.Add(falseDecisionTree);
-            _root.ChildNodes.Add(AnyNode());
-        }
-
-        private static TypeDecisionNode AnyNode()
-        {
-            return new TypeDecisionNode
-            {
-                ShouldProcess = c => true,
-                NodeType = (s) => new TypeValuePair(typeof(string), s.Trim('\"'))
-            };
+            _root.ChildNodes.Add(stringDecisionTree);
         }
     }
 }

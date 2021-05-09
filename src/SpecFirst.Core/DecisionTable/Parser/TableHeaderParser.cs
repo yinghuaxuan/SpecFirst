@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class TableHeaderParser
+    public sealed class TableHeaderParser
     {
         public TableHeader Parse(string header)
         {

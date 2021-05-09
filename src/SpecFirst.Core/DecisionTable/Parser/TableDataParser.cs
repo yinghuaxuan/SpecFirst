@@ -6,7 +6,7 @@
     using System.Xml.Linq;
     using SpecFirst.Core.TypeResolver;
 
-    public class TableDataParser
+    public sealed class TableDataParser
     {
         public object[,] Parse(XElement decisionTable, out Type[] types)
         {
@@ -21,29 +21,29 @@
             {
                 for (int j = 0; j < data.GetLength(1); j++)
                 {
-                    Type type = ScalaValueTypeResolver.Resolve(data[i, j], out object value);
+                    Type type = TypeResolver.Resolve(data[i, j], out object value);
                     dataTypes[i, j] = type;
                     values[i, j] = value;
                 }
             }
 
-            types = GetColumnTypes(dataTypes);
+            types = ResolveColumnTypes(dataTypes);
             return values;
         }
 
-        private Type[] GetColumnTypes(Type[,] dataTypes)
+        private Type[] ResolveColumnTypes(Type[,] dataTypes)
         {
             var columns = dataTypes.GetLength(1);
             var columnTypes = new Type[columns];
             for (int i = 0; i < columns; i++)
             {
-                columnTypes[i] = CollectionTypeResolver.Resolve(GetColumn(dataTypes, i));
+                columnTypes[i] = CollectionTypeResolver.Resolve(ExtractColumnTypes(dataTypes, i));
             }
 
             return columnTypes;
         }
 
-        public static Type[] GetColumn(Type[,] dataTypes, int column)
+        public static Type[] ExtractColumnTypes(Type[,] dataTypes, int column)
         {
             var rows = dataTypes.GetLength(0);
             var array = new Type[rows];
@@ -70,6 +70,4 @@
             return data;
         }
     }
-
-
 }

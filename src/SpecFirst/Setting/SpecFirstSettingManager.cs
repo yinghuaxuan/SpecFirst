@@ -33,7 +33,7 @@
             }
         }
 
-        public SpecFirstSettings Settings { get; set; }
+        public SpecFirstSettings Settings { get; }
 
         public string GetTestProject()
         {
@@ -57,10 +57,15 @@
 
         public string GetTestFilePath(AdditionalText specFile)
         {
-            string specPath = Path.GetDirectoryName(specFile.Path);
-            string[] paths = specPath!.Split(
+            string specPath = Path.GetDirectoryName(specFile.Path)!;
+            string[] paths = specPath.Split(
                 new[] { _context.Compilation.AssemblyName },
                 StringSplitOptions.RemoveEmptyEntries);
+            
+            if (paths.Length == 1) // spec file is at the root of the project
+            {
+                return Path.Combine(paths[0], GetTestProject());
+            }
             if (paths.Length == 2)
             {
                 return Path.Combine(paths[0], GetTestProject(), paths[1].TrimStart('\\'));

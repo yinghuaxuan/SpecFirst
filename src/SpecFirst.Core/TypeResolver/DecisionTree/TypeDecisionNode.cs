@@ -11,7 +11,7 @@
         }
 
         public Func<char, bool> ShouldProcess { get; set; }
-        public List<TypeDecisionNode> ChildNodes { get; set; }
+        public List<TypeDecisionNode> ChildNodes { get; }
         public Func<string, TypeValuePair> NodeType { get; set; }
     }
 }

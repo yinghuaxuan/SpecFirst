@@ -3,7 +3,7 @@
     using System;
     using System.Linq;
 
-    public class ScalaValueTypeResolver
+    public static class ScalaValueTypeResolver
     {
         private static readonly TypeDecisionTree _typeDecisionTree;
 
@@ -13,8 +13,8 @@
         }
 
         /// <summary>
-        /// Supported data types: int, decimal, date, boolean, string, array,
-        /// Special keywords: null, blank
+        /// Infer the actual type from the text.
+        /// Supported data types: int, decimal, double, date, boolean, string, array.
         /// </summary>
         /// <param name="value">The value in string.</param>
         /// <param name="parsedValue">The value in its type.</param>
@@ -23,7 +23,6 @@
         {
             parsedValue = null;
             TypeValuePair typeValuePair;
-            value = value.Trim();
             var root = _typeDecisionTree.Root;
             var currentNode = root;
             for (var index = 0; index < value.Length; index++)

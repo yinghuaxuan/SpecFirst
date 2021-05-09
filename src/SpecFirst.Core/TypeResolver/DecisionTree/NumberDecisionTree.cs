@@ -3,7 +3,7 @@
     using System;
     using System.Globalization;
 
-    public class NumberDecisionTree
+    public static class NumberDecisionTree
     {
         public static TypeDecisionNode Construct()
         {
@@ -159,7 +159,7 @@
             node.ShouldProcess = c => { return char.IsDigit(c); };
             node.NodeType = (s) =>
             {
-                if (int.TryParse(s, NumberStyles.Any, CultureInfo.InvariantCulture, out var i)) return new TypeValuePair(typeof(int), new NumberValue(s, i));
+                if (int.TryParse(s, NumberStyles.Any, CultureInfo.InvariantCulture, out var i)) return new TypeValuePair(typeof(IntType), new IntType(s, i));
                 if (ParseDouble(s, out var typeValuePair)) return typeValuePair;
                 return new TypeValuePair(typeof(string), s);
             };
@@ -261,7 +261,7 @@
 
             if (decimal.TryParse(s.TrimEnd('M', 'm'), NumberStyles.Any, CultureInfo.InvariantCulture, out var m))
             {
-                typeValuePair = new TypeValuePair(typeof(decimal), new NumberValue(s, m));
+                typeValuePair = new TypeValuePair(typeof(DecimalType), new DecimalType(s, m));
                 return true;
             }
 
@@ -276,7 +276,7 @@
             {
                 if (!double.IsInfinity(d))
                 {
-                    typeValuePair = new TypeValuePair(typeof(double), new NumberValue(s, d));
+                    typeValuePair = new TypeValuePair(typeof(DoubleType), new DoubleType(s, d));
                     return true;
                 }
             }
