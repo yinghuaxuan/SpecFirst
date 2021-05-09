@@ -1,9 +1,12 @@
-﻿Decision table is defined as:
+﻿Decision table is one of the slim tables defined in FitNesse, which "Supplies the inputs and outputs for decisions. This is similar to the Fit Column Fixture". More details can be found on FitNesse website http://fitnesse.org/FitNesse.UserGuide.WritingAcceptanceTests.SliM.DecisionTable.
+
+When deciding whether a table is decision table, SpecFirst uses the following rules:
 - has at least three rows
 - the first row must have a single column
-- the first and second rows can be headers (thead) or not
+- the first and second rows can be either in headers section (thead) or in body section (tbody)
+- the first row is not a comment row, e.g. does not just contain the word "comment" (case insensitive)
 
-| Decision Table Validator                                                                       ||||
+| Is table a decision table                                                                       ||||
 | #Comment                 | Decision Table           | Is Valid? | Validation Error?               |
 | ------------------------ | ------------------------ | --------- | ------------------------------- |
 | Table with only 1 name   | \<table\>                | false     | Decision table must                |\
@@ -71,10 +74,10 @@
 |                          | \</tbody\>               |           |                                    |\
 |                          | \</table\>               |           |                                 |   
 | Table marked             | \<table\>                | false     | The first row is a comment row      |\
-| as comment               | \<tbody\>                |           |     |\
-|                          | \<tr\>                   |           |                                    |\
-|                          | \<td\>                   |           |                                    |\
-|                          | Comment      |           |                                    |\
+| as comment (             | \<tbody\>                |           |     |\
+| the word comment         | \<tr\>                   |           |                                    |\
+| can be in any            | \<td\>                   |           |                                    |\
+| case)                    | Comment      |           |                                    |\
 |                          | \</td\>                  |           |                                    |\
 |                          | \</tr\>                  |           |                                    |\
 |                          | \<tr\>                   |           |                                    |\
