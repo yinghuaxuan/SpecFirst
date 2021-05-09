@@ -39,54 +39,14 @@
             }
         }
 
-        private ITestsGenerator GetTestGenerator(GeneratorExecutionContext context)
+        private ITestsGenerator? GetTestGenerator(GeneratorExecutionContext context)
         {
-            var allReferencedAssemblies = context.Compilation.References;
-            foreach (var assembly in allReferencedAssemblies)
-            {
-                if (!assembly.Display.StartsWith(@"C:\Program Files"))
-                {
-                    try
-                    {
-                        var loadFrom = Assembly.LoadFrom(assembly.Display);
-                        var type = loadFrom.GetTypes().FirstOrDefault(p => typeof(ITestsGenerator).IsAssignableFrom(p) && p.IsClass && !p.IsAbstract);
-                        if (type != null)
-                        {
-                            return (ITestsGenerator)Activator.CreateInstance(type);
-                        }
-                    }
-                    catch (Exception)
-                    {
-                    }
-                }
-            }
-
-            return null;
+            return GetTypeFromReference<ITestsGenerator>(context);
         }
 
-        private IDecisionTableMarkdownParser GetMarkdownParser(GeneratorExecutionContext context)
+        private IDecisionTableMarkdownParser? GetMarkdownParser(GeneratorExecutionContext context)
         {
-            var allReferencedAssemblies = context.Compilation.References;
-            foreach (var assembly in allReferencedAssemblies)
-            {
-                if (!assembly.Display.StartsWith(@"C:\Program Files"))
-                {
-                    try
-                    {
-                        var loadFrom = Assembly.LoadFrom(assembly.Display);
-                        var type = loadFrom.GetTypes().FirstOrDefault(p => typeof(IDecisionTableMarkdownParser).IsAssignableFrom(p) && p.IsClass && !p.IsAbstract);
-                        if (type != null)
-                        {
-                            return (IDecisionTableMarkdownParser)Activator.CreateInstance(type);
-                        }
-                    }
-                    catch (Exception)
-                    {
-                    }
-                }
-            }
-
-            return null;
+            return GetTypeFromReference<IDecisionTableMarkdownParser>(context);
         }
 
         private void ProcessMarkdownFile(AdditionalText markdownFile, GeneratorExecutionContext context)
@@ -125,6 +85,32 @@
                 //context.AddSource($"{implementationFileName}", SourceText.From(sources[1], Encoding.UTF8));
                 File.WriteAllText(implementationFile, sources[1], Encoding.UTF8);
             }
+        }
+
+        private static T? GetTypeFromReference<T>(GeneratorExecutionContext context)
+        {
+            var allReferencedAssemblies = context.Compilation.References;
+            foreach (var assembly in allReferencedAssemblies)
+            {
+                if (assembly.Display.IndexOf("SpecFirst", StringComparison.OrdinalIgnoreCase) != -1)
+                {
+                    try
+                    {
+                        var loadFrom = Assembly.LoadFrom(assembly.Display);
+                        var type = loadFrom.GetTypes().FirstOrDefault(p =>
+                            typeof(T).IsAssignableFrom(p) && p.IsClass && !p.IsAbstract);
+                        if (type != null)
+                        {
+                            return (T)Activator.CreateInstance(type);
+                        }
+                    }
+                    catch (Exception)
+                    {
+                    }
+                }
+            }
+
+            return default;
         }
     }
 }
