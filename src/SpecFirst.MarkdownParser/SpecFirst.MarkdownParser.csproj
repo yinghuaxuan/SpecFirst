@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>Latest</LangVersion>
+    <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Description>Parse decision tables in the markdown files to decision tables object using markdown-it parser. The decision table objects will be used by the source generator to auto-generate tests</Description>
     <Version>1.7.0</Version>

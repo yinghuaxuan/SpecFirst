@@ -4,12 +4,12 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    public class UnitTest
+    public class TestGeneration
     {
         private readonly List<Parameter> _inputParameters = new List<Parameter>();
         private readonly List<Parameter> _outParameters = new List<Parameter>();
 
-        public UnitTest(IEnumerable<Parameter> parameters)
+        public TestGeneration(IEnumerable<Parameter> parameters)
         {
             foreach (var parameter in parameters)
             {
@@ -29,9 +29,7 @@
             }
         }
 
-
         public string TestMethodInputParameters => string.Join(", ", _inputParameters.Union(_outParameters));
-
         public string ImplMethodInputParameters => string.Join(", ", _inputParameters);
         public string ImplMethodInputArguments => string.Join(", ", _inputParameters.Select(p => p.Name));
         public string ImplMethodReturnValues => GetImplMethodReturnValues();

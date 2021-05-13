@@ -1,10 +1,12 @@
 ﻿namespace SpecFirst.xUnit
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using HandlebarsDotNet;
     using SpecFirst.Core;
     using SpecFirst.Core.DecisionTable;
+    using SpecFirst.Core.Setting;
     using SpecFirst.xUnit.Template;
 
     public class XUnitTestsGenerator : ITestsGenerator
@@ -16,12 +18,12 @@
             _templateDataProvider = new XUnitTemplateDataProvider();
         }
 
-        public string[] Generate(string namespaceName, DecisionTable[] decisionTables)
+        public IEnumerable<string> Generate(SpecFirstSettings settings, IEnumerable<DecisionTable> decisionTables)
         {
             XUnitTemplateData[] templateData = _templateDataProvider.GetTemplateData(decisionTables);
             var data = new
             {
-                namespace_name = namespaceName,
+                namespace_name = settings.TestGeneration.TestFilePath,
                 list_of_fixtures = templateData.Select(t => new
                 {
                     class_name = t.ClassName,

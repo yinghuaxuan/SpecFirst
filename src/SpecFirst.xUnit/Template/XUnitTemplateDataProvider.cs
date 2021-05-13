@@ -28,12 +28,12 @@
             _tableDataToCommentsConverter = new TableDataToCommentsConverter();
         }
 
-        public XUnitTemplateData[] GetTemplateData(DecisionTable[] decisionTables)
+        public XUnitTemplateData[] GetTemplateData(IEnumerable<DecisionTable> decisionTables)
         {
-            XUnitTemplateData[] templateData = new XUnitTemplateData[decisionTables.Length];
-            for (int i = 0; i < decisionTables.Length; i++)
+            XUnitTemplateData[] templateData = new XUnitTemplateData[decisionTables.Count()];
+            for (int i = 0; i < decisionTables.Count(); i++)
             {
-                DecisionTable decisionTable = decisionTables[i];
+                DecisionTable decisionTable = decisionTables.ElementAt(i);
                 XUnitTemplateData singleTemplateData = GetTemplateData(decisionTable);
                 templateData[i] = singleTemplateData;
             }
