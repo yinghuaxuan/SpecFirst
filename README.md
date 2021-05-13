@@ -55,9 +55,10 @@ The default implementation can be seen here: [XUnitTestsGenerator.cs](https://gi
 ## Credits
 - [FitNesse](http://docs.fitnesse.org/FrontPage)  
 I have used FitNesse at work for 5+ years and been very impressed by the power and simplicity of the decision tables. This project implements the decsion tables in markdown language with auto-generated tests skeleton and seamless integration with Visual Studio.
-- [Source generator]()
-- [xUnit]()
-- [markdown-it](https://github.com/markdown-it/markdown-it) parser 
-- [markdown-it-multimd-table](https://github.com/redbug312/markdown-it-multimd-table)
-- [Markdown Extended](https://marketplace.visualstudio.com/items?itemName=jebbs.markdown-extended) extension
-- [Jurassic](https://github.com/paulbartrum/jurassic) 
+- [Source generator](https://github.com/dotnet/roslyn/blob/main/docs/features/source-generators.md) - compile time metaprogramming 
+- [xUnit](https://github.com/xunit/xunit) - popular unit testing framework for .NET
+- [markdown-it](https://github.com/markdown-it/markdown-it) - a popular markdown parser in Javascript
+- [markdown-it-multimd-table](https://github.com/redbug312/markdown-it-multimd-table) - MultiMarkdown table syntax plugin for markdown-it markdown parser
+- [Markdown Extended](https://marketplace.visualstudio.com/items?itemName=jebbs.markdown-extended) - an brilliant vscode extension for markdown
+- [Jurassic](https://github.com/paulbartrum/jurassic) - run Javascript code in .NET
+
