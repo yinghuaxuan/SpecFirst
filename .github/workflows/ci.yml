@@ -1,8 +1,5 @@
 name: ci
 
-env:
-  PROJECT_NAME: spec-first
-
 on:
   push:
     paths-ignore:
@@ -27,9 +24,6 @@ jobs:
 
     - name: Build (Release)
       run: dotnet build src -c Release
-      
-    - name: SpecFileGen
-      run: dotnet src/SpecFileGen/bin/Release/net5.0/SpecFileGen.dll
 
     - name: Test (Release)
       run: dotnet test src -c Release
@@ -45,20 +39,16 @@ jobs:
       if: github.event_name == 'push' && github.ref == 'refs/heads/master'
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
-        path-to-lcov: src/${{env.PROJECT_NAME}}.Tests/coverage.info
+        path-to-lcov: tests/SpecFirst.Specs.Tests/coverage.info
 
     - name: Pack
       run: dotnet pack src -c Release
-
-    - name: Pack Signed
-      run: dotnet pack -c Release src/${{env.PROJECT_NAME}}.Signed/${{env.PROJECT_NAME}}.Signed.csproj
 
     - name: Publish
       if: github.event_name == 'push'
       run: |      
           if ( "${{github.ref}}" -match "^refs/tags/[0-9]+\.[0-9]+\.[0-9]+$" ) {
               dotnet nuget push src\${{env.PROJECT_NAME}}\bin\Release\*.nupkg -s nuget.org -k ${{secrets.NUGET_TOKEN}}
-              dotnet nuget push src\${{env.PROJECT_NAME}}.Signed\bin\Release\*.nupkg -s nuget.org -k ${{secrets.NUGET_TOKEN}}
           } else {
               echo "publish is only enabled by tagging with a release tag"
           }
