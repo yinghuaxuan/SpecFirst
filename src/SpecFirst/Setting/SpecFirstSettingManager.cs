@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Xml.Linq;
     using Microsoft.CodeAnalysis;
+    using SpecFirst.Core.Setting;
 
     public class SpecFirstSettingManager
     {
@@ -35,9 +36,9 @@
 
         public SpecFirstSettings Settings { get; }
 
-        public string GetTestProject()
+        public string GetTestFilePath()
         {
-            return Settings.TestProject.Replace("{spec_project}", _context.Compilation.AssemblyName);
+            return Settings.TestGeneration.TestFilePath?.Replace("{spec_project}", _context.Compilation.AssemblyName);
         }
 
         public string GetSpecName(AdditionalText specFile)
@@ -47,12 +48,12 @@
 
         public string GetTestFile(AdditionalText specFile)
         {
-            return Settings.TestFile.Replace("{spec_name}", GetSpecName(specFile));
+            return Settings.TestGeneration.TestFile.Replace("{spec_name}", GetSpecName(specFile));
         }
 
         public string GetTestImplFile(AdditionalText specFile)
         {
-            return Settings.TestImplFile.Replace("{spec_name}", GetSpecName(specFile));
+            return Settings.TestGeneration.TestImplFile.Replace("{spec_name}", GetSpecName(specFile));
         }
 
         public string GetTestFilePath(AdditionalText specFile)
@@ -64,11 +65,11 @@
             
             if (paths.Length == 1) // spec file is at the root of the project
             {
-                return Path.Combine(paths[0], GetTestProject());
+                return Path.Combine(paths[0], GetTestFilePath());
             }
             if (paths.Length == 2)
             {
-                return Path.Combine(paths[0], GetTestProject(), paths[1].TrimStart('\\'));
+                return Path.Combine(paths[0], GetTestFilePath(), paths[1].TrimStart('\\'));
             }
 
             return specPath;
@@ -81,9 +82,12 @@
             {
                 TestingFramework = settings.Descendants("TestingFramework").FirstOrDefault()?.Value ?? DefaultTestingFramework,
                 SpecFileExtension = settings.Descendants("SpecFileExtension").FirstOrDefault()?.Value ?? DefaultSpecFileExtension,
-                TestProject = settings.Descendants("TestProject").FirstOrDefault()?.Value ?? DefaultTestFileName,
-                TestFile = settings.Descendants("TestFile").FirstOrDefault()?.Value ?? string.Empty,
-                TestImplFile = settings.Descendants("ImplFile").FirstOrDefault()?.Value ?? string.Empty,
+                TestGeneration = new TestGeneration
+                {
+                    TestFilePath = settings.Descendants("TestProject").FirstOrDefault()?.Value ?? DefaultTestFileName,
+                    TestFile = settings.Descendants("TestFile").FirstOrDefault()?.Value ?? string.Empty,
+                    TestImplFile = settings.Descendants("ImplFile").FirstOrDefault()?.Value ?? string.Empty,
+                }
             };
         }
 
@@ -93,9 +97,12 @@
             {
                 TestingFramework = DefaultTestingFramework,
                 SpecFileExtension = DefaultSpecFileExtension,
-                TestProject = DefaultTestProject,
-                TestFile = DefaultTestFileName,
-                TestImplFile = DefaultImplementationFileName,
+                TestGeneration = new TestGeneration
+                {
+                    TestFilePath = DefaultTestProject,
+                    TestFile = DefaultTestFileName,
+                    TestImplFile = DefaultImplementationFileName,
+                }
             };
         }
     }

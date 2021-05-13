@@ -1,7 +1,10 @@
 ﻿namespace SpecFirst.Core
 {
+    using System.Collections.Generic;
+    using SpecFirst.Core.Setting;
+
     public interface ITestsGenerator
     {
-        string[] Generate(string namespaceName, DecisionTable.DecisionTable[] decisionTables);
+        IEnumerable<string> Generate(SpecFirstSettings settings, IEnumerable<DecisionTable.DecisionTable> decisionTables);
     }
 }

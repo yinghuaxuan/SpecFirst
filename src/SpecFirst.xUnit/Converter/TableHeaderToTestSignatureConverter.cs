@@ -13,10 +13,10 @@
             _parameterConverter = parameterConverter;
         }
 
-        public UnitTest Convert(TableHeader[] tableHeaders)
+        public TestGeneration Convert(TableHeader[] tableHeaders)
         {
             var parameters = tableHeaders.Select(h => _parameterConverter.Convert(h));
-            var test = new UnitTest(parameters);
+            var test = new TestGeneration(parameters);
             return test;
         }
     }

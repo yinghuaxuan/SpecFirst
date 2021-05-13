@@ -23,16 +23,16 @@ namespace SpecFirst.MarkdownParser
             _tableValidator = new DecisionTableHtmlValidator();
         }
 
-        public List<DecisionTable> Parse(string markdownText)
+        public IEnumerable<DecisionTable> Parse(string markdownText)
         {
-            string html = TryParseMarkdownToHtml(markdownText);
+            string html = ParseMarkdownToHtml(markdownText);
             html = html.Replace("<br>", "<br/>");
-            XDocument document = TryParseHtmlToXml(html);
-            List<DecisionTable> decisionTables = TryExtractDecisionTables(document);
+            XDocument document = ParseHtmlToXml(html);
+            List<DecisionTable> decisionTables = ExtractDecisionTables(document);
             return decisionTables;
         }
 
-        private List<DecisionTable> TryExtractDecisionTables(XDocument document)
+        private List<DecisionTable> ExtractDecisionTables(XDocument document)
         {
             List<DecisionTable> decisionTables = new List<DecisionTable>();
             IEnumerable<XElement> tables = document.Descendants("table");
@@ -40,22 +40,15 @@ namespace SpecFirst.MarkdownParser
             {
                 if (_tableValidator.Validate(table, out _))
                 {
-                    try
-                    {
-                        DecisionTable decisionTable = _tableParser.Parse(table);
-                        decisionTables.Add(decisionTable);
-                    }
-                    catch (Exception e)
-                    {
-                        // do nothing
-                    }
+                    DecisionTable decisionTable = _tableParser.Parse(table);
+                    decisionTables.Add(decisionTable);
                 }
             }
 
             return decisionTables;
         }
 
-        private static XDocument TryParseHtmlToXml(string html)
+        private static XDocument ParseHtmlToXml(string html)
         {
             XDocument document;
             try
@@ -70,7 +63,7 @@ namespace SpecFirst.MarkdownParser
             return document;
         }
 
-        private static string TryParseMarkdownToHtml(string markdownText)
+        private static string ParseMarkdownToHtml(string markdownText)
         {
             string html;
             try
@@ -88,11 +81,11 @@ namespace SpecFirst.MarkdownParser
             return html;
         }
 
-        public static string GetScriptFile()
+        private static string GetScriptFile()
         {
-            var assembly = Assembly.GetExecutingAssembly().Location;
-            var directory = Path.GetDirectoryName(assembly);
-            return Path.Combine(directory, "Script\\bundle.js");
+            var assemblyLocation = Assembly.GetExecutingAssembly().Location;
+            var directory = Path.GetDirectoryName(assemblyLocation);
+            return Path.Combine(directory!, "Script\\bundle.js");
         }
     }
 }
