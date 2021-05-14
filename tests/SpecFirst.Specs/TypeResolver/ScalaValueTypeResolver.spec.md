@@ -21,7 +21,7 @@ interpret it as string.
 - If it has M or m suffix, we always interpret it as decimal
 
 | Infer type from number text                                                                                         ||||
-| #Comment                        | Text Value                        | Actual Type? | Serialized Value?                 |
+| #Description                        | Text Value                        | Actual Type? | Serialized Value?                 |
 | ------------------------------- | --------------------------------- | ------------ | --------------------------------- |
 | integer                         | "0"                               | integer      | "0"                               |
 | integer                         | "12"                              | integer      | "12"                              |
@@ -63,7 +63,7 @@ interpret it as string.
 Convert text to boolean and ignore cases.
 
 | Infer type from boolean text                                              ||||
-| #Comment                     | Text Value | Actual Type? | Serialized Value? |
+| #Description                     | Text Value | Actual Type? | Serialized Value? |
 | ---------------------------- | ---------- | ------------ | ----------------- |
 | bool, camel case             | "True"     | bool         | "true"            |
 | bool, lower case             | "true"     | bool         | "true"            |
@@ -81,7 +81,7 @@ For datetime, we only accept yyyy-MM-dd HH:mm:ss as a valid datetime format.
 For all other formats, we interpret them as string.
 
 | Infer type from datetime text                                                                                           ||||
-| #Comment                        | Text Value                  | Actual Type? | Serialized Value?                           |
+| #Description                        | Text Value                  | Actual Type? | Serialized Value?                           |
 | ------------------------------- | --------------------------- | ------------ | ------------------------------------------- |
 | datetime in yyyy-MM-dd HH:mm:ss | "2012-12-25 23:59:59"       | datetime     | "new DateTime(2012, 12, 25, 23, 59, 59, 0)" |
 | datetime, not supported format  | "25/12/2012 23:59:59"       | string       | "25/12/2012 23:59:59"                       |
@@ -95,7 +95,7 @@ For any text other than number, boolean and datetime, we will interpret them as 
 We allow certain special characters and escape characters in the text.
 
 | Infer type from string text                                                                                       ||||
-| #Comment                                            | Text Value             | Actual Type? | Serialized Value?      |
+| #Description                                            | Text Value             | Actual Type? | Serialized Value?      |
 | --------------------------------------------------- | ---------------------- | ------------ | ---------------------- |
 | string without quote                                | this is a string       | string       | "this is a string"     |
 | fully quoted string is same as string without quote | "this is a string"     | string       | "this is a string"     |

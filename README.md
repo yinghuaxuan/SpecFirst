@@ -29,7 +29,7 @@ The config file must be named as specfirst.config and included as 'C# analyzer a
 - Install SpecFirst nuget package
 - Install SpecFirst.MarkdownParser nuget package
 - Install SpecFirst.xUnit nuget package
-- Add a config file named [specfirst.config](https://github.com/yinghuaxuan/spec-first/blob/master/tests/SpecFirst.Specs/specfirst.config) (optional - [default settings](https://github.com/yinghuaxuan/spec-first/blob/master/src/SpecFirst/Setting/SpecFirstSettingManager.cs#L11) will be used instead)
+- Add a config file named [specfirst.config](https://github.com/yinghuaxuan/spec-first/blob/master/tests/SpecFirst.Specs/specfirst.config) (optional - [default settings](https://github.com/yinghuaxuan/spec-first/blob/master/src/SpecFirst/Setting/SpecFirstSettingManager.cs#L11) will be used instead if no config file presents)
 - Rebuild the current project  
 - Two test files will be auto-generated for each spec file containing at least one decision table: one for the skeleton of the tests and the other for the implementation of the tests.  
 

@@ -1,13 +1,21 @@
 ﻿Decision table is one of the slim tables defined in FitNesse, which "Supplies the inputs and outputs for decisions. This is similar to the Fit Column Fixture". More details can be found on FitNesse website http://fitnesse.org/FitNesse.UserGuide.WritingAcceptanceTests.SliM.DecisionTable.
 
+A decision table has three sections:
+- table name (row #1)
+- table headers (row #2)
+- table data (row #3 and onwards)
+
 When deciding whether a table is decision table, SpecFirst uses the following rules:
 - has at least three rows
-- the first row must have a single column
-- the first and second rows can be either in headers section (thead) or in body section (tbody)
-- the first row is not a comment row, e.g. does not just contain the word "comment" (case insensitive)
+- the table name row (row #1) must have a single column
+- the table header row (row #2) has at least one input column or output column (output columns are suffixed by ?)
+- the table name row (row #1) and the table header row (row #2) can be either in headers section (thead) or in body section (tbody) of the table
+- the table name row (row #1) is not a comment row, e.g. does not just contain the word "comment" (case insensitive) and spaces
+- the table header row (row #2) can have any number (0 ~ n) of comment columns (comment columns are prefixed with #)
+
 
 | Is table a decision table                                                                       ||||
-| #Comment                 | Decision Table           | Is Valid? | Validation Error?               |
+| #Description                 | Decision Table           | Is Valid? | Validation Error?               |
 | ------------------------ | ------------------------ | --------- | ------------------------------- |
 | Table with only 1 name   | \<table\>                | false     | Decision table must                |\
 | row                      | \<tbody\>                |           | have at least three rows           |\

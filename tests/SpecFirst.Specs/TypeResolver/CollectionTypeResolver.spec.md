@@ -2,7 +2,7 @@
 It will return the most compatible type for the collection.
 
 | Infer type from collection text                                                                                                              ||||
-| #Comment                        | Collection                          | Collection Type? | Parsed Collection?                                   |
+| #Description                        | Collection                          | Collection Type? | Parsed Collection?                                   |
 | ------------------------------- | ----------------------------------- | ---------------- | ---------------------------------------------------- |
 | integer only                    | "[1, 2, 3, 4]"                      | integer          | "new int[] {1, 2, 3, 4}"                             |
 | decimal only                    | "[3M, 12.5M, 0.0M]"                 | decimal          | new decimal[] {3M, 12.5M, 0.0M}                      |
