@@ -51,7 +51,7 @@
 
         public void Initialize(GeneratorInitializationContext context)
         {
-            Debugger.Launch();
+            //Debugger.Launch();
         }
 
         public void Execute(GeneratorExecutionContext context)

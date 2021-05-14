@@ -32,13 +32,15 @@
             {
                 Settings = Default();
             }
+
+            Settings.TestGeneration.TestFilePath = GetTestProject();
         }
 
         public SpecFirstSettings Settings { get; }
 
-        public string GetTestFilePath()
+        public string GetTestProject()
         {
-            return Settings.TestGeneration.TestFilePath?.Replace("{spec_project}", _context.Compilation.AssemblyName);
+            return Settings.TestGeneration.TestFilePath!.Replace("{spec_project}", _context.Compilation.AssemblyName);
         }
 
         public string GetSpecName(AdditionalText specFile)
@@ -65,11 +67,11 @@
             
             if (paths.Length == 1) // spec file is at the root of the project
             {
-                return Path.Combine(paths[0], GetTestFilePath());
+                return Path.Combine(paths[0], GetTestProject());
             }
             if (paths.Length == 2)
             {
-                return Path.Combine(paths[0], GetTestFilePath(), paths[1].TrimStart('\\'));
+                return Path.Combine(paths[0], GetTestProject(), paths[1].TrimStart('\\'));
             }
 
             return specPath;
