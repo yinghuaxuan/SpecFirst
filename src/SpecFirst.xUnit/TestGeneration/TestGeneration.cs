@@ -6,6 +6,8 @@
 
     public class TestGeneration
     {
+        private const string OutputParameterSuffix = "_actual";
+
         private readonly List<Parameter> _inputParameters = new List<Parameter>();
         private readonly List<Parameter> _outParameters = new List<Parameter>();
 
@@ -34,18 +36,18 @@
         public string ImplMethodInputArguments => string.Join(", ", _inputParameters.Select(p => p.Name));
         public string ImplMethodReturnValues => GetImplMethodReturnValues();
         public string ImplMethodReturnTypes => GetImplMethodReturnTypes();
-        public IEnumerable<string> AssertStatements => _outParameters.Select(p => $"Assert.Equal({p.Name}_output, {p.Name})");
+        public IEnumerable<string> AssertStatements => _outParameters.Select(p => $"Assert.Equal({p.Name}{OutputParameterSuffix}, {p.Name})");
 
         private string GetImplMethodReturnValues()
         {
             string implMethodReturnValues;
             if (_outParameters.Count == 1) // string s1
             {
-                implMethodReturnValues = string.Join(", ", _outParameters.Select(p => new Parameter{Type = p.Type, Name = $"{p.Name}_output"}));
+                implMethodReturnValues = string.Join(", ", _outParameters.Select(p => new Parameter{Type = p.Type, Name = $"{p.Name}{OutputParameterSuffix}" }));
             }
             else if (_outParameters.Count > 1) // (string s1, string s2)
             {
-                implMethodReturnValues = $"({string.Join(", ", _outParameters.Select(p => new Parameter { Type = p.Type, Name = $"{p.Name}_output" }))})";
+                implMethodReturnValues = $"({string.Join(", ", _outParameters.Select(p => new Parameter { Type = p.Type, Name = $"{p.Name}{OutputParameterSuffix}" }))})";
             }
             else // return ""
             {

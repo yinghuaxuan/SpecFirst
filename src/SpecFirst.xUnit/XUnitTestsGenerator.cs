@@ -23,7 +23,7 @@
             XUnitTemplateData[] templateData = _templateDataProvider.GetTemplateData(decisionTables);
             var data = new
             {
-                namespace_name = settings.TestGeneration.TestFilePath,
+                namespace_name = settings.TestGeneration.TestProject,
                 list_of_fixtures = templateData.Select(t => new
                 {
                     class_name = t.ClassName,

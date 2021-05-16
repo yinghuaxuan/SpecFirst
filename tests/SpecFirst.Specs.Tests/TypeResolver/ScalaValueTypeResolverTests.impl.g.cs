@@ -1,4 +1,4 @@
-﻿
+﻿ 
 namespace SpecFirst.Specs.Tests
 {
     using System;

@@ -4,9 +4,13 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>Latest</LangVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Description>The core package containing all the common types</Description>
-    <Version>1.6.0</Version>
+    <Description>The core package containing all the common types for the SpecFirst source generator</Description>
+    <Version>1.0.0-rc</Version>
     <Nullable>enable</Nullable>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/yinghuaxuan/spec-first</RepositoryUrl>
+    <PackageTags>source generator</PackageTags>
+    <Authors>yinghuaxuan</Authors>
   </PropertyGroup>
 
   <ItemGroup>

@@ -9,12 +9,6 @@
 
     public class SpecFirstSettingManager
     {
-        const string DefaultTestingFramework = "xUnit";
-        const string DefaultTestProject = "{spec_project}.Tests";
-        const string DefaultTestFileName = "{spec_name}Tests.g.cs";
-        const string DefaultImplementationFileName = "{spec_name}Tests.impl.g.cs";
-        const string DefaultSpecFileExtension = ".spec.md";
-
         private readonly GeneratorExecutionContext _context;
 
         public SpecFirstSettingManager(GeneratorExecutionContext context)
@@ -33,14 +27,14 @@
                 Settings = Default();
             }
 
-            Settings.TestGeneration.TestFilePath = GetTestProject();
+            Settings.TestGeneration.TestProject = GetTestProject();
         }
 
         public SpecFirstSettings Settings { get; }
 
         public string GetTestProject()
         {
-            return Settings.TestGeneration.TestFilePath!.Replace("{spec_project}", _context.Compilation.AssemblyName);
+            return Settings.TestGeneration.TestProject!.Replace("{spec_project}", _context.Compilation.AssemblyName);
         }
 
         public string GetSpecName(AdditionalText specFile)
@@ -50,12 +44,12 @@
 
         public string GetTestFile(AdditionalText specFile)
         {
-            return Settings.TestGeneration.TestFile.Replace("{spec_name}", GetSpecName(specFile));
+            return Settings.TestGeneration.TestFileName.Replace("{spec_name}", GetSpecName(specFile));
         }
 
         public string GetTestImplFile(AdditionalText specFile)
         {
-            return Settings.TestGeneration.TestImplFile.Replace("{spec_name}", GetSpecName(specFile));
+            return Settings.TestGeneration.TestImplFileName.Replace("{spec_name}", GetSpecName(specFile));
         }
 
         public string GetTestFilePath(AdditionalText specFile)
@@ -82,13 +76,13 @@
             XDocument settings = XDocument.Load(settingFile);
             return new SpecFirstSettings
             {
-                TestingFramework = settings.Descendants("TestingFramework").FirstOrDefault()?.Value ?? DefaultTestingFramework,
-                SpecFileExtension = settings.Descendants("SpecFileExtension").FirstOrDefault()?.Value ?? DefaultSpecFileExtension,
+                TestingFramework = settings.Descendants("TestingFramework").FirstOrDefault()?.Value ?? SpecFirstSettings.DefaultTestingFramework,
+                SpecFileExtension = settings.Descendants("SpecFileExtension").FirstOrDefault()?.Value ?? SpecFirstSettings.DefaultSpecFileExtension,
                 TestGeneration = new TestGeneration
                 {
-                    TestFilePath = settings.Descendants("TestProject").FirstOrDefault()?.Value ?? DefaultTestFileName,
-                    TestFile = settings.Descendants("TestFile").FirstOrDefault()?.Value ?? string.Empty,
-                    TestImplFile = settings.Descendants("ImplFile").FirstOrDefault()?.Value ?? string.Empty,
+                    TestProject = settings.Descendants("TestProject").FirstOrDefault()?.Value ?? SpecFirstSettings.DefaultTestFileName,
+                    TestFileName = settings.Descendants("TestFileName").FirstOrDefault()?.Value ?? SpecFirstSettings.DefaultTestFileName,
+                    TestImplFileName = settings.Descendants("ImplFileName").FirstOrDefault()?.Value ?? SpecFirstSettings.DefaultImplementationFileName,
                 }
             };
         }
@@ -97,13 +91,13 @@
         {
             return new SpecFirstSettings
             {
-                TestingFramework = DefaultTestingFramework,
-                SpecFileExtension = DefaultSpecFileExtension,
+                TestingFramework = SpecFirstSettings.DefaultTestingFramework,
+                SpecFileExtension = SpecFirstSettings.DefaultSpecFileExtension,
                 TestGeneration = new TestGeneration
                 {
-                    TestFilePath = DefaultTestProject,
-                    TestFile = DefaultTestFileName,
-                    TestImplFile = DefaultImplementationFileName,
+                    TestProject = SpecFirstSettings.DefaultTestProject,
+                    TestFileName = SpecFirstSettings.DefaultTestFileName,
+                    TestImplFileName = SpecFirstSettings.DefaultImplementationFileName,
                 }
             };
         }
