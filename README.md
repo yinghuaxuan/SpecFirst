@@ -61,3 +61,4 @@ I have used FitNesse at work for 5+ years and been very impressed by the power a
 - [markdown-it-multimd-table](https://github.com/redbug312/markdown-it-multimd-table) - MultiMarkdown table syntax plugin for markdown-it markdown parser
 - [Markdown Extended](https://marketplace.visualstudio.com/items?itemName=jebbs.markdown-extended) - an brilliant vscode extension for markdown
 - [Jurassic](https://github.com/paulbartrum/jurassic) - run Javascript code in .NET
+- [Handlebars.Net](https://github.com/Handlebars-Net/Handlebars.Net) - fast templating tool for .NET
