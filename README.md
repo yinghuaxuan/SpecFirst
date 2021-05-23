@@ -10,31 +10,32 @@ SpecFirst is a .NET [source generator](https://devblogs.microsoft.com/dotnet/int
 ## How does it work
 SpecFirst has the following components:
 - a spec file  
-A spec file is any markdown file with .spec.md suffix. If there are decision tables in the spec file, SpecFirst will convert these tables into xUnit tests. A spec file must be included as 'C# analyzer additional file' in 'Build Action' in order to be considered by SpecFirst generator.  
-Sample spec files can be found [DecisionTable.spec.md](https://github.com/yinghuaxuan/spec-first/blob/develop/tests/SpecFirst.Specs/DecisionTable/Validator/DecisionTable.spec.md), [ScalaValueTypeResolver.spec.md](https://github.com/yinghuaxuan/spec-first/blob/develop/tests/SpecFirst.Specs/TypeResolver/ScalaValueTypeResolver.spec.md), and [CollectionTypeResolver.spec.md](https://github.com/yinghuaxuan/spec-first/blob/develop/tests/SpecFirst.Specs/TypeResolver/CollectionTypeResolver.spec.md)
+A spec file is any markdown file with .spec.md suffix. If there are decision tables in the spec file, they will be converted into xUnit tests. A spec file must be included as 'C# analyzer additional file' in 'Build Action' in order to be considered.  
+Sample spec files can be found [DecisionTable.spec.md](https://github.com/yinghuaxuan/SpecFirst.Core/blob/main/tests/SpecFirst.Core.Specs/DecisionTable/Validator/DecisionTable.spec.md), [PrimitiveTypeResolver.spec.md](https://github.com/yinghuaxuan/SpecFirst.Core/blob/main/tests/SpecFirst.Core.Specs/TypeResolver/PrimitiveTypeResolver.spec.md), and [CollectionTypeResolver.spec.md](https://github.com/yinghuaxuan/SpecFirst.Core/blob/main/tests/SpecFirst.Core.Specs/TypeResolver/CollectionTypeResolver.spec.md)
 - a source generator  
-A source generator (SpecFirst) converts decision tables in markdown format to tests in target frameworks. SpecFirst is more like a shell and it requires two more packages in order to work: the markdown parser and the test generator.
+A source generator converts decision tables in markdown format to tests in target frameworks. SpecFirst is more like a shell and it requires two more packages in order to work: the markdown parser and the test generator.
 - a markdown parser  
-A markdown parser (SpecFirst.MarkdownParser) converts the markdown text to html, extract decision tables in html, and returns the decision table objects.  
-Technically any markdown parser that can convert decision tables in markdown format into valid decision tables in html can be used here. The SpecFirst.MarkdownParser uses the [markdown-it](https://github.com/markdown-it/markdown-it) parser with [markdown-it-multimd-table](https://github.com/redbug312/markdown-it-multimd-table) support for its intuitive way to author decision tables.   
+A markdown parser converts the markdown text to html, extract decision tables in html, and returns the decision table objects. A markdown parser must implement the [IDecisionTableMarkdownParser](https://github.com/yinghuaxuan/spec-first/blob/develop/src/SpecFirst.Core/IDecisionTableMarkdownParser.cs) interface from [SpecFirst.Core](https://www.nuget.org/packages/SpecFirst.Core/) package.  
+A sample of the markdown parser can be seen here: [SpecFirst.MarkdownParser](https://github.com/yinghuaxuan/SpecFirst.MarkdownParser)
 - a test generator  
-A test generator is the engine to generate tests in target frameworks. SpecFirst.xUnit is a generator to generate tests in xUnit framework. A test generator must implement the [ITestsGenerator](https://github.com/yinghuaxuan/spec-first/blob/develop/src/SpecFirst.Core/ITestsGenerator.cs) interface from SpecFirst.Core package.  
-Sample generated tests can be found [DecisionTableTests.g.cs](https://github.com/yinghuaxuan/spec-first/tree/develop/tests/SpecFirst.Specs.Tests/DecisionTable/Validator), [ScalaValueTypeResolverTests.g.cs](https://github.com/yinghuaxuan/spec-first/tree/develop/tests/SpecFirst.Specs.Tests/TypeResolver), and [CollectionTypeResolverTests.g.cs](https://github.com/yinghuaxuan/spec-first/tree/develop/tests/SpecFirst.Specs.Tests/TypeResolver)  
+A test generator is the engine to generate tests in target frameworks. A test generator must implement the [ITestsGenerator](https://github.com/yinghuaxuan/spec-first/blob/develop/src/SpecFirst.Core/ITestsGenerator.cs) interface from [SpecFirst.Core](https://www.nuget.org/packages/SpecFirst.Core/) package.  
+A sample of the test generator can be seen here: [SpecFirst.TestGeneration.xUnit](https://github.com/yinghuaxuan/SpecFirst.TestGeneration.xUnit)  
+Sample generated tests can be found [DecisionTableTests.g.cs](https://github.com/yinghuaxuan/SpecFirst.Core/blob/main/tests/SpecFirst.Core.Specs.Tests/DecisionTable/Validator/DecisionTableTests.g.cs), [PrimitiveTypeResolverTests.g.cs](https://github.com/yinghuaxuan/SpecFirst.Core/blob/main/tests/SpecFirst.Core.Specs.Tests/TypeResolver/PrimitiveTypeResolverTests.g.cs), and [CollectionTypeResolverTests.g.cs](https://github.com/yinghuaxuan/SpecFirst.Core/blob/main/tests/SpecFirst.Core.Specs.Tests/TypeResolver/CollectionTypeResolverTests.g.cs)  
 - a config file (optional)  
-The config file must be named as specfirst.config and included as 'C# analyzer additional file' in 'Build Action'. A sample of such a config file can be found [specfirst.config](https://github.com/yinghuaxuan/spec-first/blob/develop/tests/SpecFirst.Specs/specfirst.config)
+The config file must be named as specfirst.config and included as 'C# analyzer additional file' in 'Build Action'. A sample of such a config file can be found [specfirst.config](https://github.com/yinghuaxuan/SpecFirst.Core/blob/main/tests/SpecFirst.Core.Specs/specfirst.config)
 
 ## Usage
 - Add a spec file (.spec.md) containing some decision tables to the current project 
 - Mark the file as 'C# analyzer additional file' in 'Build Action'
-- Install SpecFirst nuget package
-- Install SpecFirst.MarkdownParser nuget package
-- Install SpecFirst.xUnit nuget package
-- Add a config file named [specfirst.config](https://github.com/yinghuaxuan/spec-first/blob/develop/tests/SpecFirst.Specs/specfirst.config) (optional - [default settings](https://github.com/yinghuaxuan/spec-first/blob/develop/src/SpecFirst/Setting/SpecFirstSettingManager.cs#L11) will be used instead)
+- Install [SpecFirst](https://www.nuget.org/packages/SpecFirst/) nuget package
+- Install [SpecFirst.MarkdownParser](https://www.nuget.org/packages/SpecFirst.MarkdownParser/) nuget package
+- Install [SpecFirst.TestGenerator.xUnit](https://www.nuget.org/packages/SpecFirst.xUnit/) nuget package
+- Add a config file named [specfirst.config](https://github.com/yinghuaxuan/spec-first/blob/develop/tests/SpecFirst.Specs/specfirst.config) (optional - [default settings](https://github.com/yinghuaxuan/spec-first/blob/develop/src/SpecFirst/Setting/SpecFirstSettingManager.cs#L11) will be used instead if the config file not present)
 - Rebuild the current project  
 - Two test files will be auto-generated for each spec file containing at least one decision table: one for the skeleton of the tests and the other for the implementation of the tests.  
 
 ## Known Issues
-- The sample spec files above creates decision tables with [markdown-it-multimd-table](https://github.com/redbug312/markdown-it-multimd-table) format, which is not supported by GitHub. To properly view these spec files, use VSCode with [Markdown Extended](https://marketplace.visualstudio.com/items?itemName=jebbs.markdown-extended) extension.
+- The sample spec files above writes decision tables with [markdown-it-multimd-table](https://github.com/redbug312/markdown-it-multimd-table) format, which is not supported by GitHub. To properly view these spec files, use VSCode with [Markdown Extended](https://marketplace.visualstudio.com/items?itemName=jebbs.markdown-extended) extension.
 - The [source generator](https://devblogs.microsoft.com/dotnet/introducing-c-source-generators/) project is a great work but it is still evolving and currently missing a couple of important features for this project:
     - Persist generated files to disk (see [output files](https://github.com/dotnet/roslyn/blob/main/docs/features/source-generators.md#output-files) for more details.)  
     I workaround this issue by writing the generated text to disk using File.WriteAllText method. However, adding a file to the current project hierarchy will cause Visual Studio to recompile the project, which leads to a dead loop between regeneration/recompiling. I workaround this issue by persisting the generated test files to a separate test project (via [this configuration](https://github.com/yinghuaxuan/spec-first/blob/develop/tests/SpecFirst.Specs/specfirst.config#L6)).  
@@ -46,11 +47,11 @@ I seem to get this error very frequently either on loading the solution initiall
 ## Extending SpecFirst
 THere are two extension points for SpecFirst:
 - Markdown parser  
-To use your own markdown parser, implement the [IDecisionTableMarkdownParser](https://github.com/yinghuaxuan/spec-first/blob/develop/src/SpecFirst.Core/IDecisionTableMarkdownParser.cs) in SpecFrist.Core package. The input is the raw markdown text and the output is a collection of [decision table object](https://github.com/yinghuaxuan/spec-first/blob/develop/src/SpecFirst.Core/DecisionTable/DecisionTable.cs) for each decision table in the markdown text.  
-The default implementation can be seen here: [DecisionTableMarkdownParser.cs](https://github.com/yinghuaxuan/spec-first/blob/master/src/SpecFirst.MarkdownParser/DecisionTableMarkdownParser.cs). 
-- Test generator
-To use your own test generator, implement [ITestsGenerator](https://github.com/yinghuaxuan/spec-first/blob/develop/src/SpecFirst.Core/ITestsGenerator.cs) interface from SpecFirst.Core package. The input are the generation configuration and the decision table objects from the markdown parser and the output are two text blocks: one is the skeleton for the tests and the other one is the skeleton for the test implementations.  
-The default implementation can be seen here: [XUnitTestsGenerator.cs](https://github.com/yinghuaxuan/spec-first/blob/develop/src/SpecFirst.xUnit/XUnitTestsGenerator.cs).
+To use your own markdown parser, implement the [IDecisionTableMarkdownParser](https://github.com/yinghuaxuan/spec-first/blob/develop/src/SpecFirst.Core/IDecisionTableMarkdownParser.cs) in [SpecFirst.Core](https://www.nuget.org/packages/SpecFirst.Core/) package. The input is the raw markdown text and the output is a collection of [decision table object](https://github.com/yinghuaxuan/spec-first/blob/develop/src/SpecFirst.Core/DecisionTable/DecisionTable.cs) for each decision table in the markdown text.  
+The default implementation can be seen here: [DecisionTableMarkdownParser.cs](https://github.com/yinghuaxuan/SpecFirst.MarkdownParser/blob/main/src/SpecFirst.MarkdownParser/DecisionTableMarkdownParser.cs). 
+- Test generator  
+To use your own test generator, implement [ITestsGenerator](https://github.com/yinghuaxuan/spec-first/blob/develop/src/SpecFirst.Core/ITestsGenerator.cs) interface from [SpecFirst.Core](https://www.nuget.org/packages/SpecFirst.Core/) package. The input are the generation configuration and the decision table objects from the markdown parser and the output are two text blocks: one is the skeleton for the tests and the other one is the skeleton for the test implementations.  
+The default implementation can be seen here: [XUnitTestsGenerator.cs](https://github.com/yinghuaxuan/SpecFirst.TestGenerator.xUnit/blob/main/src/SpecFirst.TestGenerator.xUnit/XUnitTestsGenerator.cs).
 
 ## Credits
 - [FitNesse](http://docs.fitnesse.org/FrontPage)  
