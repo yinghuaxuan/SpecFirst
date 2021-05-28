@@ -1,3 +1,5 @@
+#### [![CI](https://github.com/yinghuaxuan/SpecFirst.xUnit/workflows/ci/badge.svg)](https://github.com/yinghuaxuan/SpecFirst.xUnit/actions?query=workflow%3ACI) [![Nuget](https://img.shields.io/nuget/v/SpecFirst)](https://www.nuget.org/packages/SpecFirst/)
+
 # SpecFirst
 SpecFirst is a .NET [source generator](https://devblogs.microsoft.com/dotnet/introducing-c-source-generators/) to automatically generate tests in target frameworks from [decision tables](https://github.com/yinghuaxuan/spec-first/blob/develop/tests/SpecFirst.Specs/DecisionTable/Validator/DecisionTable.spec.md) authored in markdown.
 
