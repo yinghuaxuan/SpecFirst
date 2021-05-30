@@ -18,13 +18,10 @@ jobs:
         dotnet-version: '5.0.x'
 
     - name: Build
-      run: dotnet build -c Release
+      run: dotnet build -c Release /p:version=${{ github.event.release.tag_name }}
 
     - name: Test
       run: dotnet test -c Release
-
-    - name: Pack
-      run: dotnet pack -c Release /p:version=${{ github.event.release.tag_name }} /p:ContinuousIntegrationBuild=true
-
+      
     - name: Publish to NuGet
       run: dotnet nuget push src\SpecFirst\bin\Release\*.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json --skip-duplicate
