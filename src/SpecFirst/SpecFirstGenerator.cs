@@ -16,31 +16,38 @@
     public sealed class SpecFirstGenerator : ISourceGenerator
     {
         private static readonly DiagnosticDescriptor NoMarkdownParserFound = new(
-            id: "NO_MARKDOWN_PARSER",
+            id: "SF004",
             title: "Couldn't find a valid markdown parser",
             messageFormat: "Couldn't find a markdown parser implementing IDecisionTableMarkdownParser interface from referenced assemblies of project {0}",
             category: "MarkdownParser",
             DiagnosticSeverity.Error,
             isEnabledByDefault: true);
         private static readonly DiagnosticDescriptor NoTestsGeneratorFound = new(
-            id: "NO_TESTS_GENERATOR",
+            id: "SF005",
             title: "Couldn't find a valid tests generator",
             messageFormat: "Couldn't find a tests generator implementing ITestsGenerator interface from referenced assemblies of project {0}",
             category: "TestsGenerator",
             DiagnosticSeverity.Error,
             isEnabledByDefault: true);
         private static readonly DiagnosticDescriptor UnableParseMarkdownText = new(
-            id: "MARKDOWN_PARSER_ERROR",
+            id: "SF002",
             title: "Couldn't parse markdown text",
             messageFormat: "Couldn't process the markdown file {0} due to error {1}",
             category: "MarkdownParser",
             DiagnosticSeverity.Error,
             isEnabledByDefault: true);
         private static readonly DiagnosticDescriptor UnableGenerateTests = new(
-            id: "TESTS_GENERATOR_ERROR",
+            id: "SF003",
             title: "Couldn't generate tests",
             messageFormat: "Couldn't generate tests for the markdown file {0} due to error {1}",
             category: "MarkdownParser",
+            DiagnosticSeverity.Error,
+            isEnabledByDefault: true);
+        private static readonly DiagnosticDescriptor UnexpectedError = new(
+            id: "SF001",
+            title: "Unexpected error",
+            messageFormat: "Unexpected error when running SpecFirst.xUnit source generator - {0}",
+            category: "SpecFirst.xUnit",
             DiagnosticSeverity.Error,
             isEnabledByDefault: true);
 
@@ -55,19 +62,26 @@
 
         public void Execute(GeneratorExecutionContext context)
         {
-            AdditionalText settingFile =
-                context
-                    .AdditionalFiles
-                    .FirstOrDefault(f => f.Path.EndsWith("specfirst.config", System.StringComparison.OrdinalIgnoreCase));
-            _settingManager = new SpecFirstSettingManager(settingFile.Path, context.Compilation.AssemblyName);
-            _markdownParser = GetMarkdownParser(context)!;
-            _testsGenerator = GetTestGenerator(context)!;
-
-            IEnumerable<AdditionalText> markdownFiles =
-                context.AdditionalFiles.Where(at => at.Path.EndsWith(_settingManager.Settings.SpecFileExtension));
-            foreach (AdditionalText file in markdownFiles)
+            try
             {
-                ProcessMarkdownFile(file, context);
+                AdditionalText? settingFile =
+                    context
+                        .AdditionalFiles
+                        .FirstOrDefault(f => f.Path.EndsWith("specfirst.config", StringComparison.OrdinalIgnoreCase));
+                _settingManager = new SpecFirstSettingManager(settingFile?.Path, context.Compilation.AssemblyName!);
+                _markdownParser = GetMarkdownParser(context)!;
+                _testsGenerator = GetTestGenerator(context)!;
+
+                IEnumerable<AdditionalText> markdownFiles =
+                    context.AdditionalFiles.Where(at => at.Path.EndsWith(_settingManager.Settings.SpecFileExtension));
+                foreach (AdditionalText file in markdownFiles)
+                {
+                    ProcessMarkdownFile(file, context);
+                }
+            }
+            catch (Exception e)
+            {
+                context.ReportDiagnostic(Diagnostic.Create(UnexpectedError, Location.None, e.ToString()));
             }
         }
 
