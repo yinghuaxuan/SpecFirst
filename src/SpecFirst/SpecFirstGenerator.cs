@@ -50,6 +50,13 @@
             category: "SpecFirst.xUnit",
             DiagnosticSeverity.Error,
             isEnabledByDefault: true);
+        private static readonly DiagnosticDescriptor TestsGenerated = new(
+            id: "SF006",
+            title: "Tests Generated",
+            messageFormat: "Generated test file {0} from markdown file {1}",
+            category: "SpecFirst.xUnit",
+            DiagnosticSeverity.Info,
+            isEnabledByDefault: true);
 
         private IDecisionTableMarkdownParser _markdownParser;
         private ITestsGenerator _testsGenerator;
@@ -139,6 +146,8 @@
             //context.AddSource($"{testFileName}", SourceText.From(tests, Encoding.UTF8));
             var testFile = Path.Combine(filePath, testFileName);
             File.WriteAllText(testFile, tests, Encoding.UTF8);
+
+            context.ReportDiagnostic(Diagnostic.Create(TestsGenerated, Location.None, testFile, markdownFile.Path));
         }
 
         private void PersistTestImplFile(AdditionalText markdownFile, string filePath, string implementations, GeneratorExecutionContext context)
